@@ -27,6 +27,51 @@ export const CATEGORIES = ['様子', '食事', '入浴', '排泄', '機能訓練
 
 export const BATH_OPTIONS = ['一般浴', '機械浴', 'シャワー浴', '清拭', 'なし'];
 
+// 利用者別介護記録の「種類」（複数選べる）
+export const RECORD_TAGS = ['記録', '申し送り', '通所', '医療', '家族連絡'];
+export const MEAL_KINDS = ['昼食', 'おやつ', '夕食'];
+export const LEVELS = ['要支援1', '要支援2', '要介護1', '要介護2', '要介護3', '要介護4', '要介護5'];
+
+// 基本情報（フェイスシート相当）の初期値。すべて架空。
+const PROFILE_POOL = {
+  nurseGoal: [
+    '体調の変化を早めに見つけ、安定した状態で通所を続ける。',
+    '血圧の変動に気をつけ、むくみや息切れがないか毎回確認する。',
+    '水分をこまめにとり、脱水や便秘を防ぐ。',
+    '皮膚の状態を観察し、乾燥や傷を早めにケアする。',
+  ],
+  careGoal: [
+    '下肢の筋力を保ち、自宅での生活を続けられるようにする。',
+    '他の利用者との交流を楽しみ、外出の機会を保つ。',
+    '入浴を安全に行い、清潔を保つ。',
+    '転倒せずに室内を歩けるよう、歩行訓練を続ける。',
+  ],
+  disease: ['高血圧症、変形性膝関節症', '糖尿病（内服治療中）', '骨粗しょう症、腰部脊柱管狭窄症', '軽度認知症、高血圧症', '心不全（経過観察中）'],
+  meds: ['降圧剤（朝）', '整腸剤（朝・夕）', '血糖降下剤（朝・夕）', '鎮痛剤（頓用）、湿布', '利尿剤（朝）'],
+  indep: ['障害 J2／認知 自立', '障害 A1／認知 Ⅰ', '障害 A2／認知 Ⅱa', '障害 B1／認知 Ⅱb'],
+  plan: ['', '週2回の通所で入浴と機能訓練を行う。', '通所でのレクリエーション参加と、栄養状態の確認。', '歩行訓練と、ご家族の介護負担の軽減。'],
+};
+export function buildProfiles(today) {
+  const year = Number(today.slice(0, 4));
+  const out = {};
+  MEMBERS.forEach((m, i) => {
+    const pick = (k, mul) => PROFILE_POOL[k][(i * mul) % PROFILE_POOL[k].length];
+    out[m.id] = {
+      birth: `${year - m.age - 1}-${String((i * 5) % 12 + 1).padStart(2, '0')}-${String((i * 7) % 27 + 1).padStart(2, '0')}`,
+      sex: m.sex,
+      level: m.level,
+      plan: pick('plan', 3),
+      nurseGoal: pick('nurseGoal', 1),
+      careGoal: pick('careGoal', 3),
+      disease: pick('disease', 2),
+      meds: pick('meds', 3),
+      indep: pick('indep', 1),
+      service: `通所 週${3 + (i % 2)}回${m.bath ? '（入浴あり）' : ''}`,
+    };
+  });
+  return out;
+}
+
 // ---- 日付ユーティリティ ----
 export function ymd(d) {
   const p = (n) => String(n).padStart(2, '0');
@@ -110,6 +155,8 @@ export function scheduledIds(dateStr) {
   return MEMBERS.filter((_, i) => (dayNo + i * 3) % 10 < 7).map((u) => u.id);
 }
 
+export const SEED_VERSION = 2;
+
 export function buildSeed() {
   const today = todayStr();
   const daily = {};
@@ -118,6 +165,18 @@ export function buildSeed() {
   const contact = {};
   let noteId = 1;
   let hoId = 1;
+  const meals = [];
+  const weights = [];
+  let extraId = 1;
+
+  // 体重: 月に1回、半年分
+  MEMBERS.forEach((m, i) => {
+    const r = rng(9000 + i * 17);
+    const base = (m.sex === '男' ? 54 : 42) + Math.floor(r() * 12);
+    for (let k = 6; k >= 0; k--) {
+      weights.push({ id: `w${extraId++}`, uid: m.id, date: addDays(today, -1 - k * 30), kg: Math.round((base + (r() - 0.5) * 2.4) * 10) / 10 });
+    }
+  });
 
   for (let off = -6; off <= 0; off++) {
     const date = addDays(today, off);
@@ -159,6 +218,7 @@ export function buildSeed() {
         e.stool = r() < 0.4 ? 1 : 0;
         if (u.bath) e.bath = r() < 0.8 ? (u.level === '要介護3' ? '機械浴' : '一般浴') : 'なし';
         e.note = NOTE_FOR_DIARY[Math.floor(r() * NOTE_FOR_DIARY.length)];
+        meals.push({ id: `m${extraId++}`, uid, date, kind: 'おやつ', main: r() < 0.8 ? 10 : 8, side: null, memo: '' });
       } else {
         e.water = 200;
       }
@@ -178,6 +238,7 @@ export function buildSeed() {
           cat,
           text: hot && cat === '健康' ? '来所時 37.3℃。午後再検 36.8℃。看護師へ報告済み。' : pool[Math.floor(r() * pool.length)],
           staff: STAFF[Math.floor(r() * STAFF.length)].id,
+          tags: cat === '健康' ? ['記録', '通所', '医療'] : ['記録', '通所'],
         });
       });
 
@@ -198,9 +259,13 @@ export function buildSeed() {
         time: ['08:45', '12:10', '16:30'][k % 3],
         staff: STAFF[Math.floor(r() * STAFF.length)].id,
         done: off < -1,
+        level: 1 + ((off + 6 + k) % 3),
       });
     }
   }
   notes.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
-  return { seedDate: today, daily, notes, handovers, contact, nextId: noteId + hoId + 100 };
+  return {
+    version: SEED_VERSION, seedDate: today, daily, notes, handovers, contact,
+    meals, weights, vsLog: [], profiles: buildProfiles(today), nextId: noteId + hoId + extraId + 100,
+  };
 }

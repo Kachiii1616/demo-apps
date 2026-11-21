@@ -1,44 +1,13 @@
 // 記録アプリ（見せる用・別実装）。画面は文字列で組み立て、操作はイベント委譲で受ける。
 import { FACILITY, MEMBERS, STAFF, CATEGORIES, BATH_OPTIONS, todayStr, addDays, scheduledIds } from './data.js';
 import * as store from './store.js';
+import { $, esc, jpDate, nowHM, toast, openModal, closeModal, ui } from './ui.js';
+import { renderPerson, initPerson } from './person.js';
 
-const $ = (sel, root = document) => root.querySelector(sel);
 const view = $('#view');
 const modalEl = $('#modal');
-
-const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const member = (id) => MEMBERS.find((m) => m.id === id);
 const staffName = (id) => STAFF.find((s) => s.id === id)?.name || '';
-const WD = ['日', '月', '火', '水', '木', '金', '土'];
-function jpDate(ds, withYear = true) {
-  const [y, m, d] = ds.split('-').map(Number);
-  const w = WD[new Date(y, m - 1, d).getDay()];
-  return withYear ? `${y}年${m}月${d}日（${w}）` : `${m}/${d}（${w}）`;
-}
-function nowHM() {
-  const d = new Date();
-  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-}
-function toast(msg) {
-  const t = $('#toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toast._t);
-  toast._t = setTimeout(() => t.classList.remove('show'), 1800);
-}
-
-// ---------- 画面状態 ----------
-const ui = {
-  date: todayStr(), // 業務日誌・申し送り・連絡帳で共有する日付
-  person: null,
-  personCat: '様子',
-  homeCat: '様子',
-  homeUid: '',
-  vitalsUid: null,
-  vitalsMetric: 'all',
-  contactUid: null,
-  search: '',
-};
 
 function parseHash() {
   const raw = location.hash.replace(/^#\/?/, '');
@@ -392,100 +361,6 @@ function openBulkModal(group) {
 }
 
 // =====================================================================
-//  利用者別介護記録
-// =====================================================================
-function memberPicker(selected, hrefFn) {
-  const q = ui.search.trim();
-  const list = MEMBERS.filter((m) => !q || m.name.includes(q) || m.kana.includes(q));
-  return `
-    <input class="search" type="search" data-search placeholder="🔍 お名前・ふりがなで検索" value="${esc(ui.search)}">
-    <div class="member-grid">
-      ${list.map((m) => `<a class="member-btn ${selected === m.id ? 'on' : ''}" href="${hrefFn(m.id)}">${esc(m.name)}<span class="kana">${esc(m.kana)}</span></a>`).join('') || '<p class="empty">該当する方がいません。</p>'}
-    </div>`;
-}
-
-function renderPerson(q) {
-  const uid = q.get('u') || ui.person;
-  const m = uid && member(uid);
-  if (!m) {
-    return `
-    <div class="page-head"><h1 class="page-title"><span class="script">Personal</span>利用者別介護記録</h1></div>
-    <p class="page-lead">利用者さんを選ぶと、その方の1週間の介護記録が時系列で見られます。記録の追加もここからできます。</p>
-    <section class="card">${memberPicker(null, (id) => `#/person?u=${id}`)}</section>`;
-  }
-  ui.person = uid;
-  const db = store.db();
-  const today = todayStr();
-  const dates = [];
-  for (let off = 0; off >= -6; off--) dates.push(addDays(today, off));
-  const notes = db.notes.filter((n) => n.uid === uid);
-  const me = store.getMe();
-  const recentDays = dates.filter((d) => { const e = store.getDay(d, uid); return e.temp || e.absent; });
-
-  return `
-  <div class="page-head"><h1 class="page-title"><span class="script">Personal</span>利用者別介護記録</h1></div>
-  <p class="page-lead"><a href="#/person" data-back-list class="name-link">← 利用者一覧へ</a></p>
-
-  <section class="card">
-    <div class="person-head">
-      <span class="person-name">${esc(m.name)}</span>
-      <span class="unit">${esc(m.kana)}　${m.age}歳 / ${m.sex}</span>
-      <span style="flex:1"></span>
-      <a class="btn sm" href="#/vitals?u=${uid}">バイタル経過</a>
-      <a class="btn sm" href="#/contact?u=${uid}">今日の連絡帳</a>
-    </div>
-    <span class="box-label">基本情報</span>
-    <dl class="info-table">
-      <dt>介護度</dt><dd>${m.level}</dd>
-      <dt>入浴</dt><dd>${m.bath ? '利用あり' : '利用なし'}</dd>
-      <dt>この1週間</dt><dd>来所 ${recentDays.filter((d) => !store.getDay(d, uid).absent).length} 日 / 欠席 ${recentDays.filter((d) => store.getDay(d, uid).absent).length} 日</dd>
-    </dl>
-  </section>
-
-  <div class="grid-2">
-    <section class="card">
-      <span class="box-label">介護記録（1週間）</span>
-      <ul class="timeline">
-        ${dates.map((d) => {
-          const dn = notes.filter((n) => n.date === d).sort((a, b) => b.time.localeCompare(a.time));
-          const e = store.getDay(d, uid);
-          if (!dn.length && !Object.keys(e).length) return '';
-          const vs = e.absent ? '欠席' : e.temp ? `体温 ${e.temp.toFixed(1)}℃・血圧 ${e.bpHi}/${e.bpLo}・脈 ${e.pulse}・SpO2 ${e.spo2}%` : 'バイタル未入力';
-          return `<li class="tl-date"><span>${jpDate(d, false)}${d === today ? '　今日' : ''}</span><span class="vs-line">${vs}</span></li>
-            ${dn.map((n) => `<li class="tl-item">
-              <span class="tl-time">${n.time}</span>
-              <span class="tl-cat"><span class="cat c-${n.cat}">${n.cat}</span></span>
-              <div class="tl-main"><span class="tl-text">${esc(n.text)}</span><span class="tl-staff">記録: ${esc(staffName(n.staff))}</span></div>
-              <span class="tl-del">${n.staff === me ? `<button type="button" class="link-btn" data-del-note="${n.id}">削除</button>` : ''}</span>
-            </li>`).join('')}
-            ${!dn.length ? '<li class="empty">記録なし</li>' : ''}`;
-        }).join('')}
-      </ul>
-    </section>
-
-    <section class="card add-first">
-      <span class="box-label">記録を追加</span>
-      <form id="note-form">
-        <div class="row" style="margin-bottom:12px">
-          <label class="field" style="margin:0;flex:1"><span>日付</span><input class="input" type="date" name="date" value="${today}" max="${today}" min="${addDays(today, -6)}"></label>
-          <label class="field" style="margin:0;flex:1"><span>時刻</span><input class="input" type="time" name="time" value="${nowHM()}"></label>
-        </div>
-        <div class="field"><span>種類</span>
-          <div class="chips" data-chipset="personCat">
-            ${CATEGORIES.map((c) => `<button type="button" class="chip ${ui.personCat === c ? 'on' : ''}" data-chip="${c}">${c}</button>`).join('')}
-          </div>
-        </div>
-        <label class="field"><span>内容</span><textarea class="input" name="text" required placeholder="様子・対応・気づいたことなど"></textarea></label>
-        <label class="field"><span>記録者</span>
-          <select class="input" name="staff">${STAFF.map((s) => `<option value="${s.id}" ${s.id === me ? 'selected' : ''}>${esc(s.name)}（${s.role}）</option>`).join('')}</select>
-        </label>
-        <button class="btn primary" style="width:100%" type="submit">記録を追加</button>
-      </form>
-    </section>
-  </div>`;
-}
-
-// =====================================================================
 //  バイタル経過
 // =====================================================================
 const SERIES = [
@@ -698,16 +573,6 @@ function renderContact(q) {
 // =====================================================================
 //  モーダル
 // =====================================================================
-function openModal(html, wire) {
-  modalEl.innerHTML = html;
-  modalEl.hidden = false;
-  const form = modalEl.firstElementChild;
-  wire?.(form);
-  const first = form.querySelector('input:not([type=hidden]), textarea');
-  first?.focus();
-}
-function closeModal() { modalEl.hidden = true; modalEl.innerHTML = ''; }
-
 modalEl.addEventListener('click', (ev) => {
   if (ev.target === modalEl || ev.target.closest('[data-close]')) { closeModal(); return; }
   const chip = ev.target.closest('[data-pick] .chip');
@@ -751,12 +616,6 @@ view.addEventListener('click', (ev) => {
   if (cell) { openCellModal(cell.dataset.cell, cell.dataset.uid); return; }
   const bulk = t.closest('[data-bulk]');
   if (bulk) { openBulkModal(bulk.dataset.bulk); return; }
-  if (t.closest('[data-back-list]')) { ui.person = null; return; }
-  const delNote = t.closest('[data-del-note]');
-  if (delNote) {
-    if (confirm('この記録を削除しますか？')) { store.removeNote(delNote.dataset.delNote); toast('削除しました'); render(); }
-    return;
-  }
   const hoDone = t.closest('[data-ho-done]');
   if (hoDone) {
     const h = store.db().handovers.find((x) => x.id === hoDone.dataset.hoDone);
@@ -827,6 +686,7 @@ view.addEventListener('input', (ev) => {
 
 view.addEventListener('submit', (ev) => {
   const f = ev.target;
+  if (!['quick-form', 'ho-form'].includes(f.id)) return;
   ev.preventDefault();
   if (f.id === 'quick-form') {
     const uid = f.uid.value;
@@ -835,12 +695,6 @@ view.addEventListener('submit', (ev) => {
     store.addNote({ uid, date: todayStr(), time: nowHM(), cat: ui.homeCat, text, staff: store.getMe() });
     ui.homeUid = uid;
     toast(`${member(uid).name} さんの記録を保存しました`);
-    render();
-  } else if (f.id === 'note-form') {
-    const text = f.text.value.trim();
-    if (!text) return;
-    store.addNote({ uid: ui.person, date: f.date.value || todayStr(), time: f.time.value || nowHM(), cat: ui.personCat, text, staff: f.staff.value });
-    toast('記録を追加しました');
     render();
   } else if (f.id === 'ho-form') {
     const text = f.text.value.trim();
@@ -872,6 +726,7 @@ function renderMe() {
 
 function init() {
   store.load();
+  initPerson(view, render);
   $('#facility-name').textContent = FACILITY.name;
   renderMe();
   $('#me-select').addEventListener('change', (e) => { store.setMe(e.target.value); renderMe(); render(); toast(`${staffName(e.target.value)} さんに切り替えました`); });

@@ -1,46 +1,45 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-theme="sakura">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>訪問看護記録アプリ（デモ版）</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>訪問看護アプリ（デモ版）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="demo-bar">
-  <a href="../demo-portal/">← デモ一覧へ</a>
-  <strong>デモ版（データは架空です）</strong>
-  <button type="button" id="resetDemo">デモデータを初期状態に戻す</button>
-</div>
-<div class="shell">
-  <aside class="side" id="side">
-    <div class="brand">
-      <div class="brand-name">訪問看護記録アプリ</div>
-      <div class="brand-sub">記録・予定・指示書をひとつに</div>
-    </div>
-    <nav id="nav"></nav>
-    <div class="side-user">
-      <div class="side-user-name" id="sideUser"></div>
-      <div class="muted small">nurse@example.com</div>
-    </div>
-  </aside>
-  <div class="scrim" id="scrim"></div>
-  <div class="main">
-    <header class="topbar">
-      <button class="menu-btn" id="menuBtn" type="button" aria-label="メニュー">
-        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
-      </button>
-      <h1 id="pageTitle">ダッシュボード</h1>
-      <div class="station"><span class="muted">事業所:</span> <b id="stationName"></b></div>
-    </header>
-    <main id="view" class="view"></main>
+  <div class="demo-bar no-print">
+    <a href="../demo-portal/">← デモ一覧へ</a>
+    <strong>デモ版（データは架空です）</strong>
+    <button type="button" id="reset-demo">デモデータを初期状態に戻す</button>
   </div>
-</div>
-<div class="toast" id="toast" hidden></div>
-<div class="modal-wrap" id="modal" hidden></div>
-<script type="module" src="js/app.js"></script>
+
+  <div class="bg-blob bg-blob-1" aria-hidden="true"></div>
+  <div class="bg-blob bg-blob-2" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <button type="button" class="hamburger no-print" id="open-menu" aria-label="メニューを開く"><span></span><span></span><span></span></button>
+    <div class="brand" id="brand-name">訪問看護ステーション</div>
+    <div class="crumb" id="crumb"></div>
+    <div class="top-actions no-print" id="top-actions"></div>
+  </header>
+
+  <nav class="drawer" id="drawer" aria-label="メニュー" hidden>
+    <button type="button" class="pill-sm" id="close-menu" aria-label="メニューを閉じる">× 閉じる</button>
+    <div class="drawer-items" id="drawer-items"></div>
+  </nav>
+  <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+
+  <main class="sheet">
+    <div class="notice no-print">デモ版です。表示中の利用者・職員・連絡先はすべて架空のサンプルです。入力内容はこの端末のブラウザにだけ保存されます。実際の個人情報は入力しないでください。</div>
+    <div id="view"></div>
+  </main>
+
+  <div class="modal-wrap" id="modal" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

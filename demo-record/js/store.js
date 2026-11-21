@@ -1,5 +1,5 @@
 // ブラウザ内だけで完結する保存層（localStorage）。
-import { buildSeed, todayStr } from './data.js';
+import { buildSeed, todayStr, SEED_VERSION } from './data.js';
 
 const PREFIX = 'showcase-record:';
 const DATA_KEY = PREFIX + 'data';
@@ -23,7 +23,7 @@ export function load() {
     try {
       const parsed = JSON.parse(raw);
       // 日付が変わったら、その日を基準に作り直す
-      if (parsed && parsed.seedDate === todayStr()) { state = parsed; return state; }
+      if (parsed && parsed.seedDate === todayStr() && parsed.version === SEED_VERSION) { state = parsed; return state; }
     } catch { /* 壊れていたら作り直す */ }
   }
   state = buildSeed();
@@ -57,11 +57,31 @@ export function setDay(date, uid, patch) {
 }
 
 // ---- 介護記録 ----
-export function addNote(n) { state.notes.push({ id: newId('n'), ...n }); save(); }
+export function addNote(n) { const it = { id: newId('n'), ...n }; state.notes.push(it); save(); return it; }
 export function removeNote(id) { state.notes = state.notes.filter((n) => n.id !== id); save(); }
 
+export function updateNote(id, patch) {
+  const n = state.notes.find((x) => x.id === id);
+  if (n) Object.assign(n, patch);
+  save();
+}
+
+// ---- 利用者別介護記録で使う一覧（VSの追加分・食事・体重） ----
+// list は 'vsLog' | 'meals' | 'weights'
+export function addItem(list, item) { const it = { id: newId(list[0]), ...item }; state[list].push(it); save(); return it; }
+export function updateItem(list, id, patch) {
+  const it = state[list].find((x) => x.id === id);
+  if (it) Object.assign(it, patch);
+  save();
+}
+export function removeItem(list, id) { state[list] = state[list].filter((x) => x.id !== id); save(); }
+
+// ---- 基本情報 ----
+export function getProfile(uid) { return state.profiles[uid] || {}; }
+export function setProfile(uid, patch) { state.profiles[uid] = { ...getProfile(uid), ...patch }; save(); }
+
 // ---- 申し送り ----
-export function addHandover(h) { state.handovers.push({ id: newId('h'), done: false, ...h }); save(); }
+export function addHandover(h) { const it = { id: newId('h'), done: false, ...h }; state.handovers.push(it); save(); return it; }
 export function updateHandover(id, patch) {
   const h = state.handovers.find((x) => x.id === id);
   if (h) Object.assign(h, patch);
