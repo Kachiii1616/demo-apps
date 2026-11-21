@@ -1,0 +1,19 @@
+{
+  "name": "HOPE しごとタウン（デモ版）",
+  "short_name": "しごとタウン デモ",
+  "description": "島の お店で 仕事を 体験する 職業体験アプリ（VR でも 使えます）",
+  "lang": "ja",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "any",
+  "background_color": "#f6f8f4",
+  "theme_color": "#e0662f",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

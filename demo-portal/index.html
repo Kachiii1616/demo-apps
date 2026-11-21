@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>デモ版ポータル</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --blue: #cfe2f3;        /* 外側の水色 */
+      --blue-line: #b6d0e8;   /* 水色の方眼線 */
+      --paper: #f7f4ec;       /* 内側のクリーム紙 */
+      --paper-line: #e6e1d2;  /* 紙の方眼線 */
+      --pink: #d9a7b8;
+      --pink-deep: #cf98ac;
+      --mint: #a3cfba;
+      --mint-deep: #6ea892;
+      --teal: #4f8f82;
+      --yellow: #f4d9a0;
+      --ink: #4a6b62;         /* 本文のグリーン系 */
+    }
+    body {
+      margin: 0;
+      font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+      font-size: 15px; color: var(--ink);
+      background-color: var(--blue);
+      background-image:
+        linear-gradient(var(--blue-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--blue-line) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+    .paper {
+      max-width: 700px; margin: 0 auto; min-height: 100vh;
+      background-color: var(--paper);
+      background-image:
+        linear-gradient(var(--paper-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+      background-size: 24px 24px;
+      box-shadow: 0 0 24px rgba(80,110,140,.18);
+      position: relative; overflow: hidden;
+      padding: 40px 22px 60px;
+    }
+
+    /* 飾り */
+    .flower { position: absolute; top: 120px; left: -30px; width: 150px; height: 150px; opacity: .9; }
+    .flower i {
+      position: absolute; width: 66px; height: 66px; border-radius: 50%;
+      background: var(--yellow);
+    }
+    .flower i:nth-child(1) { top: 0; left: 42px; }
+    .flower i:nth-child(2) { top: 42px; left: 0; }
+    .flower i:nth-child(3) { top: 42px; left: 84px; }
+    .flower i:nth-child(4) { top: 84px; left: 42px; }
+    .flower b {
+      position: absolute; top: 55px; left: 55px; width: 40px; height: 40px;
+      border-radius: 50%; background: var(--paper);
+    }
+    .scallop { position: absolute; right: 30px; bottom: 60px; width: 120px; height: 120px; }
+    .sparkle {
+      position: absolute; right: 40px; top: 46%; width: 56px; height: 56px;
+      background: #cbe6d8;
+      clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+    }
+    .stamp {
+      position: absolute; top: -34px; right: -34px; width: 190px; height: 190px;
+      animation: spin 40s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .stamp text {
+      font-size: 12.5px; letter-spacing: 3px; fill: var(--mint-deep);
+      font-family: "Zen Maru Gothic", sans-serif; font-weight: 700;
+    }
+    .stamp circle { fill: none; stroke: var(--mint-deep); stroke-width: 1.5; }
+    .wave {
+      height: 14px; margin: 26px -22px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 14'%3E%3Cpath d='M0 7 Q 7.5 0 15 7 T 30 7 T 45 7 T 60 7' fill='none' stroke='%234f8f82' stroke-width='2.5'/%3E%3C/svg%3E");
+      background-size: 60px 14px; background-repeat: repeat-x;
+    }
+
+    /* タイトル */
+    header { position: relative; text-align: center; padding: 26px 0 6px; z-index: 1; }
+    h1.title {
+      margin: 0; font-size: 34px; font-weight: 900; letter-spacing: .1em;
+      color: var(--pink);
+      text-shadow: 3px 3px 0 #b7dbc9;
+      line-height: 1.4;
+    }
+    .subStrip {
+      display: inline-block; margin-top: 14px;
+      background: var(--mint); color: #fffdf7;
+      font-weight: 700; letter-spacing: .22em; font-size: 12.5px;
+      padding: 6px 16px;
+    }
+
+    main { position: relative; z-index: 1; }
+    .search {
+      width: 100%; font: inherit; font-size: 15px; color: var(--ink);
+      border: 2px solid var(--mint); border-radius: 999px; padding: 11px 18px;
+      background: #fffdf7; margin: 18px 0 4px;
+    }
+    .search::placeholder { color: #b9c9bd; }
+    .search:focus { outline: none; border-color: var(--teal); }
+
+    h2.cat {
+      display: inline-block; margin: 26px 0 12px;
+      color: #fffdf7; font-size: 13.5px; font-weight: 700; letter-spacing: .26em;
+      padding: 6px 18px;
+    }
+    h2.cat.c0 { background: var(--mint); }
+    h2.cat.c1 { background: var(--pink-deep); }
+    h2.cat.c2 { background: #e5c47e; }
+
+    a.appCard {
+      display: flex; align-items: center; gap: 14px; text-decoration: none;
+      background: #fffdf7; color: var(--ink);
+      border: 1.5px solid var(--paper-line); border-radius: 18px;
+      box-shadow: 3px 3px 0 rgba(163,207,186,.45);
+      padding: 14px 16px; margin-bottom: 12px;
+      transition: transform .1s, box-shadow .1s;
+      position: relative; z-index: 1;
+    }
+    a.appCard:active { transform: translate(2px, 2px); box-shadow: 0 0 0 rgba(0,0,0,0); }
+    .appIcon {
+      width: 50px; height: 50px; flex: none; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 24px;
+    }
+    .i0 { background: #d8e8f6; }
+    .i1 { background: #f4dde4; }
+    .i2 { background: #f6e9c8; }
+    .i3 { background: #d9ecdf; }
+    .appBody { flex: 1; min-width: 0; }
+    .appName { font-weight: 700; font-size: 15px; letter-spacing: .04em; color: #3f5d55; }
+    .appDesc { font-size: 12px; color: #93a89b; margin-top: 2px; }
+    .chev { color: var(--pink); font-size: 22px; font-weight: 900; flex: none; }
+    details.fold > summary {
+      list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px;
+    }
+    details.fold > summary::-webkit-details-marker { display: none; }
+    details.fold > summary h2.cat::after { content: ' ▸'; }
+    details.fold[open] > summary h2.cat::after { content: ' ▾'; }
+    .foldHint { font-size: 12px; color: #93a89b; letter-spacing: .1em; margin-top: 14px; }
+    .noHit { text-align: center; color: #a3b5a8; padding: 30px 0; letter-spacing: .1em; }
+    .byline {
+      margin-top: 8px; font-size: 12px; color: var(--mint-deep); letter-spacing: .12em;
+    }
+    footer {
+      text-align: center; font-size: 11.5px; color: var(--mint-deep);
+      padding: 30px 0 4px; letter-spacing: .22em; position: relative; z-index: 1;
+    }
+    .demoNote {
+      position: relative; z-index: 1; margin: 18px 0 0; padding: 12px 16px;
+      background: #fffdf7; border: 1.5px dashed var(--mint); border-radius: 14px;
+      font-size: 12.5px; line-height: 1.8; color: var(--ink);
+    }
+    .tag {
+      display: inline-block; font-size: 10.5px; letter-spacing: .08em; font-weight: 700;
+      color: var(--teal); background: #e3f1ea; border-radius: 999px; padding: 1px 9px; margin: 4px 4px 0 0;
+    }
+    .num { color: var(--pink-deep); font-weight: 900; margin-right: 6px; }
+    .appCard.soon {
+      display: flex; align-items: center; gap: 14px;
+      background: #fffdf7; color: var(--ink); opacity: .6;
+      border: 1.5px dashed var(--paper-line); border-radius: 18px;
+      padding: 14px 16px; margin-bottom: 12px; position: relative; z-index: 1;
+    }
+    .soonTag {
+      flex: none; font-size: 11px; font-weight: 700; letter-spacing: .1em;
+      color: #fffdf7; background: #e5c47e; border-radius: 999px; padding: 3px 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="paper">
+    <svg class="stamp" viewBox="0 0 190 190">
+      <defs>
+        <path id="circ" d="M95,95 m-62,0 a62,62 0 1,1 124,0 a62,62 0 1,1 -124,0"/>
+      </defs>
+      <circle cx="95" cy="95" r="76"/>
+      <circle cx="95" cy="95" r="48"/>
+      <text><textPath href="#circ">Demo Apps, All in One Place ♪ ・ </textPath></text>
+    </svg>
+    <div class="flower"><i></i><i></i><i></i><i></i><b></b></div>
+    <div class="sparkle"></div>
+    <svg class="scallop" viewBox="0 0 120 120">
+      <g fill="#d3a9b9">
+        <circle cx="60" cy="60" r="42"/>
+        <circle cx="60" cy="12" r="13"/><circle cx="84" cy="18.4" r="13"/>
+        <circle cx="101.6" cy="36" r="13"/><circle cx="108" cy="60" r="13"/>
+        <circle cx="101.6" cy="84" r="13"/><circle cx="84" cy="101.6" r="13"/>
+        <circle cx="60" cy="108" r="13"/><circle cx="36" cy="101.6" r="13"/>
+        <circle cx="18.4" cy="84" r="13"/><circle cx="12" cy="60" r="13"/>
+        <circle cx="18.4" cy="36" r="13"/><circle cx="36" cy="18.4" r="13"/>
+      </g>
+    </svg>
+
+    <header>
+      <h1 class="title">デモ、ぜんぶ<br>ここから。</h1>
+      <div class="subStrip">デモ版ポータル</div>
+    </header>
+
+    <main>
+      <div class="demoNote">
+        介護・福祉の現場向けに作った Web アプリのデモ版です。<br>
+        ログイン不要で、そのまま操作できます。表示される利用者・職員・事業所はすべて架空で、
+        入力した内容はこのブラウザの中だけに保存されます。
+      </div>
+      <div class="wave"></div>
+      <div id="list"></div>
+    </main>
+    <footer>Demo version ♡</footer>
+  </div>
+
+  <script>
+    // デモ一覧。url は、各デモのリポジトリを同じフォルダに並べたときの相対パス。
+    // hidden: true のものは一覧に出さない（公開用サイトにも入れない。build-site.sh 参照）。
+    const GROUPS = [
+      {
+        category: 'デモアプリ', numbered: true,
+        items: [
+          {
+            icon: '🌿', name: '介護記録アプリ', url: '../demo-record/', soon: true,
+            desc: '介護記録・業務日誌・バイタル・連絡帳など、通所・訪問の現場の記録',
+            tags: ['React', 'TypeScript']
+          },
+          {
+            icon: '🩺', name: '訪問看護記録アプリ', url: '../demo-vns/', soon: true,
+            desc: '訪問看護ステーションの訪問予定・訪問記録・利用者情報',
+            tags: ['React', 'TypeScript']
+          },
+          {
+            icon: '🗓️', name: 'シフトアプリ', url: '../demo-shift/', soon: true,
+            desc: '月シフトの自動作成・手直し、1日の業務分担表、休み希望、カレンダー',
+            tags: ['React', 'TypeScript']
+          },
+          {
+            icon: '🦽', name: '福祉用具', url: '../demo-welfare-equipment/', soon: true,
+            desc: '福祉用具貸与の利用者・商品・契約・請求・帳票の管理',
+            tags: ['Apps Script']
+          },
+          {
+            icon: '🏝️', name: 'VR（HOPE しごとタウン）', url: '../demo-vr/',
+            desc: '3Dの島でピッキング・品出し・お守り作成などの仕事を体験し、結果を記録',
+            tags: ['three.js', 'WebXR', '🔒 パスワード']
+          },
+          {
+            icon: '🌼', name: 'HOPE就労支援（A型・B型／出席）', url: '../demo-hope-work/', hidden: true,
+            desc: '就労継続支援A型・B型の出席・業務日誌・請求・工賃、アセスメント、個別支援計画',
+            tags: ['React', 'TypeScript', 'Apps Script']
+          },
+          {
+            icon: '📋', name: '業務管理アプリ', url: '../demo-task-board/', hidden: true,
+            desc: 'スタッフ別・プロジェクト別に業務の進捗を確認・入力',
+            tags: ['Apps Script']
+          }
+        ]
+      },
+      {
+        category: 'ミニアプリ', numbered: false,
+        items: [
+          {
+            icon: '💰', name: 'お金管理アプリ', url: '../demo-cash-ledger/', soon: true,
+            desc: '施設で預かる現金の出納を、月別・利用者別に記入・集計・印刷',
+            tags: ['Apps Script']
+          },
+          {
+            icon: '🍱', name: 'お弁当アプリ', url: '../demo-bento/', soon: true,
+            desc: 'お弁当チェック表・食事数・おやつ表・集金をまとめて管理',
+            tags: ['Apps Script']
+          },
+          {
+            icon: '🌙', name: 'こころノートアプリ', url: '../demo-cbt/', soon: true,
+            desc: '気分・考えを書き出して整理する、認知行動療法のセルフケア',
+            tags: ['Apps Script']
+          }
+        ]
+      }
+    ];
+
+    function card(a, i, numbered) {
+      // soon: true は作り直し中。リンクにせず「準備中」と出す。
+      const open = a.soon
+        ? '<div class="appCard soon">'
+        : '<a class="appCard" href="' + a.url + '" target="_blank" rel="noopener">';
+      const close = a.soon ? '<span class="soonTag">準備中</span></div>' : '<div class="chev">›</div></a>';
+      return open +
+        '<div class="appIcon i' + (i % 4) + '">' + a.icon + '</div>' +
+        '<div class="appBody"><div class="appName">' +
+        (numbered ? '<span class="num">' + (i + 1) + '</span>' : '') + a.name + '</div>' +
+        '<div class="appDesc">' + a.desc + '</div>' +
+        '<div>' + a.tags.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join('') + '</div></div>' +
+        close;
+    }
+
+    document.getElementById('list').innerHTML = GROUPS.map(function (g, gi) {
+      const items = g.items.filter(function (a) { return !a.hidden; });
+      return '<h2 class="cat c' + (gi % 3) + '">' + g.category + '</h2>' +
+        items.map(function (a, i) { return card(a, i, g.numbered); }).join('');
+    }).join('');
+  </script>
+</body>
+</html>
