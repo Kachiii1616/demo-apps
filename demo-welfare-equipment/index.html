@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>福祉用具 管理（デモ版）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="demo-band no-print">
+    <a href="../demo-portal/">← デモ一覧へ</a>
+    <span class="demo-band__label">デモ版（データは架空です）</span>
+    <button type="button" id="resetDemo" class="demo-band__reset">デモデータを初期状態に戻す</button>
+  </div>
+
+  <header class="topbar no-print">
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="brand" href="#/users">
+      <span class="brand__ja">福祉用具 管理</span>
+      <span class="brand__en">Welfare Equipment</span>
+    </a>
+    <span class="topbar__office" id="officeName"></span>
+  </header>
+
+  <div class="layout">
+    <nav class="sidenav no-print" id="sidenav" aria-label="メインメニュー">
+      <a href="#/users" data-nav="users"><span class="ja">利用者一覧</span><span class="en">Users</span></a>
+      <a href="#/new" data-nav="new"><span class="ja">新規利用者登録</span><span class="en">New</span></a>
+      <a href="#/products" data-nav="products"><span class="ja">商品マスタ</span><span class="en">Products</span></a>
+      <a href="#/monthly" data-nav="monthly"><span class="ja">月次実績</span><span class="en">Monthly</span></a>
+      <p class="sidenav__note">左のメニューから画面を切り替えます。データはこの端末のブラウザにだけ保存されます。</p>
+    </nav>
+
+    <main id="view" class="view" tabindex="-1"></main>
+
+    <aside class="tagline no-print" aria-hidden="true">福祉用具と暮らしの記録</aside>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

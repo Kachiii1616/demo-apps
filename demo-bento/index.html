@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>お弁当チェック（デモ）</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%B1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="demo-bar no-print">
+  <a href="../demo-portal/" class="demo-back">← デモ一覧へ</a>
+  <span class="demo-note">デモ版（データは架空です）</span>
+  <button type="button" class="demo-reset" id="demoReset">デモデータを初期状態に戻す</button>
+</div>
+
+<header class="topbar no-print">
+  <button type="button" class="menu-btn" id="menuBtn" aria-label="メニューを開く">≡</button>
+  <h1 id="pageTitle">お弁当チェック</h1>
+  <span class="topbar-space"></span>
+</header>
+
+<div class="drawer-mask" id="drawerMask" hidden></div>
+<nav class="drawer" id="drawer" aria-label="メニュー">
+  <div class="drawer-head">🍱 お弁当メニュー</div>
+  <a href="#/staff" data-route="staff">✓ スタッフ弁当チェック</a>
+  <a href="#/check" data-route="check">📋 利用者チェック表（週）</a>
+  <a href="#/count" data-route="count">🍽️ 食事数表（週）</a>
+  <a href="#/snack" data-route="snack">🍪 おやつ表（週）</a>
+  <a href="#/money" data-route="money">💰 集金集計</a>
+  <a href="#/users" data-route="users">👤 利用者情報</a>
+  <div class="drawer-foot">さくらほーむ お弁当チェック（デモ版）</div>
+</nav>
+
+<main id="view" class="view"></main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

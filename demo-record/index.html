@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>記録アプリ（デモ版）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="demo-bar">
+    <a href="../demo-portal/">← デモ一覧へ</a>
+    <strong>デモ版（データは架空です）</strong>
+    <button type="button" id="reset-demo">デモデータを初期状態に戻す</button>
+  </div>
+
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div>
+          <div class="brand-title">記録アプリ</div>
+          <div class="brand-sub"><span id="facility-name"></span><span class="pill-tag">通所</span></div>
+        </div>
+        <button type="button" class="icon-btn only-mobile" id="close-menu" aria-label="メニューを閉じる">✕</button>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="#/home" data-route="home"><span class="ico">⌂</span>ホーム</a>
+        <div class="nav-label">入力ページ</div>
+        <a href="#/diary" data-route="diary"><span class="ico">▤</span>通所（業務日誌）</a>
+        <div class="nav-label">介護記録</div>
+        <a href="#/person" data-route="person"><span class="ico">◷</span>利用者別介護記録</a>
+        <a href="#/vitals" data-route="vitals"><span class="ico">∿</span>バイタル経過</a>
+        <a href="#/handover" data-route="handover"><span class="ico">⇄</span>申し送り</a>
+        <a href="#/contact" data-route="contact"><span class="ico">✉</span>連絡帳</a>
+      </nav>
+      <div class="me">
+        <div class="avatar" id="me-avatar"></div>
+        <div class="me-text">
+          <select id="me-select" aria-label="ログイン中の職員（デモ用に切り替えできます）"></select>
+          <div class="me-sub">ログイン中（デモ）</div>
+        </div>
+      </div>
+    </aside>
+    <div class="backdrop" id="backdrop"></div>
+
+    <main class="main">
+      <button type="button" class="menu-btn only-mobile" id="open-menu" aria-label="メニューを開く">☰</button>
+      <div id="view"></div>
+    </main>
+  </div>
+
+  <div class="modal-wrap" id="modal" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
