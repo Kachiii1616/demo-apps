@@ -91,7 +91,7 @@ function seed() {
       disease: 'パーキンソン病', care: '要介護2', burden: '2割', insurance: '介護保険',
       address: '見本県みどり市さくら町2-2-2', tel: '03-0000-1301',
       kp: '小池 誠（夫）', kpTel: '090-0000-1302', kpRel: '夫',
-      hospital: 'みどり総合病院', doctor: '森田 医師', cm: 'あおぞらケアプラン 大野', cmTel: '03-0000-2101',
+      hospital: 'みどり総合病院', doctor: '長谷川 医師', cm: 'あおぞらケアプラン 大野', cmTel: '03-0000-2101',
       orderStart: addDays(T, -185), orderEnd: addDays(T, -3), nextClinic: addDays(T, 17), nextHomeVisit: '',
       caution: 'すくみ足あり。方向転換はゆっくり声かけ。',
       history: '腰椎圧迫骨折（3年前）', course: '転倒予防と歩行訓練、内服管理のため。',

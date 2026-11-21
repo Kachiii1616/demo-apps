@@ -272,8 +272,8 @@ function graphsHtml(list) {
       g += `<polyline points="${pts.join(' ')}" fill="none" stroke="${l.color}" stroke-width="2"/>`;
       recent.forEach((r, i) => { if (r[l.k] != null) g += `<circle cx="${xs(i)}" cy="${ys(r[l.k])}" r="3" fill="${l.color}"><title>${md(r.date)} ${l.label} ${r[l.k]}</title></circle>`; });
     });
-    const last = recent[recent.length - 1];
-    return `<div class="graph-card"><h3>${title} <span class="small muted">${unit}</span> <span class="small" style="float:right">${lines.map((l) => `${l.label} ${last[l.k] ?? '—'}`).join(' / ')}</span></h3>
+    const lastOf = (k) => { for (let i = recent.length - 1; i >= 0; i--) if (recent[i][k] != null) return recent[i][k]; return '—'; };
+    return `<div class="graph-card"><h3>${title} <span class="small muted">${unit}</span> <span class="small" style="float:right">${lines.map((l) => `${l.label} ${lastOf(l.k)}`).join(' / ')}</span></h3>
       <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${title}のグラフ">${g}</svg></div>`;
   };
   return `<div class="graphs">
