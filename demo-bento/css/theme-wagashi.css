@@ -1,0 +1,391 @@
+/* =========================================================
+   着せ替え「和菓子」
+   淡いグレーの地・墨の文字・明朝の縦書き・白い短冊・円弧の切り抜き。
+   <html data-theme="wagashi"> のときだけ効く。標準の見た目は style.css のまま。
+   ========================================================= */
+
+html[data-theme="wagashi"] {
+  --bg: #efefef;
+  --paper: #fff;
+  --ink: #1f1f1d;
+  --ink-soft: #6d6d69;
+  --navy: #1f1f1d;
+  --navy-2: #3a3a37;
+  --accent: #2f4a34;
+  --head: #f5f5f2;
+  --line: #d3d3cf;
+  --line-soft: #e1e1dd;
+  --order-bg: #f8eaee;
+  --got-bg: #e3ebe0;
+  --got-ink: #2c5733;
+  --off-bg: #ebebe8;
+  --off-ink: #999995;
+  --weekend: #f5f5f3;
+  --sat: #3b5482;
+  --sun: #ad432e;
+  --radius: 0;
+  --shadow: none;
+  --wa-green: #2f4a34;
+  --wa-pink: #f4d7de;
+  --wa-mincho: "Shippori Mincho B1", "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --wa-gothic: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+}
+
+html[data-theme="wagashi"] body {
+  font-family: var(--wa-gothic);
+  font-weight: 500;
+  border-top: 3px solid var(--wa-pink);
+  letter-spacing: .02em;
+}
+
+/* ---- demo bar（控えめに） ---- */
+html[data-theme="wagashi"] .demo-bar {
+  background: transparent; color: var(--ink-soft);
+  font-weight: 500; font-size: 12px;
+  border-bottom: 1px solid var(--line-soft);
+  padding: 6px 24px;
+}
+html[data-theme="wagashi"] .demo-back { color: var(--ink); text-underline-offset: 3px; }
+html[data-theme="wagashi"] .demo-reset {
+  color: var(--ink); border: 1px solid #bdbdb8; border-radius: 0;
+  font-weight: 500; background: transparent;
+}
+html[data-theme="wagashi"] .demo-reset:hover { background: #fff; }
+
+/* ---- header ---- */
+html[data-theme="wagashi"] .topbar {
+  border-bottom: 0; padding: 18px 28px 4px; max-width: 1240px; margin: 0 auto;
+  align-items: flex-start;
+}
+html[data-theme="wagashi"] .topbar h1 {
+  font-family: var(--wa-mincho); font-weight: 700; font-size: 17px;
+  letter-spacing: .32em; padding-top: 12px;
+}
+html[data-theme="wagashi"] .topbar-space {
+  order: -1; height: auto; min-height: 44px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+html[data-theme="wagashi"] .topbar-space::before {
+  content: ""; width: 18px; height: 9px; border-radius: 18px 18px 0 0;
+  border: 1px solid var(--ink); border-bottom: 0;
+}
+html[data-theme="wagashi"] .topbar-space::after {
+  content: "弁当帳"; writing-mode: vertical-rl;
+  font-family: var(--wa-mincho); font-weight: 800; font-size: 15px; letter-spacing: .22em;
+}
+/* ≡ を細い3本線に */
+html[data-theme="wagashi"] .menu-btn {
+  order: 3; width: 44px; height: 44px; border-radius: 0; box-shadow: none;
+  font-size: 0; color: transparent;
+  background:
+    linear-gradient(var(--ink), var(--ink)) center 14px / 28px 1.4px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) center 21.5px / 28px 1.4px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) center 29px / 28px 1.4px no-repeat;
+}
+html[data-theme="wagashi"] .menu-btn:focus-visible { outline: 2px solid var(--wa-green); }
+
+/* ---- 飾りの帯：円弧の切り抜き＋白い短冊 ---- */
+html[data-theme="wagashi"] .wa-hero {
+  display: block; position: relative; overflow: hidden;
+  height: 236px; max-width: 1240px; margin: 0 auto;
+}
+html[data-theme="wagashi"] .wa-hero-line {
+  position: absolute; z-index: 2; top: 20px; left: 8%; margin: 0;
+  display: flex; align-items: center; gap: 12px 18px; flex-wrap: wrap;
+  font-size: 13px; letter-spacing: .06em;
+}
+html[data-theme="wagashi"] .wa-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ink); }
+html[data-theme="wagashi"] .wa-hero-sub { font-family: var(--wa-mincho); font-weight: 700; letter-spacing: .14em; margin-left: 1em; }
+html[data-theme="wagashi"] .wa-arc {
+  position: absolute; left: -32%; top: 64px; width: 150%; aspect-ratio: 1;
+  border-radius: 50%; background: var(--wa-green);
+}
+html[data-theme="wagashi"] .wa-arc-in {
+  position: absolute; inset: 0; border-radius: 50%;
+  transform: translate(-1.6%, 1%);
+  background-color: #f2e6c8;
+  /* 青海波（自作） */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20' viewBox='0 0 40 20'%3E%3Cdefs%3E%3Cg id='w'%3E%3Ccircle r='20' fill='%23f2e6c8'/%3E%3Cg fill='none' stroke='%23d6bd86' stroke-width='.9'%3E%3Ccircle r='18.5'/%3E%3Ccircle r='14'/%3E%3Ccircle r='9.5'/%3E%3Ccircle r='5'/%3E%3C/g%3E%3C/g%3E%3C/defs%3E%3Cuse href='%23w' x='-20' y='-10'/%3E%3Cuse href='%23w' x='20' y='-10'/%3E%3Cuse href='%23w' x='60' y='-10'/%3E%3Cuse href='%23w' x='0' y='0'/%3E%3Cuse href='%23w' x='40' y='0'/%3E%3Cuse href='%23w' x='-20' y='10'/%3E%3Cuse href='%23w' x='20' y='10'/%3E%3Cuse href='%23w' x='60' y='10'/%3E%3Cuse href='%23w' x='0' y='20'/%3E%3Cuse href='%23w' x='40' y='20'/%3E%3Cuse href='%23w' x='-20' y='30'/%3E%3Cuse href='%23w' x='20' y='30'/%3E%3Cuse href='%23w' x='60' y='30'/%3E%3C/svg%3E");
+  background-size: 64px 32px;
+}
+html[data-theme="wagashi"] .wa-arc-in::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 8%, rgba(255, 255, 255, .62), rgba(255, 255, 255, 0) 30%),
+    radial-gradient(circle at 70% 30%, rgba(244, 215, 222, .55), rgba(244, 215, 222, 0) 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(190, 150, 90, .16) 30%);
+}
+html[data-theme="wagashi"] .wa-tanzakus {
+  position: absolute; z-index: 2; right: 9%; top: 24px;
+  display: flex; flex-direction: row-reverse; align-items: flex-start; gap: 14px;
+}
+html[data-theme="wagashi"] .wa-tanzaku {
+  writing-mode: vertical-rl; background: #fff; color: var(--ink);
+  font-family: var(--wa-mincho); font-weight: 700; font-size: 14px; letter-spacing: .2em;
+  line-height: 1; padding: 14px 10px; margin-top: 44px;
+}
+html[data-theme="wagashi"] .wa-tanzaku.main {
+  font-weight: 800; font-size: 25px; letter-spacing: .16em; padding: 16px 12px; margin-top: 0;
+}
+
+/* ---- ドロワー：全面に開き、項目は縦書きで右から左へ ---- */
+html[data-theme="wagashi"] .drawer-mask { background: rgba(239, 239, 239, .7); }
+html[data-theme="wagashi"] .drawer {
+  inset: 0; width: auto; max-width: none;
+  background: #ececea; border-top: 3px solid var(--wa-pink);
+  padding: 76px 48px 32px; box-shadow: none;
+  transform: none; opacity: 0; transition: opacity .25s ease, visibility .25s;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-content: start;
+  column-gap: 28px; row-gap: 40px;
+}
+html[data-theme="wagashi"] .drawer.open { opacity: 1; }
+html[data-theme="wagashi"] .drawer-close {
+  display: block; position: absolute; top: 22px; right: 28px;
+  width: 44px; height: 44px; border: 0; background: transparent; font-size: 0;
+}
+html[data-theme="wagashi"] .drawer-close::before,
+html[data-theme="wagashi"] .drawer-close::after {
+  content: ""; position: absolute; left: 7px; top: 21px; width: 30px; height: 1.4px; background: var(--ink);
+  transform: rotate(45deg);
+}
+html[data-theme="wagashi"] .drawer-close::after { transform: rotate(-45deg); }
+html[data-theme="wagashi"] .drawer-close:focus-visible { outline: 2px solid var(--wa-green); }
+html[data-theme="wagashi"] .drawer .ico { display: none; }
+html[data-theme="wagashi"] .drawer-head {
+  grid-column: 2; grid-row: 1; writing-mode: vertical-rl;
+  font-family: var(--wa-mincho); font-weight: 800; font-size: 15px; letter-spacing: .3em;
+  padding: 4px 0 0 18px; border-left: 1px solid #b9b9b4; color: var(--ink-soft);
+}
+html[data-theme="wagashi"] .drawer-links {
+  grid-column: 1; grid-row: 1;
+  display: flex; flex-direction: row-reverse; justify-content: flex-start; align-items: flex-start;
+  gap: 8px 14px; overflow-x: auto;
+}
+html[data-theme="wagashi"] .drawer a {
+  writing-mode: vertical-rl; position: relative;
+  font-family: var(--wa-mincho); font-weight: 700; font-size: 21px; letter-spacing: .16em; line-height: 1.25;
+  min-width: 48px; padding: 18px 10px 14px; border-radius: 0; color: var(--ink);
+}
+html[data-theme="wagashi"] .drawer a:hover { background: rgba(255, 255, 255, .75); }
+html[data-theme="wagashi"] .drawer a.active { background: transparent; color: var(--wa-green); }
+html[data-theme="wagashi"] .drawer a.active::before {
+  content: ""; position: absolute; top: 4px; left: 50%; width: 6px; height: 6px; margin-left: -3px;
+  border-radius: 50%; background: var(--wa-green);
+}
+html[data-theme="wagashi"] .drawer a:focus-visible { outline: 2px solid var(--wa-green); outline-offset: -2px; }
+
+/* 着せ替え：白い箱に罫線で区切った表 */
+html[data-theme="wagashi"] .theme-box {
+  grid-column: 1 / -1; grid-row: 2;
+  display: flex; flex-direction: row-reverse; align-items: flex-start; justify-content: flex-start; gap: 22px;
+  margin: 0; padding: 0; border: 0;
+}
+html[data-theme="wagashi"] .theme-label {
+  writing-mode: vertical-rl; margin: 0; color: var(--ink);
+  font-family: var(--wa-mincho); font-weight: 700; font-size: 15px; letter-spacing: .3em;
+}
+html[data-theme="wagashi"] .theme-opts {
+  display: block; flex: 0 1 620px; background: #fff; padding: 14px 32px;
+}
+html[data-theme="wagashi"] .theme-opts button {
+  display: flex; align-items: center; gap: 14px; width: 100%;
+  border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent;
+  padding: 18px 4px; text-align: left; color: var(--ink);
+  font-family: var(--wa-mincho); font-weight: 700; font-size: 17px; letter-spacing: .12em;
+}
+html[data-theme="wagashi"] .theme-opts button:last-child { border-bottom: 0; }
+html[data-theme="wagashi"] .theme-opts button::before {
+  content: ""; flex: none; width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--ink);
+}
+html[data-theme="wagashi"] .theme-opts button::after {
+  margin-left: auto; text-align: right;
+  font-family: var(--wa-gothic); font-weight: 500; font-size: 12.5px; letter-spacing: .04em; color: var(--ink-soft);
+}
+html[data-theme="wagashi"] .theme-opts button[data-theme-set="standard"]::after { content: "生成りと紺の、まるい見た目"; }
+html[data-theme="wagashi"] .theme-opts button[data-theme-set="wagashi"]::after { content: "墨と白、明朝の縦書き"; }
+html[data-theme="wagashi"] .theme-opts button[aria-pressed="true"] { background: transparent; color: var(--wa-green); }
+html[data-theme="wagashi"] .theme-opts button[aria-pressed="true"]::before {
+  background: var(--wa-green); border-color: var(--wa-green); box-shadow: inset 0 0 0 2px #fff;
+}
+html[data-theme="wagashi"] .theme-opts button:hover { background: #fafaf8; }
+html[data-theme="wagashi"] .drawer-foot {
+  grid-column: 1 / -1; grid-row: 3; margin: 0; padding: 0; text-align: right; letter-spacing: .1em;
+}
+
+/* ---- 共通の部品 ---- */
+html[data-theme="wagashi"] .view { padding-top: 22px; }
+html[data-theme="wagashi"] .period-label {
+  font-family: var(--wa-mincho); font-weight: 700; font-size: 19px; letter-spacing: .1em;
+}
+html[data-theme="wagashi"] .round-btn {
+  width: 42px; height: 42px; border: 1px solid var(--ink); border-radius: 50%;
+  background: transparent; box-shadow: none; font-size: 0;
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+}
+html[data-theme="wagashi"] .round-btn::before {
+  content: ""; width: 9px; height: 9px;
+  border-top: 1.3px solid var(--ink); border-left: 1.3px solid var(--ink);
+}
+html[data-theme="wagashi"] .round-btn[data-act$="prev"]::before { transform: translateX(2px) rotate(-45deg); }
+html[data-theme="wagashi"] .round-btn[data-act$="next"]::before { transform: translateX(-2px) rotate(135deg); }
+html[data-theme="wagashi"] .round-btn:hover { background: #fff; }
+html[data-theme="wagashi"] .chip-btn {
+  background: transparent; border: 1px solid var(--ink); border-radius: 0;
+  font-weight: 500; font-size: 13px; padding: 6px 14px;
+}
+html[data-theme="wagashi"] .btn {
+  border: 1px solid var(--ink); background: var(--ink); color: #fff; border-radius: 0; box-shadow: none;
+  font-family: var(--wa-mincho); font-weight: 700; letter-spacing: .12em; padding: 10px 24px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+html[data-theme="wagashi"] .btn.red { background: var(--wa-green); border-color: var(--wa-green); }
+html[data-theme="wagashi"] .btn.ghost,
+html[data-theme="wagashi"] .btn.dashed { background: #fff; color: var(--ink); }
+html[data-theme="wagashi"] .btn.small { padding: 6px 16px; }
+html[data-theme="wagashi"] .btn:hover:not(:disabled) { opacity: .86; }
+html[data-theme="wagashi"] .btn:focus-visible,
+html[data-theme="wagashi"] .chip-btn:focus-visible,
+html[data-theme="wagashi"] .round-btn:focus-visible { outline: 2px solid var(--wa-green); outline-offset: 2px; }
+/* 細い線のプリンタ */
+html[data-theme="wagashi"] .ico[data-ico="print"] {
+  display: inline-block; width: 17px; height: 17px; font-size: 0; vertical-align: -3px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.3' stroke-linejoin='round'%3E%3Cpath d='M7 9V3.5h10V9'/%3E%3Crect x='3.5' y='9' width='17' height='8.5' rx='.8'/%3E%3Cpath d='M7 14h10v6.5H7z'/%3E%3Cpath d='M16.5 11.7h1.2'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.3' stroke-linejoin='round'%3E%3Cpath d='M7 9V3.5h10V9'/%3E%3Crect x='3.5' y='9' width='17' height='8.5' rx='.8'/%3E%3Cpath d='M7 14h10v6.5H7z'/%3E%3Cpath d='M16.5 11.7h1.2'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+html[data-theme="wagashi"] .hint { color: var(--ink-soft); letter-spacing: .04em; }
+html[data-theme="wagashi"] .legend { letter-spacing: .04em; }
+
+html[data-theme="wagashi"] .paper,
+html[data-theme="wagashi"] .staff-wrap,
+html[data-theme="wagashi"] .user-card { border-radius: 0; box-shadow: none; border: 1px solid var(--line-soft); }
+html[data-theme="wagashi"] .paper { padding: 26px 24px; }
+html[data-theme="wagashi"] .paper-title {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  font-family: var(--wa-mincho); font-weight: 800; font-size: 20px; letter-spacing: .24em;
+}
+html[data-theme="wagashi"] .paper-title::before,
+html[data-theme="wagashi"] .paper-title::after { content: ""; width: 34px; height: 1px; background: #9d9d98; flex: none; }
+html[data-theme="wagashi"] .paper-sub { font-weight: 500; color: var(--ink-soft); letter-spacing: .06em; margin-bottom: 16px; }
+
+/* ---- 表（中身は横書きのまま） ---- */
+html[data-theme="wagashi"] table.grid th,
+html[data-theme="wagashi"] table.grid td { border-color: var(--line); }
+html[data-theme="wagashi"] table.grid th {
+  font-family: var(--wa-mincho); font-weight: 700; letter-spacing: .08em;
+}
+html[data-theme="wagashi"] table.grid td.name { font-weight: 500; }
+
+html[data-theme="wagashi"] table.staff thead th,
+html[data-theme="wagashi"] table.staff tfoot th {
+  font-family: var(--wa-mincho); font-weight: 700; letter-spacing: .06em;
+}
+html[data-theme="wagashi"] table.staff th.day { font-weight: 500; }
+html[data-theme="wagashi"] table.staff td.sum { background: #f7f7f4; }
+html[data-theme="wagashi"] table.staff tfoot td { font-variant-numeric: tabular-nums; }
+html[data-theme="wagashi"] .cell { font-size: 19px; }
+html[data-theme="wagashi"] .cell.x { font-weight: 500; }
+html[data-theme="wagashi"] .cell:hover { filter: brightness(.97); }
+html[data-theme="wagashi"] .cell:focus-visible { outline-color: var(--wa-green); }
+html[data-theme="wagashi"] .day-card .print-one {
+  background: transparent; border: 1px solid #bdbdb8; color: var(--ink);
+  display: inline-flex; align-items: center; justify-content: center; top: 16px; right: 16px;
+}
+html[data-theme="wagashi"] .day-card .print-one:hover { background: #f6f6f3; }
+
+html[data-theme="wagashi"] table.count td.n:hover { background: #f5f5f1; }
+html[data-theme="wagashi"] table.count td.n.zero { color: #bdbdb8; }
+html[data-theme="wagashi"] table.count td.n.sel { background: var(--wa-pink); }
+html[data-theme="wagashi"] table.count tr.total th,
+html[data-theme="wagashi"] table.count tr.total td { background: #f1f1ec; }
+html[data-theme="wagashi"] table.count th.lunch-h { background: #f6efe3; }
+html[data-theme="wagashi"] table.count th.dinner-h { background: #eaedf0; }
+html[data-theme="wagashi"] .names-panel { background: #f7f7f4; border: 1px solid var(--line-soft); border-radius: 0; }
+html[data-theme="wagashi"] .names-panel b { font-family: var(--wa-mincho); }
+html[data-theme="wagashi"] .names-panel .tag { border-radius: 0; border-color: var(--line); }
+
+html[data-theme="wagashi"] .snack-day { padding: 18px 14px; }
+html[data-theme="wagashi"] .snack-day h3 { font-family: var(--wa-mincho); font-weight: 700; letter-spacing: .1em; }
+html[data-theme="wagashi"] .snack-sum span { background: #f3f3ef; border-radius: 0; }
+
+html[data-theme="wagashi"] .money td input,
+html[data-theme="wagashi"] .price-row input { border-radius: 0; border-color: #c9c9c4; }
+html[data-theme="wagashi"] .money tfoot td,
+html[data-theme="wagashi"] .money tfoot th { background: #f6f6f2; }
+html[data-theme="wagashi"] .price-row label { font-family: var(--wa-mincho); letter-spacing: .1em; }
+
+/* ---- 利用者情報 ---- */
+html[data-theme="wagashi"] .users-tools select { border-radius: 0; background: #fff; border-color: #c9c9c4; }
+html[data-theme="wagashi"] .user-head .uname { font-family: var(--wa-mincho); font-weight: 700; font-size: 17px; letter-spacing: .08em; }
+html[data-theme="wagashi"] .pill { background: transparent; border: 1px solid #cfcfca; border-radius: 0; }
+html[data-theme="wagashi"] .pill.night { background: #eef0f3; border-color: #c4cbd4; }
+html[data-theme="wagashi"] .pill.warn { background: #f8eaee; border-color: #e6c3cb; color: #a13a2a; }
+html[data-theme="wagashi"] .sec-title {
+  background: transparent; border-radius: 0; border-left: 3px solid var(--wa-green); border-bottom: 1px solid var(--line-soft);
+  font-family: var(--wa-mincho); font-weight: 700; font-size: 14px; letter-spacing: .12em; padding: 4px 10px;
+}
+html[data-theme="wagashi"] .field input[type=text],
+html[data-theme="wagashi"] .field select,
+html[data-theme="wagashi"] .field textarea { border-radius: 0; border-color: #c9c9c4; }
+html[data-theme="wagashi"] .field input[type=text]:focus,
+html[data-theme="wagashi"] .field select:focus,
+html[data-theme="wagashi"] .field textarea:focus,
+html[data-theme="wagashi"] .money td input:focus,
+html[data-theme="wagashi"] .price-row input:focus,
+html[data-theme="wagashi"] .users-tools select:focus {
+  outline: none; border-color: var(--wa-green); box-shadow: 0 0 0 2px rgba(47, 74, 52, .16);
+}
+html[data-theme="wagashi"] .days label,
+html[data-theme="wagashi"] .toggles label { border-radius: 0; border-width: 1px; border-color: #c9c9c4; }
+html[data-theme="wagashi"] .days label:has(input:focus-visible),
+html[data-theme="wagashi"] .toggles label:has(input:focus-visible) { outline-color: var(--wa-green); }
+
+/* ---- toast ---- */
+html[data-theme="wagashi"] .toast { border-radius: 0; font-weight: 500; letter-spacing: .08em; }
+
+/* ---- スマホ幅 ---- */
+@media (max-width: 600px) {
+  html[data-theme="wagashi"] .demo-bar { padding: 6px 14px; }
+  html[data-theme="wagashi"] .topbar { padding: 14px 14px 2px; }
+  html[data-theme="wagashi"] .topbar h1 { font-size: 15px; letter-spacing: .14em; padding-top: 12px; }
+  html[data-theme="wagashi"] .topbar-space::after { font-size: 13px; }
+  html[data-theme="wagashi"] .wa-hero { height: 176px; }
+  html[data-theme="wagashi"] .wa-hero-line { left: 16px; top: 12px; font-size: 12px; flex-direction: column; align-items: flex-start; gap: 4px; }
+  html[data-theme="wagashi"] .wa-hero-line .wa-dot { display: none; }
+  html[data-theme="wagashi"] .wa-hero-sub { margin-left: 0; font-size: 11.5px; }
+  html[data-theme="wagashi"] .wa-arc { left: -78%; top: 58px; width: 196%; }
+  html[data-theme="wagashi"] .wa-tanzakus { right: 18px; top: 14px; gap: 10px; }
+  html[data-theme="wagashi"] .wa-tanzaku { font-size: 12px; padding: 10px 7px; margin-top: 30px; }
+  html[data-theme="wagashi"] .wa-tanzaku.main { font-size: 19px; padding: 12px 9px; margin-top: 0; }
+  html[data-theme="wagashi"] .view { padding-top: 16px; }
+  html[data-theme="wagashi"] .btn { letter-spacing: .04em; padding: 10px 18px; }
+  html[data-theme="wagashi"] .hint, html[data-theme="wagashi"] .legend { letter-spacing: 0; }
+  html[data-theme="wagashi"] .paper { padding: 18px 12px; }
+  html[data-theme="wagashi"] .paper-title { font-size: 17px; letter-spacing: .14em; gap: 10px; }
+  html[data-theme="wagashi"] .paper-title::before,
+  html[data-theme="wagashi"] .paper-title::after { width: 18px; }
+  html[data-theme="wagashi"] .day-card .paper-title { padding-right: 34px; }
+  html[data-theme="wagashi"] .day-card .print-one { top: 12px; right: 10px; }
+
+  html[data-theme="wagashi"] .drawer { padding: 66px 16px 24px; column-gap: 12px; row-gap: 28px; }
+  html[data-theme="wagashi"] .drawer-close { top: 14px; right: 12px; }
+  html[data-theme="wagashi"] .drawer-head { font-size: 13px; padding-left: 10px; }
+  html[data-theme="wagashi"] .drawer-links { gap: 6px 4px; }
+  html[data-theme="wagashi"] .drawer a { font-size: 17px; min-width: 44px; padding: 16px 6px 12px; letter-spacing: .12em; }
+  html[data-theme="wagashi"] .theme-box { gap: 12px; }
+  html[data-theme="wagashi"] .theme-label { font-size: 13px; }
+  html[data-theme="wagashi"] .theme-opts { padding: 4px 16px; }
+  html[data-theme="wagashi"] .theme-opts button { font-size: 15px; padding: 15px 2px; flex-wrap: wrap; gap: 4px 12px; }
+  html[data-theme="wagashi"] .theme-opts button::after { font-size: 11px; }
+}
+
+/* ---- 印刷：飾りを消し、白地に罫線だけ ---- */
+@media print {
+  html[data-theme="wagashi"] body { border-top: 0; background: #fff; }
+  html[data-theme="wagashi"] .paper,
+  html[data-theme="wagashi"] .staff-wrap,
+  html[data-theme="wagashi"] .user-card { border: 0; }
+  html[data-theme="wagashi"] .paper { padding: 18px 16px; }
+  html[data-theme="wagashi"] .paper-title::before,
+  html[data-theme="wagashi"] .paper-title::after { display: none; }
+}

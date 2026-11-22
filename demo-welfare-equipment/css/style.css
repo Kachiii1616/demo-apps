@@ -233,5 +233,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   .layout { display: block; }
   .view { padding: 0; max-width: none; }
   .sheet { box-shadow: none; margin: 0; width: 210mm; }
-  .sheet-scroller { overflow: visible; }
+  .sheet-scroller { overflow: visible; padding: 0; }
+  .sheet { break-after: avoid; }
 }
