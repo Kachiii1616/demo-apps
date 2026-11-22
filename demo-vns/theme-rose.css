@@ -1,0 +1,321 @@
+/* 着せ替え「ローズゴールド」
+   白地・淡いピンク・ローズゴールドの配色。飾り（シェブロン帯・水彩のにじみ・角飾りの枠・筆の下地・ちぎれ帯・スタンプ）は
+   すべてこのファイルの CSS と自作の簡単な SVG で描いています。飾りはカードの外側と余白だけに置き、
+   表・入力欄・予定カードの中は白地のまま文字をくっきり見せます。 */
+
+.rose-band { display: none; }
+
+[data-theme="rose"] {
+  --accent: #a3634c;
+  --accent-ink: #fff;
+  --accent-soft: #fcf0ef;
+  --accent-line: #efd5cb;
+  --panel: #fff;
+  --th: #fcf3f1;
+  --ink: #4a3934;
+  --ink-soft: #84706a;
+  --line: #dfc3b5;
+  --line-soft: #f1e3dd;
+  --bg: #fffdfc;
+  --blob: transparent;
+  --sheet: #fff;
+  --lav: #fff;
+  --mint: #fbe3e7;
+  --mint-line: #e6b3bd;
+  --notice: #fdf6ef;
+  --notice-ink: #66503d;
+  --warn-bg: #fbefd6;
+  --danger-bg: #fbe1e4;
+  --danger-ink: #ad3d52;
+  --band: #a3634c;
+  /* ローズゴールド（金箔） */
+  --rg-light: #f1dccb;
+  --rg-mid: #d3a283;
+  --rg-deep: #b57b62;
+  --rg-foil: linear-gradient(118deg, #e7c3a6 0%, #c98d70 28%, #ecc9ad 52%, #b9785e 76%, #dcae90 100%);
+  --rg-foil-btn: linear-gradient(118deg, #b97c62 0%, #9f604a 35%, #b8795f 60%, #94573f 100%);
+  --pink-1: #fbe9ec;
+  --pink-2: #f6d2d8;
+  --pink-3: #efbcc6;
+  --script: "Great Vibes", "Snell Roundhand", cursive;
+  --serif-en: "Cormorant Garamond", "Times New Roman", serif;
+  --mincho: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+}
+
+[data-theme="rose"] body {
+  position: relative;
+  background: var(--bg);
+  font-family: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  letter-spacing: 0.04em;
+}
+[data-theme="rose"] h1, [data-theme="rose"] h2, [data-theme="rose"] h3, [data-theme="rose"] .brand {
+  font-family: var(--mincho);
+}
+[data-theme="rose"] .pill, [data-theme="rose"] .pill-sm, [data-theme="rose"] .chip, [data-theme="rose"] .tab,
+[data-theme="rose"] .drawer-item b {
+  font-family: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
+}
+
+/* ---------- デモ帯（控えめに） ---------- */
+[data-theme="rose"] .demo-bar { background: #fffaf9; border-bottom: 1px solid var(--accent-line); }
+[data-theme="rose"] .demo-bar a { color: var(--accent); }
+[data-theme="rose"] .demo-bar strong { color: var(--ink-soft); font-weight: 500; letter-spacing: .12em; }
+[data-theme="rose"] .demo-bar button { border-color: var(--line); background: #fff; color: var(--accent); }
+
+/* ---------- 背景：水彩のにじみ ---------- */
+[data-theme="rose"] .bg-blob { display: block; background: none; border-radius: 0; opacity: 1; filter: url(#rose-wc); }
+/* ヘッダの事業所名の後ろ */
+[data-theme="rose"] .bg-blob-1 {
+  position: absolute; z-index: 0; top: 54px; left: max(0px, calc(50% - 700px)); right: auto; width: 520px; height: 170px;
+  background:
+    radial-gradient(38% 46% at 34% 50%, rgba(239, 172, 186, .8), rgba(239, 178, 190, 0) 72%),
+    radial-gradient(30% 40% at 58% 40%, rgba(246, 200, 188, .85), rgba(246, 205, 196, 0) 70%),
+    radial-gradient(22% 34% at 20% 62%, rgba(232, 160, 176, .35), rgba(232, 160, 176, 0) 70%),
+    radial-gradient(18% 26% at 70% 64%, rgba(233, 196, 168, .45), rgba(233, 196, 168, 0) 70%);
+}
+/* ページ下部の大きなにじみ */
+[data-theme="rose"] .bg-blob-2 {
+  position: absolute; z-index: 0; top: auto; bottom: 0; left: 0; right: 0; width: auto; height: 440px;
+  background:
+    radial-gradient(30% 48% at 18% 64%, rgba(240, 184, 196, .55), rgba(240, 184, 196, 0) 72%),
+    radial-gradient(26% 40% at 46% 74%, rgba(247, 214, 188, .65), rgba(247, 214, 188, 0) 70%),
+    radial-gradient(30% 46% at 78% 60%, rgba(239, 176, 190, .5), rgba(239, 176, 190, 0) 72%),
+    radial-gradient(20% 30% at 92% 82%, rgba(236, 200, 170, .5), rgba(236, 200, 170, 0) 70%),
+    radial-gradient(16% 24% at 6% 88%, rgba(247, 210, 214, .7), rgba(247, 210, 214, 0) 70%);
+}
+
+/* ---------- 上部：シェブロン帯＋細い金線 ---------- */
+[data-theme="rose"] .topbar { padding-top: 50px; padding-bottom: 12px; }
+[data-theme="rose"] .topbar::before {
+  content: ""; position: absolute; top: 0; left: 50%; width: 100vw; transform: translateX(-50%); height: 26px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12' width='24' height='12'%3E%3Cpath d='M-1 12.5 L12 0.5 L25 12.5' fill='none' stroke='%23f5d0d6' stroke-width='3.4'/%3E%3C/svg%3E") 0 0 / 24px 12px repeat;
+}
+[data-theme="rose"] .topbar::after {
+  content: ""; position: absolute; top: 34px; left: 50%; width: 100vw; transform: translateX(-50%); height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rg-mid) 12%, var(--rg-light) 50%, var(--rg-mid) 88%, transparent);
+}
+[data-theme="rose"] .hamburger span { background: var(--rg-deep); height: 1.5px; }
+[data-theme="rose"] .brand {
+  font-weight: 600; font-size: 23px; letter-spacing: .28em;
+  background: linear-gradient(110deg, #a8684f 0%, #c58d71 35%, #9a5d46 60%, #b67c62 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+[data-theme="rose"] .crumb { font-family: var(--mincho); color: var(--ink-soft); letter-spacing: .2em; }
+[data-theme="rose"] .crumb::before { content: "—  "; color: var(--rg-mid); }
+
+/* ---------- ちぎれ紙の帯（写真の代わりのピンクのぼかし） ---------- */
+[data-theme="rose"] .rose-band {
+  display: flex; position: relative; z-index: 1; align-items: center; justify-content: center;
+  height: 56px; margin: 4px 0 -6px;
+  background:
+    radial-gradient(10% 70% at 8% 40%, rgba(255, 255, 255, .75), transparent 70%),
+    radial-gradient(7% 60% at 27% 70%, rgba(255, 255, 255, .6), transparent 70%),
+    radial-gradient(9% 80% at 63% 30%, rgba(255, 255, 255, .55), transparent 70%),
+    radial-gradient(6% 60% at 86% 66%, rgba(255, 255, 255, .7), transparent 70%),
+    radial-gradient(14% 90% at 44% 60%, rgba(239, 182, 194, .7), transparent 72%),
+    radial-gradient(16% 90% at 76% 40%, rgba(243, 199, 186, .75), transparent 72%),
+    radial-gradient(14% 90% at 16% 60%, rgba(236, 170, 186, .55), transparent 72%),
+    linear-gradient(90deg, #f6d9d9, #f9e3dc 30%, #f4d0d6 55%, #f8e2dd 80%, #f3d2d5);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12' width='240' height='12'%3E%3Cpath fill='%23000' d='M0 12 L0 7 L7 1.8 L12 4.1 L19 1.5 L27 5.1 L33 3 L41 5.6 L45 4.5 L50 5.7 L55 4.9 L61 2.2 L65 7.6 L74 1.8 L80 7.7 L85 3.9 L92 5.7 L97 2.2 L106 4.1 L111 4.8 L117 2.1 L125 3.5 L131 1.6 L140 2.7 L148 4.3 L153 5.2 L159 6.3 L166 2 L171 4.2 L175 1.3 L181 5.8 L188 7.7 L194 4.1 L200 4.1 L208 4.2 L214 2.8 L219 6.2 L224 2.9 L240 7 L240 12 Z'/%3E%3C/svg%3E") 0 0 / 240px 12px repeat-x, linear-gradient(#000, #000) 0 11px / 100% calc(100% - 22px) no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12' width='240' height='12'%3E%3Cpath fill='%23000' transform='translate(0 12) scale(1 -1)' d='M0 12 L0 7 L7 1.8 L12 4.1 L19 1.5 L27 5.1 L33 3 L41 5.6 L45 4.5 L50 5.7 L55 4.9 L61 2.2 L65 7.6 L74 1.8 L80 7.7 L85 3.9 L92 5.7 L97 2.2 L106 4.1 L111 4.8 L117 2.1 L125 3.5 L131 1.6 L140 2.7 L148 4.3 L153 5.2 L159 6.3 L166 2 L171 4.2 L175 1.3 L181 5.8 L188 7.7 L194 4.1 L200 4.1 L208 4.2 L214 2.8 L219 6.2 L224 2.9 L240 7 L240 12 Z'/%3E%3C/svg%3E") 0 100% / 240px 12px repeat-x;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12' width='240' height='12'%3E%3Cpath fill='%23000' d='M0 12 L0 7 L7 1.8 L12 4.1 L19 1.5 L27 5.1 L33 3 L41 5.6 L45 4.5 L50 5.7 L55 4.9 L61 2.2 L65 7.6 L74 1.8 L80 7.7 L85 3.9 L92 5.7 L97 2.2 L106 4.1 L111 4.8 L117 2.1 L125 3.5 L131 1.6 L140 2.7 L148 4.3 L153 5.2 L159 6.3 L166 2 L171 4.2 L175 1.3 L181 5.8 L188 7.7 L194 4.1 L200 4.1 L208 4.2 L214 2.8 L219 6.2 L224 2.9 L240 7 L240 12 Z'/%3E%3C/svg%3E") 0 0 / 240px 12px repeat-x, linear-gradient(#000, #000) 0 11px / 100% calc(100% - 22px) no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12' width='240' height='12'%3E%3Cpath fill='%23000' transform='translate(0 12) scale(1 -1)' d='M0 12 L0 7 L7 1.8 L12 4.1 L19 1.5 L27 5.1 L33 3 L41 5.6 L45 4.5 L50 5.7 L55 4.9 L61 2.2 L65 7.6 L74 1.8 L80 7.7 L85 3.9 L92 5.7 L97 2.2 L106 4.1 L111 4.8 L117 2.1 L125 3.5 L131 1.6 L140 2.7 L148 4.3 L153 5.2 L159 6.3 L166 2 L171 4.2 L175 1.3 L181 5.8 L188 7.7 L194 4.1 L200 4.1 L208 4.2 L214 2.8 L219 6.2 L224 2.9 L240 7 L240 12 Z'/%3E%3C/svg%3E") 0 100% / 240px 12px repeat-x;
+}
+[data-theme="rose"] .rose-band span {
+  font-family: var(--script); font-size: 30px; line-height: 1; color: #fff; letter-spacing: .02em;
+  text-shadow: 0 1px 0 rgba(170, 105, 85, .45), 0 0 14px rgba(190, 120, 100, .35);
+}
+
+/* ---------- メニュー ---------- */
+[data-theme="rose"] .drawer {
+  border-radius: 0; padding-top: 40px; border-right: 1px solid var(--accent-line); box-shadow: 6px 0 30px rgba(120, 70, 60, .12);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12' width='24' height='12'%3E%3Cpath d='M-1 12.5 L12 0.5 L25 12.5' fill='none' stroke='%23f5d0d6' stroke-width='3.4'/%3E%3C/svg%3E") 0 0 / 24px 12px repeat-x, linear-gradient(var(--rg-mid), var(--rg-mid)) 0 26px / 100% 1px no-repeat, #fff;
+}
+[data-theme="rose"] .drawer-item { border-radius: 2px; border-bottom: 1px solid var(--line-soft); padding: 12px 14px; }
+[data-theme="rose"] .drawer-item b { font-family: var(--mincho); font-weight: 600; letter-spacing: .12em; }
+[data-theme="rose"] .drawer-item small { font-family: var(--serif-en); font-size: 11px; letter-spacing: .32em; color: var(--rg-deep); }
+[data-theme="rose"] .drawer-item:hover { background: var(--pink-1); }
+[data-theme="rose"] .drawer-item.on { background: var(--rg-foil-btn); color: #fff; border-bottom-color: transparent; }
+[data-theme="rose"] .drawer-backdrop { background: rgba(90, 55, 50, .3); }
+
+/* ---------- 本体の紙：細い金の枠＋角の唐草 ---------- */
+[data-theme="rose"] .sheet {
+  border-radius: 3px; padding: 40px 46px 56px; margin-bottom: 120px;
+  box-shadow: 0 1px 0 var(--accent-line), 0 14px 40px rgba(170, 110, 95, .10);
+  border: 1px solid #f3e4de;
+}
+[data-theme="rose"] .sheet::before {
+  --o: 7px; --l: 10px; --s: 56px;
+  content: ""; position: absolute; z-index: -1; inset: 5px; pointer-events: none;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' width='48' height='48'%3E%3Cg transform='' fill='none' stroke='%23b98068' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M3 34 V3 H34'/%3E%3Cpath d='M8 24 V8 H24'/%3E%3Cpath d='M3 34 C3 41 10 43 13 38 C15 34 11 31 9 34'/%3E%3Cpath d='M34 3 C41 3 43 10 38 13 C34 15 31 11 34 9'/%3E%3Ccircle cx='14' cy='14' r='1.6' fill='%23b98068'/%3E%3Cpath d='M14 12 C12 8 16 8 14 12 Z M16 14 C20 12 20 16 16 14 Z M14 16 C16 20 12 20 14 16 Z M12 14 C8 16 8 12 12 14 Z'/%3E%3Cpath d='M19 19 C23 20 25 24 24 28 M19 19 C20 23 24 25 28 24'/%3E%3C/g%3E%3C/svg%3E") var(--o) var(--o) / var(--s) var(--s) no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' width='48' height='48'%3E%3Cg transform='translate(48 0) scale(-1 1)' fill='none' stroke='%23b98068' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M3 34 V3 H34'/%3E%3Cpath d='M8 24 V8 H24'/%3E%3Cpath d='M3 34 C3 41 10 43 13 38 C15 34 11 31 9 34'/%3E%3Cpath d='M34 3 C41 3 43 10 38 13 C34 15 31 11 34 9'/%3E%3Ccircle cx='14' cy='14' r='1.6' fill='%23b98068'/%3E%3Cpath d='M14 12 C12 8 16 8 14 12 Z M16 14 C20 12 20 16 16 14 Z M14 16 C16 20 12 20 14 16 Z M12 14 C8 16 8 12 12 14 Z'/%3E%3Cpath d='M19 19 C23 20 25 24 24 28 M19 19 C20 23 24 25 28 24'/%3E%3C/g%3E%3C/svg%3E") calc(100% - var(--o)) var(--o) / var(--s) var(--s) no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' width='48' height='48'%3E%3Cg transform='translate(0 48) scale(1 -1)' fill='none' stroke='%23b98068' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M3 34 V3 H34'/%3E%3Cpath d='M8 24 V8 H24'/%3E%3Cpath d='M3 34 C3 41 10 43 13 38 C15 34 11 31 9 34'/%3E%3Cpath d='M34 3 C41 3 43 10 38 13 C34 15 31 11 34 9'/%3E%3Ccircle cx='14' cy='14' r='1.6' fill='%23b98068'/%3E%3Cpath d='M14 12 C12 8 16 8 14 12 Z M16 14 C20 12 20 16 16 14 Z M14 16 C16 20 12 20 14 16 Z M12 14 C8 16 8 12 12 14 Z'/%3E%3Cpath d='M19 19 C23 20 25 24 24 28 M19 19 C20 23 24 25 28 24'/%3E%3C/g%3E%3C/svg%3E") var(--o) calc(100% - var(--o)) / var(--s) var(--s) no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' width='48' height='48'%3E%3Cg transform='translate(48 48) scale(-1 -1)' fill='none' stroke='%23b98068' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M3 34 V3 H34'/%3E%3Cpath d='M8 24 V8 H24'/%3E%3Cpath d='M3 34 C3 41 10 43 13 38 C15 34 11 31 9 34'/%3E%3Cpath d='M34 3 C41 3 43 10 38 13 C34 15 31 11 34 9'/%3E%3Ccircle cx='14' cy='14' r='1.6' fill='%23b98068'/%3E%3Cpath d='M14 12 C12 8 16 8 14 12 Z M16 14 C20 12 20 16 16 14 Z M14 16 C16 20 12 20 14 16 Z M12 14 C8 16 8 12 12 14 Z'/%3E%3Cpath d='M19 19 C23 20 25 24 24 28 M19 19 C20 23 24 25 28 24'/%3E%3C/g%3E%3C/svg%3E") calc(100% - var(--o)) calc(100% - var(--o)) / var(--s) var(--s) no-repeat,
+    linear-gradient(var(--rg-light), var(--rg-light)) var(--l) var(--l) / calc(100% - 2 * var(--l)) 1px no-repeat,
+    linear-gradient(var(--rg-light), var(--rg-light)) var(--l) calc(100% - var(--l)) / calc(100% - 2 * var(--l)) 1px no-repeat,
+    linear-gradient(var(--rg-light), var(--rg-light)) var(--l) var(--l) / 1px calc(100% - 2 * var(--l)) no-repeat,
+    linear-gradient(var(--rg-light), var(--rg-light)) calc(100% - var(--l)) var(--l) / 1px calc(100% - 2 * var(--l)) no-repeat;
+}
+/* 円形のスタンプ（紙の右下の外側） */
+[data-theme="rose"] .sheet::after {
+  content: ""; position: absolute; right: 28px; bottom: -92px; width: 104px; height: 104px; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' width='120' height='120'%3E%3Cdefs%3E%3Cpath id='c' d='M60 60 m-43 0 a43 43 0 1 1 86 0 a43 43 0 1 1 -86 0'/%3E%3C/defs%3E%3Cg fill='none' stroke='%23b98068' stroke-width='1'%3E%3Ccircle cx='60' cy='60' r='56'/%3E%3Ccircle cx='60' cy='60' r='52' stroke-dasharray='1 3'/%3E%3Ccircle cx='60' cy='60' r='32'/%3E%3C/g%3E%3Ctext font-family='Georgia, serif' font-size='10.5' fill='%23b98068'%3E%3CtextPath href='%23c' textLength='266' lengthAdjust='spacing'%3EWITH CARE %E2%9C%A6 EVERY VISIT %E2%9C%A6 AT HOME %E2%9C%A6%3C/textPath%3E%3C/text%3E%3Cg fill='none' stroke='%23b98068' stroke-width='1.1' stroke-linecap='round'%3E%3Cpath d='M60 72 C46 62 48 50 55 50 C58 50 60 53 60 55 C60 53 62 50 65 50 C72 50 74 62 60 72 Z'/%3E%3Cpath d='M44 80 C52 77 68 77 76 80'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat; opacity: .85; transform: rotate(-12deg);
+}
+/* ページ最下部のシェブロン帯 */
+[data-theme="rose"] body::after {
+  content: ""; display: block; position: relative; z-index: 1; height: 26px;
+  background: linear-gradient(var(--rg-mid), var(--rg-mid)) 0 0 / 100% 1px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12' width='24' height='12'%3E%3Cpath d='M-1 12.5 L12 0.5 L25 12.5' fill='none' stroke='%23f5d0d6' stroke-width='3.4'/%3E%3C/svg%3E") 0 8px / 24px 12px repeat-x, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12' width='24' height='12'%3E%3Cpath d='M-1 12.5 L12 0.5 L25 12.5' fill='none' stroke='%23f5d0d6' stroke-width='3.4'/%3E%3C/svg%3E") 0 20px / 24px 12px repeat-x;
+  background-clip: border-box; overflow: hidden;
+}
+[data-theme="rose"] .notice {
+  background: var(--notice); border: 1px solid #f0dfcd; border-left: 3px solid var(--rg-mid); border-radius: 2px; font-weight: 400;
+}
+
+/* ---------- 見出し：筆記体の英字＋金の筆の下地 ---------- */
+[data-theme="rose"] .eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--script); font-weight: 400; font-size: 27px; line-height: 1.1; letter-spacing: .01em;
+  text-transform: lowercase; color: var(--rg-deep);
+}
+[data-theme="rose"] .eyebrow::first-letter { text-transform: uppercase; }
+[data-theme="rose"] .eyebrow::after {
+  content: ""; width: 72px; height: 11px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 12' width='80' height='12'%3E%3Cg fill='none' stroke='%23b98068' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M2 6 H77 M71 2 L77 6 L71 10 M2 2 L7 6 L2 10 M7 2 L12 6 L7 10 M12 2 L17 6 L12 10'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat; opacity: .8;
+}
+[data-theme="rose"] .page-head h1, [data-theme="rose"] .pt-head h1 {
+  position: relative; isolation: isolate; display: inline-block;
+  font-weight: 600; letter-spacing: .22em; padding: 2px 14px 2px 4px;
+}
+[data-theme="rose"] .page-head h1::before, [data-theme="rose"] .pt-head h1::before {
+  content: ""; position: absolute; z-index: -1; left: -8px; right: -4px; top: 46%; height: 52%;
+  background:
+    repeating-linear-gradient(176deg, rgba(255, 255, 255, .28) 0 1px, transparent 1px 4px),
+    var(--rg-foil);
+  opacity: .5; filter: url(#rose-brush);
+  clip-path: polygon(1% 18%, 9% 4%, 30% 10%, 52% 0, 78% 8%, 97% 2%, 100% 30%, 98% 64%, 100% 92%, 74% 100%, 46% 90%, 22% 100%, 4% 92%, 0 58%);
+}
+
+/* ---------- ボタン ---------- */
+[data-theme="rose"] .pill {
+  border: 1px solid var(--rg-mid); border-radius: 2px; background: #fff; color: var(--accent);
+  font-weight: 700; letter-spacing: .12em; padding: 7px 18px;
+}
+[data-theme="rose"] .pill:hover { background: var(--pink-1); filter: none; }
+[data-theme="rose"] .pill.mint, [data-theme="rose"] .pill-sm.mint {
+  background: var(--rg-foil-btn); border-color: #9a5d47; color: #fff; text-shadow: 0 1px 0 rgba(80, 40, 30, .25);
+}
+[data-theme="rose"] .pill.mint:hover { filter: brightness(1.06); }
+[data-theme="rose"] .pill.plain { background: #fff; }
+[data-theme="rose"] .pill-sm { border: 1px solid var(--rg-mid); border-radius: 2px; background: #fff; color: var(--accent); }
+[data-theme="rose"] .chip, [data-theme="rose"] .tab {
+  border: 1px solid var(--line); border-radius: 2px; background: #fff; color: var(--ink); letter-spacing: .08em;
+}
+[data-theme="rose"] .chip:hover, [data-theme="rose"] .tab:hover { background: var(--pink-1); }
+[data-theme="rose"] .chip.on, [data-theme="rose"] .tab.on {
+  background: var(--rg-foil-btn); border-color: #9a5d47; color: #fff;
+}
+[data-theme="rose"] .tabs, [data-theme="rose"] .subtabs { border-bottom: 1px solid var(--rg-light); }
+[data-theme="rose"] hr.soft {
+  border: 0; height: 9px; margin: 12px 0 16px;
+  background: linear-gradient(90deg, transparent, var(--rg-mid) 20%, var(--rg-light) 50%, var(--rg-mid) 80%, transparent) center / 100% 1px no-repeat,
+    radial-gradient(circle, var(--rg-mid) 0 2.5px, transparent 3px) center / 9px 9px no-repeat;
+}
+
+/* ---------- 入力 ---------- */
+[data-theme="rose"] input[type=text], [data-theme="rose"] input[type=date], [data-theme="rose"] input[type=time],
+[data-theme="rose"] input[type=number], [data-theme="rose"] input[type=month], [data-theme="rose"] input[type=search],
+[data-theme="rose"] select, [data-theme="rose"] textarea {
+  border: 1px solid #e6d0c6; border-radius: 3px; background: #fff;
+}
+[data-theme="rose"] input:focus, [data-theme="rose"] select:focus, [data-theme="rose"] textarea:focus {
+  outline: 2px solid #f3d6dc; border-color: var(--rg-deep);
+}
+[data-theme="rose"] input[type=checkbox], [data-theme="rose"] input[type=radio] { accent-color: var(--accent); }
+
+/* ---------- 区画・表（中は白地でくっきり） ---------- */
+[data-theme="rose"] .panel {
+  background: #fff; border: 1px solid var(--accent-line); border-radius: 3px; position: relative;
+  box-shadow: 0 0 0 4px #fff, 0 0 0 5px #f6ebe6;
+}
+[data-theme="rose"] .panel h2 {
+  font-weight: 600; letter-spacing: .2em; color: var(--ink);
+  display: flex; align-items: center; gap: 10px;
+}
+[data-theme="rose"] .panel h2::before {
+  content: ""; flex: none; width: 7px; height: 7px; transform: rotate(45deg); border: 1px solid var(--rg-deep); background: var(--pink-2);
+}
+[data-theme="rose"] .fgrid { border: 1px solid var(--line); }
+[data-theme="rose"] .fcell > .fl { color: #6b524a; letter-spacing: .06em; }
+[data-theme="rose"] .fband {
+  background: linear-gradient(90deg, #f7e2d6, #fbeef0 70%, #fff); color: var(--accent);
+  border-top: 1px solid var(--rg-light); border-bottom: 1px solid var(--rg-light); letter-spacing: .14em;
+}
+[data-theme="rose"] .tbl-wrap, [data-theme="rose"] .rec-wrap, [data-theme="rose"] .sched-wrap {
+  border: 1px solid var(--line); border-radius: 3px;
+}
+[data-theme="rose"] table.tbl th { border-bottom: 1px solid var(--line); color: #6b524a; letter-spacing: .08em; }
+[data-theme="rose"] table.tbl tbody tr:hover td { background: #fffafa; }
+[data-theme="rose"] .badge.kind, [data-theme="rose"] .badge.info { background: var(--pink-1); color: #6b4a41; border: 1px solid #f0d6d4; }
+[data-theme="rose"] .badge.ok { background: #f7ead9; color: #6a4f2e; }
+[data-theme="rose"] .tag-box { border: 1px solid var(--rg-deep); color: var(--accent); border-radius: 2px; }
+[data-theme="rose"] .handover-box { background: var(--notice); border: 1px solid #f0dfcd; border-radius: 2px; }
+[data-theme="rose"] .handover-box .sep { border-top-color: var(--rg-light); }
+[data-theme="rose"] .graph-card { border: 1px solid var(--accent-line); border-radius: 3px; }
+
+/* ---------- スケジュール（予定=ピンク、実績=シャンパン、リハビリ=左の金線） ---------- */
+[data-theme="rose"] .sched .hcell { color: #5d4740; }
+[data-theme="rose"] .sched .hcell.sub { border-bottom: 1px solid var(--line); }
+[data-theme="rose"] .sched .hcell.today { background: #f9dfe4; color: #7a3f4c; }
+[data-theme="rose"] .sched .tcol { border-right: 1px solid var(--line); }
+[data-theme="rose"] .sched .col.staff-end { border-right: 1px solid var(--line); }
+[data-theme="rose"] .sched .slot { border-bottom-color: #f8f0ed; }
+[data-theme="rose"] .sched .slot:hover { background: var(--pink-1); color: var(--rg-deep); }
+[data-theme="rose"] .vcard { letter-spacing: 0; background: #fde8ec; border: 1px solid #e9b4c0; border-radius: 3px; color: var(--ink); }
+[data-theme="rose"] .vcard.rehab { border-left: 4px solid var(--rg-deep); }
+[data-theme="rose"] .vcard.actual { background: #f7ecdc; border-color: #d8b88f; }
+[data-theme="rose"] .vcard .done { color: #3f7a57; }
+
+/* ---------- 記録表 ---------- */
+[data-theme="rose"] table.rec td.inp { background: #fffafa; border-left: 1px solid var(--rg-mid); }
+
+/* ---------- モーダル ---------- */
+[data-theme="rose"] .modal-wrap { background: rgba(90, 55, 50, .35); }
+[data-theme="rose"] .modal {
+  border-radius: 3px; padding: 24px 26px;
+  box-shadow: inset 0 0 0 6px #fff, inset 0 0 0 7px var(--rg-light), 0 18px 50px rgba(120, 70, 60, .2);
+}
+[data-theme="rose"] .modal h2 { letter-spacing: .18em; font-weight: 600; }
+[data-theme="rose"] .toast { background: #7d4d3e; border-radius: 2px; }
+
+/* ---------- スマホ ---------- */
+@media (max-width: 760px) {
+  [data-theme="rose"] .topbar { padding-top: 36px; }
+  [data-theme="rose"] .topbar::before { height: 20px; background-size: 18px 9px; }
+  [data-theme="rose"] .topbar::after { top: 26px; }
+  [data-theme="rose"] .brand { font-size: 18px; letter-spacing: .16em; }
+  [data-theme="rose"] .bg-blob { display: block; }
+  [data-theme="rose"] .bg-blob-1 { top: 40px; left: -60px; width: 330px; height: 120px; }
+  [data-theme="rose"] .bg-blob-2 { height: 300px; }
+  [data-theme="rose"] .rose-band { height: 40px; margin: 0 0 -4px; }
+  [data-theme="rose"] .rose-band span { font-size: 23px; }
+  [data-theme="rose"] .sheet { border-radius: 2px; padding: 26px 18px 36px; margin: 0 6px 96px; }
+  [data-theme="rose"] .sheet::before { inset: 2px; --s: 34px; --o: 4px; --l: 6px; }
+  [data-theme="rose"] .sheet::after { width: 78px; height: 78px; bottom: -84px; right: 14px; }
+  [data-theme="rose"] .eyebrow { font-size: 24px; }
+  [data-theme="rose"] .eyebrow::after { width: 54px; }
+  [data-theme="rose"] .page-head h1, [data-theme="rose"] .pt-head h1 { letter-spacing: .14em; }
+  [data-theme="rose"] .panel { padding: 16px 14px 18px; }
+}
+
+/* ---------- 印刷：飾りを消す ---------- */
+@media print {
+  [data-theme="rose"] body { background: #fff; }
+  [data-theme="rose"] .rose-band, [data-theme="rose"] .bg-blob,
+  [data-theme="rose"] .topbar::before, [data-theme="rose"] .topbar::after,
+  [data-theme="rose"] .sheet::before, [data-theme="rose"] .sheet::after, [data-theme="rose"] body::after,
+  [data-theme="rose"] .eyebrow::after, [data-theme="rose"] .page-head h1::before, [data-theme="rose"] .pt-head h1::before,
+  [data-theme="rose"] .crumb::before { display: none !important; }
+  [data-theme="rose"] .topbar { padding-top: 0; }
+  [data-theme="rose"] .brand { color: #8f5843; background: none; -webkit-background-clip: border-box; background-clip: border-box; }
+  [data-theme="rose"] .sheet { box-shadow: none; border: 0; margin: 0; }
+  [data-theme="rose"] .panel { box-shadow: none; }
+  [data-theme="rose"] .eyebrow { font-size: 16px; }
+}

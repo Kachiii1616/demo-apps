@@ -113,10 +113,16 @@ function renderMe() {
   sel.innerHTML = STAFF.map((s) => `<option value="${s.id}" ${s.id === me ? 'selected' : ''}>${esc(s.name)}</option>`).join('');
   $('#me-avatar').textContent = STAFF.find((s) => s.id === me).name.slice(0, 1);
 }
-function applyTheme() {
+// 着せ替え。ボタンを押すたびにこの順で切り替わる
+const THEMES = [['standard', 'スタンダード'], ['mint', 'ミント'], ['watercolor', '水彩']];
+function currentTheme() {
   const th = store.getPref('theme', 'standard');
+  return THEMES.some(([k]) => k === th) ? th : 'standard';
+}
+function applyTheme() {
+  const th = currentTheme();
   document.body.dataset.theme = th;
-  $('#design-btn').textContent = `デザイン: ${th === 'mint' ? 'ミント' : 'スタンダード'}`;
+  $('#design-btn').textContent = `デザイン: ${THEMES.find(([k]) => k === th)[1]}`;
 }
 
 function init() {
@@ -138,7 +144,7 @@ function init() {
   $('#me-select').addEventListener('change', (e) => { store.setMe(e.target.value); renderMe(); render(); toast(`${STAFF.find((s) => s.id === e.target.value).name} さんに切り替えました`); });
   $('#facility-change').addEventListener('click', () => toast('デモ版の事業所は 1 つだけです'));
   $('#logout').addEventListener('click', () => toast('デモ版ではログアウトできません'));
-  $('#design-btn').addEventListener('click', () => { store.setPref('theme', store.getPref('theme', 'standard') === 'mint' ? 'standard' : 'mint'); applyTheme(); });
+  $('#design-btn').addEventListener('click', () => { const i = THEMES.findIndex(([k]) => k === currentTheme()); store.setPref('theme', THEMES[(i + 1) % THEMES.length][0]); applyTheme(); });
   $('#collapse').addEventListener('click', () => {
     if (window.matchMedia('(max-width: 860px)').matches) { document.body.classList.remove('menu-open'); return; }
     document.body.classList.toggle('side-mini');

@@ -618,3 +618,153 @@ table.items-t input, table.wk-svc input { width: 16px; height: 16px; accent-colo
   body.print-cb .cb-card textarea { display: none; }
   body.print-cb .cb-print-text { display: block; border: 1px solid #ddd; border-radius: 8px; padding: 6px; min-height: 40px; white-space: pre-wrap; }
 }
+
+
+/* =====================================================================
+   着せ替え「水彩」 — 白地にパステルのにじみ・手書き風の文字・金の飾り枠
+   飾りはすべてこのファイル内の CSS と小さな SVG で描いている（外部画像なし）
+   ===================================================================== */
+body[data-theme="watercolor"] {
+  --bg: #fffefb; --side: rgba(255, 255, 255, .92); --card: #ffffff;
+  --line: #ece5da; --line-soft: #f3eee6;
+  --ink: #45403c; --ink2: #5e5751; --muted: #8f867d;
+  --pink: #e2789a; --pink-deep: #d6658a; --pink-ink: #c9557c; --pink-tab: #e2789a; --pink-soft: #fde8ef;
+  --peri: #d9eefa; --flower: #e9bf55;
+  --th: #fffaec; --stripe: #fffefa; --demo: rgba(255, 253, 244, .94);
+  --gold: #c9a24a; --gold-soft: rgba(201, 162, 74, .38);
+  --shadow: 0 1px 2px rgba(110, 95, 70, .04), 0 8px 26px rgba(110, 95, 70, .06);
+  --font: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Hiragino Sans', system-ui, sans-serif;
+  --hand: 'Klee One', 'Zen Maru Gothic', serif;
+  --brush: 'Yuji Syuku', 'Klee One', serif;
+  --script: 'Dancing Script', cursive;
+  background: var(--bg) url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='300'><defs><filter id='f' x='-50%' y='-50%' width='200%' height='200%'><feTurbulence type='fractalNoise' baseFrequency='.22' numOctaves='2' seed='3' result='n'/><feDisplacementMap in='SourceGraphic' in2='n' scale='3.5' xChannelSelector='R' yChannelSelector='G'/><feGaussianBlur stdDeviation='.9'/></filter><radialGradient id='y'><stop offset='0' stop-color='%23f9e08a' stop-opacity='.2'/><stop offset='.72' stop-color='%23f5d265' stop-opacity='.34'/><stop offset='1' stop-color='%23ecc04a' stop-opacity='.58'/></radialGradient><radialGradient id='b'><stop offset='0' stop-color='%23b5def4' stop-opacity='.2'/><stop offset='.72' stop-color='%238cc8ea' stop-opacity='.34'/><stop offset='1' stop-color='%236fb6e0' stop-opacity='.58'/></radialGradient><radialGradient id='p'><stop offset='0' stop-color='%23f9c9d4' stop-opacity='.2'/><stop offset='.72' stop-color='%23f3aabb' stop-opacity='.34'/><stop offset='1' stop-color='%23ec92a8' stop-opacity='.58'/></radialGradient><radialGradient id='m'><stop offset='0' stop-color='%23bfeadb' stop-opacity='.2'/><stop offset='.72' stop-color='%2398dbc1' stop-opacity='.34'/><stop offset='1' stop-color='%237acdad' stop-opacity='.58'/></radialGradient></defs><g filter='url(%23f)'><rect x='22' y='28' width='16' height='14' rx='5' fill='url(%23y)' transform='rotate(-12 30.0 35.0)'/><rect x='96' y='70' width='11' height='11' rx='6' fill='url(%23b)' transform='rotate(0 101.5 75.5)'/><rect x='150' y='22' width='14' height='16' rx='5' fill='url(%23p)' transform='rotate(10 157.0 30.0)'/><rect x='214' y='58' width='17' height='14' rx='5' fill='url(%23m)' transform='rotate(-8 222.5 65.0)'/><rect x='292' y='24' width='12' height='12' rx='6' fill='url(%23y)' transform='rotate(0 298.0 30.0)'/><rect x='330' y='96' width='15' height='13' rx='5' fill='url(%23b)' transform='rotate(14 337.5 102.5)'/><rect x='40' y='118' width='13' height='13' rx='7' fill='url(%23p)' transform='rotate(0 46.5 124.5)'/><rect x='118' y='150' width='18' height='14' rx='5' fill='url(%23y)' transform='rotate(8 127.0 157.0)'/><rect x='196' y='128' width='11' height='12' rx='5' fill='url(%23b)' transform='rotate(-10 201.5 134.0)'/><rect x='262' y='170' width='15' height='15' rx='8' fill='url(%23p)' transform='rotate(0 269.5 177.5)'/><rect x='14' y='214' width='15' height='13' rx='5' fill='url(%23m)' transform='rotate(12 21.5 220.5)'/><rect x='84' y='246' width='12' height='12' rx='6' fill='url(%23y)' transform='rotate(0 90.0 252.0)'/><rect x='160' y='212' width='16' height='13' rx='5' fill='url(%23b)' transform='rotate(-6 168.0 218.5)'/><rect x='236' y='262' width='13' height='15' rx='5' fill='url(%23y)' transform='rotate(9 242.5 269.5)'/><rect x='308' y='226' width='14' height='13' rx='5' fill='url(%23m)' transform='rotate(-14 315.0 232.5)'/><rect x='342' y='276' width='10' height='10' rx='5' fill='url(%23p)' transform='rotate(0 347.0 281.0)'/><rect x='56' y='178' width='8' height='8' rx='4' fill='url(%23b)' transform='rotate(0 60.0 182.0)'/><rect x='274' y='112' width='8' height='8' rx='4' fill='url(%23y)' transform='rotate(0 278.0 116.0)'/></g></svg>") repeat;
+  background-size: 470px 392px;
+}
+/* 大きなにじみの丸（黄・ミント・水色）。ふちの揺らぎは SVG のノイズで作る。カードの下にだけ見える */
+body[data-theme="watercolor"]::before, body[data-theme="watercolor"]::after { content: ''; position: fixed; z-index: 0; pointer-events: none; opacity: .82; background-position: center; background-size: contain; background-repeat: no-repeat; }
+body[data-theme="watercolor"]::before { width: 340px; height: 340px; left: 150px; bottom: -100px; background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'><defs><filter id='w' x='-15%' y='-15%' width='130%' height='130%'><feTurbulence type='fractalNoise' baseFrequency='.016' numOctaves='3' seed='4' result='n'/><feDisplacementMap in='SourceGraphic' in2='n' scale='30' xChannelSelector='R' yChannelSelector='G'/><feGaussianBlur stdDeviation='1.3'/></filter><radialGradient id='y' cx='.42' cy='.38' r='.62'><stop offset='0' stop-color='%23fdf0bd' stop-opacity='.38'/><stop offset='.55' stop-color='%23f8de8a' stop-opacity='.52'/><stop offset='.8' stop-color='%23f2cd63' stop-opacity='.68'/><stop offset='.9' stop-color='%23e8bb44' stop-opacity='.85'/></radialGradient></defs><g filter='url(%23w)'><circle cx='160' cy='160' r='132' fill='url(%23y)'/><ellipse cx='118' cy='200' rx='58' ry='40' fill='%23f2cc5c' opacity='.18'/><ellipse cx='200' cy='108' rx='40' ry='30' fill='%23fffaf0' opacity='.35'/></g></svg>"); }
+body[data-theme="watercolor"]::after { width: 450px; height: 345px; right: -120px; top: 64px; background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 430 330'><defs><filter id='w' x='-15%' y='-15%' width='130%' height='130%'><feTurbulence type='fractalNoise' baseFrequency='.016' numOctaves='3' seed='9' result='n'/><feDisplacementMap in='SourceGraphic' in2='n' scale='26' xChannelSelector='R' yChannelSelector='G'/><feGaussianBlur stdDeviation='1.3'/></filter><radialGradient id='m' cx='.42' cy='.38' r='.62'><stop offset='0' stop-color='%23dcf4ea' stop-opacity='.38'/><stop offset='.55' stop-color='%23b2e5cf' stop-opacity='.52'/><stop offset='.8' stop-color='%2390d6b9' stop-opacity='.68'/><stop offset='.9' stop-color='%2370c7a3' stop-opacity='.85'/></radialGradient><radialGradient id='b' cx='.42' cy='.38' r='.62'><stop offset='0' stop-color='%23dff0fb' stop-opacity='.38'/><stop offset='.55' stop-color='%23b4dbf3' stop-opacity='.52'/><stop offset='.8' stop-color='%2390c7eb' stop-opacity='.68'/><stop offset='.9' stop-color='%236cb2e0' stop-opacity='.85'/></radialGradient></defs><g filter='url(%23w)'><circle cx='155' cy='140' r='124' fill='url(%23m)'/><ellipse cx='120' cy='175' rx='50' ry='34' fill='%2384d0b0' opacity='.14'/><circle cx='326' cy='238' r='86' fill='url(%23b)'/></g></svg>"); }
+body[data-theme="watercolor"] .shell { position: relative; z-index: 1; }
+
+/* デモ帯は控えめに */
+body[data-theme="watercolor"] .demo-bar { border-bottom: 1px dashed var(--gold-soft); backdrop-filter: blur(4px); }
+body[data-theme="watercolor"] .demo-bar strong { font-weight: 500; color: var(--ink2); }
+body[data-theme="watercolor"] .demo-bar a { color: var(--muted); }
+body[data-theme="watercolor"] .demo-bar button { border-color: #e4d6b2; background: #fff; color: var(--ink2); }
+
+/* サイドメニュー */
+body[data-theme="watercolor"] .sidebar { border-right: 1px solid var(--line); backdrop-filter: blur(3px); }
+body[data-theme="watercolor"] .brand-title { font-family: var(--brush); font-weight: 400; font-size: 21px; letter-spacing: .08em; }
+body[data-theme="watercolor"] .pill-tag { position: relative; background: #fff; color: var(--ink2); border: 1.2px solid var(--ink2); border-radius: 50%; padding: 0 8px; line-height: 16px; font-weight: 500; }
+body[data-theme="watercolor"] .pill-tag::after { content: ''; position: absolute; left: -4px; bottom: 0; width: 6px; height: 6px; border-left: 1.2px solid var(--ink2); border-bottom: 1.2px solid var(--ink2); background: #fff; border-radius: 0 0 0 6px; transform: skewX(20deg); clip-path: polygon(0 0, 100% 100%, 0 100%); }
+body[data-theme="watercolor"] .nav a { font-weight: 500; letter-spacing: .06em; }
+body[data-theme="watercolor"] .nav a:hover { background: #f6fafc; }
+body[data-theme="watercolor"] .nav a.active { color: var(--ink); font-weight: 700; background: radial-gradient(ellipse at 28% 40%, rgba(255, 255, 255, .6), transparent 55%), #d6ecf9; box-shadow: inset 0 0 0 1px rgba(120, 182, 222, .35), inset 0 0 10px rgba(120, 182, 222, .45); }
+body[data-theme="watercolor"] .nav-label { font-family: var(--hand); font-weight: 600; color: var(--gold); letter-spacing: .14em; }
+body[data-theme="watercolor"] .design-btn { border: 1px solid var(--gold-soft); color: var(--ink2); font-family: var(--hand); font-weight: 600; background: #fffdf6; }
+body[data-theme="watercolor"] .avatar { background: radial-gradient(circle at 35% 35%, #fff6d3, #f8e19a); color: #8a6b1f; }
+body[data-theme="watercolor"] .collapse-btn, body[data-theme="watercolor"] .menu-btn { border-color: var(--line); }
+
+/* 見出し：英字の筆記体は金色の添え書き、日本語は筆文字。金の飾り枠で囲む */
+body[data-theme="watercolor"] .ttl:not(.plain), body[data-theme="watercolor"] .home-ttl {
+  position: relative; flex-direction: column; align-items: center; gap: 0;
+  padding: 13px 34px 11px; margin: 12px 0 8px; border: 1.3px solid var(--gold); border-radius: 22px;
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'><g transform='translate(0 0) scale(1 1)'><path d='M4 20 C 3 10, 8 4, 18 3 M10 10 C 6 12, 9 17, 12 14 C 14 12, 11 9, 9 11' fill='none' stroke='%23c9a24a' stroke-width='1.2' stroke-linecap='round'/></g></svg>") 6px 6px / 15px 15px no-repeat, url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'><g transform='translate(22 0) scale(-1 1)'><path d='M4 20 C 3 10, 8 4, 18 3 M10 10 C 6 12, 9 17, 12 14 C 14 12, 11 9, 9 11' fill='none' stroke='%23c9a24a' stroke-width='1.2' stroke-linecap='round'/></g></svg>") calc(100% - 6px) 6px / 15px 15px no-repeat,
+    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'><g transform='translate(0 22) scale(1 -1)'><path d='M4 20 C 3 10, 8 4, 18 3 M10 10 C 6 12, 9 17, 12 14 C 14 12, 11 9, 9 11' fill='none' stroke='%23c9a24a' stroke-width='1.2' stroke-linecap='round'/></g></svg>") 6px calc(100% - 6px) / 15px 15px no-repeat, url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'><g transform='translate(22 22) scale(-1 -1)'><path d='M4 20 C 3 10, 8 4, 18 3 M10 10 C 6 12, 9 17, 12 14 C 14 12, 11 9, 9 11' fill='none' stroke='%23c9a24a' stroke-width='1.2' stroke-linecap='round'/></g></svg>") calc(100% - 6px) calc(100% - 6px) / 15px 15px no-repeat, rgba(255, 255, 255, .9);
+  box-shadow: inset 0 0 0 4px rgba(255, 255, 255, .9), inset 0 0 0 5px var(--gold-soft);
+}
+body[data-theme="watercolor"] .ttl:not(.plain)::before, body[data-theme="watercolor"] .home-ttl::before,
+body[data-theme="watercolor"] .ttl:not(.plain)::after, body[data-theme="watercolor"] .home-ttl::after {
+  content: ''; position: absolute; left: 50%; width: 92px; height: 20px; transform: translateX(-50%); pointer-events: none;
+}
+body[data-theme="watercolor"] .ttl:not(.plain)::before, body[data-theme="watercolor"] .home-ttl::before { top: -11px; background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 26'><g fill='none' stroke='%23c9a24a' stroke-width='1.3' stroke-linecap='round'><path d='M57 18 C 46 23, 36 22, 31 15 C 27 9, 32 4, 36 8 C 39 11, 35 14, 33 12'/><path d='M31 15 C 23 21, 13 20, 4 18'/><circle cx='18' cy='12' r='1.3' fill='%23c9a24a' stroke='none'/><g transform='translate(120 0) scale(-1 1)'><path d='M57 18 C 46 23, 36 22, 31 15 C 27 9, 32 4, 36 8 C 39 11, 35 14, 33 12'/><path d='M31 15 C 23 21, 13 20, 4 18'/><circle cx='18' cy='12' r='1.3' fill='%23c9a24a' stroke='none'/></g><path d='M60 21 C 52 14, 53 5, 60 10 C 67 5, 68 14, 60 21 Z'/></g></svg>") center / 100% 100% no-repeat, linear-gradient(transparent 9px, #fff 9px, #fff 13px, transparent 13px) center / 64% 100% no-repeat; }
+body[data-theme="watercolor"] .ttl:not(.plain)::after, body[data-theme="watercolor"] .home-ttl::after { bottom: -11px; width: 70px; background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 26'><g transform='translate(0 26) scale(1 -1)'><g fill='none' stroke='%23c9a24a' stroke-width='1.3' stroke-linecap='round'><path d='M57 18 C 46 23, 36 22, 31 15 C 27 9, 32 4, 36 8 C 39 11, 35 14, 33 12'/><path d='M31 15 C 23 21, 13 20, 4 18'/><circle cx='18' cy='12' r='1.3' fill='%23c9a24a' stroke='none'/><g transform='translate(120 0) scale(-1 1)'><path d='M57 18 C 46 23, 36 22, 31 15 C 27 9, 32 4, 36 8 C 39 11, 35 14, 33 12'/><path d='M31 15 C 23 21, 13 20, 4 18'/><circle cx='18' cy='12' r='1.3' fill='%23c9a24a' stroke='none'/></g><path d='M60 21 C 52 14, 53 5, 60 10 C 67 5, 68 14, 60 21 Z'/></g></g></svg>") center / 100% 100% no-repeat, linear-gradient(transparent 7px, #fff 7px, #fff 11px, transparent 11px) center / 64% 100% no-repeat; }
+body[data-theme="watercolor"] .ttl .script { font-size: 21px; color: var(--gold); line-height: 1.1; font-weight: 600; }
+body[data-theme="watercolor"] .ttl .ja { font-family: var(--brush); font-weight: 400; font-size: 25px; letter-spacing: .16em; color: var(--ink); }
+body[data-theme="watercolor"] .home { text-align: left; }
+body[data-theme="watercolor"] .home-ttl { word-break: keep-all; display: table; margin: 14px auto 18px; font-family: var(--brush); font-weight: 400; font-size: 22px; letter-spacing: .12em; padding: 15px 30px 13px; text-align: center; }
+body[data-theme="watercolor"] .ttl.plain { font-family: var(--brush); font-weight: 400; letter-spacing: .12em; }
+body[data-theme="watercolor"] .ttl-sub, body[data-theme="watercolor"] .lead { font-family: var(--hand); }
+body[data-theme="watercolor"] .ttl-sub { color: var(--ink2); font-size: 12px; }
+body[data-theme="watercolor"] .sec-ttl { font-family: var(--hand); font-weight: 600; letter-spacing: .12em; padding-bottom: 5px; background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 6'><path d='M0 3 Q 5 0, 10 3 T 20 3 T 30 3 T 40 3' fill='none' stroke='%23c9a24a' stroke-width='1.1' opacity='.75'/></svg>") left bottom / 40px 6px repeat-x; }
+body[data-theme="watercolor"] .sec-ttl .script { color: var(--gold); font-size: 22px; font-weight: 600; }
+body[data-theme="watercolor"] .sec-ttl.plain { background: none; padding-bottom: 0; }
+body[data-theme="watercolor"] .h3, body[data-theme="watercolor"] .h4, body[data-theme="watercolor"] .ho-group h4, body[data-theme="watercolor"] .d-name, body[data-theme="watercolor"] .person-name, body[data-theme="watercolor"] .modal-head .n, body[data-theme="watercolor"] .confirm-head { font-family: var(--hand); font-weight: 600; }
+body[data-theme="watercolor"] .person-name { text-decoration-color: #f3b4c6; }
+body[data-theme="watercolor"] .hint-top, body[data-theme="watercolor"] .p-foot, body[data-theme="watercolor"] .p-note { font-family: var(--hand); }
+
+/* カード：中は白で文字くっきり */
+body[data-theme="watercolor"] .card, body[data-theme="watercolor"] .past-card, body[data-theme="watercolor"] .cb-card, body[data-theme="watercolor"] .quick { border: 1px solid var(--line); }
+body[data-theme="watercolor"] .quick { border-radius: 16px; }
+body[data-theme="watercolor"] .past-card { border-left: 4px solid #f1b3c5; }
+body[data-theme="watercolor"] .deco { color: var(--flower); opacity: .85; }
+body[data-theme="watercolor"] .p-day-box, body[data-theme="watercolor"] .addendum { background: #fbf9f4; }
+body[data-theme="watercolor"] table.p-table th { background: #fdf3d8; }
+
+/* タブ */
+body[data-theme="watercolor"] .subtabs a { font-family: var(--hand); font-weight: 600; }
+body[data-theme="watercolor"] .subtabs a:hover { background: #fff6f9; }
+body[data-theme="watercolor"] .subtabs a.on { background: var(--pink); color: #fff; box-shadow: inset 0 0 6px rgba(160, 40, 80, .18); }
+body[data-theme="watercolor"] .p-tabs a { font-family: var(--hand); font-weight: 600; }
+body[data-theme="watercolor"] .p-tabs a.on { color: var(--pink-ink); border-bottom: 3px solid transparent; border-image: linear-gradient(90deg, #f7c9d5, #e2789a, #f7c9d5) 1; }
+body[data-theme="watercolor"] .od-tab.on { border-color: #f1b3c5; }
+
+/* ボタン：角丸のピンク＋ふちに小さなハート */
+body[data-theme="watercolor"] .btn { border-color: #e8dfd1; color: var(--ink); }
+body[data-theme="watercolor"] .btn:hover { border-color: #e6c98a; }
+body[data-theme="watercolor"] .btn.pink, body[data-theme="watercolor"] .btn.grad, body[data-theme="watercolor"] .btn.big-grad, body[data-theme="watercolor"] .btn.big-pink,
+body[data-theme="watercolor"] .btn.green-big, body[data-theme="watercolor"] .confirm-foot .btn.primary, body[data-theme="watercolor"] .help-fab {
+  position: relative; background: var(--pink); border-color: var(--pink); color: #fff; box-shadow: 0 3px 10px rgba(214, 101, 138, .22), inset 0 0 8px rgba(160, 40, 80, .12);
+}
+body[data-theme="watercolor"] .btn.green-big { border-radius: 999px; }
+body[data-theme="watercolor"] .btn.pink:hover, body[data-theme="watercolor"] .btn.grad:hover, body[data-theme="watercolor"] .btn.big-grad:hover, body[data-theme="watercolor"] .btn.green-big:hover { background: var(--pink-deep); }
+body[data-theme="watercolor"] .btn.grad::after, body[data-theme="watercolor"] .btn.big-grad::after, body[data-theme="watercolor"] .btn.big-pink::after,
+body[data-theme="watercolor"] .btn.green-big::after, body[data-theme="watercolor"] .help-fab::after, body[data-theme="watercolor"] .btn.pink:not(.xs)::after {
+  content: ''; position: absolute; right: 9px; top: 4px; width: 9px; height: 8px; background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 11'><path d='M6 10 C 1.5 6.8, .6 4.4, 1.6 2.6 C 2.7 .8, 5 1.2, 6 3.2 C 7 1.2, 9.3 .8, 10.4 2.6 C 11.4 4.4, 10.5 6.8, 6 10 Z' fill='none' stroke='white' stroke-width='1.1' stroke-linejoin='round'/></svg>") center / contain no-repeat; opacity: .9; pointer-events: none;
+}
+body[data-theme="watercolor"] .btn.big-grad::before, body[data-theme="watercolor"] .btn.green-big::before {
+  content: ''; position: absolute; left: 12px; bottom: 5px; width: 8px; height: 7px; background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 11'><path d='M6 10 C 1.5 6.8, .6 4.4, 1.6 2.6 C 2.7 .8, 5 1.2, 6 3.2 C 7 1.2, 9.3 .8, 10.4 2.6 C 11.4 4.4, 10.5 6.8, 6 10 Z' fill='none' stroke='white' stroke-width='1.1' stroke-linejoin='round'/></svg>") center / contain no-repeat; opacity: .75; pointer-events: none;
+}
+body[data-theme="watercolor"] .help-fab { position: fixed; font-family: var(--hand); font-weight: 600; padding: 9px 24px 9px 18px; }
+body[data-theme="watercolor"] .btn.ghost-pink { border-color: #f3bccb; }
+body[data-theme="watercolor"] .chip { border-color: #e8dfd1; }
+body[data-theme="watercolor"] .chip.on, body[data-theme="watercolor"] .chip.tagpick.on { background: var(--pink); border-color: var(--pink); color: #fff; }
+body[data-theme="watercolor"] .seg a.on, body[data-theme="watercolor"] .wd.on { background: var(--pink); box-shadow: 0 3px 10px rgba(214, 101, 138, .22); }
+body[data-theme="watercolor"] .round-pill { background: #f4c4d2; }
+body[data-theme="watercolor"] .segd button.on { background: #5d5650; border-color: #5d5650; }
+body[data-theme="watercolor"] .mic { background: radial-gradient(circle at 35% 32%, #f9b9cb, var(--pink) 70%); box-shadow: 0 4px 14px rgba(214, 101, 138, .28); }
+body[data-theme="watercolor"] .mic-l { font-family: var(--hand); font-weight: 600; }
+
+/* 入力欄 */
+body[data-theme="watercolor"] .input, body[data-theme="watercolor"] .search { border-color: #e6ddcf; }
+body[data-theme="watercolor"] .input:focus, body[data-theme="watercolor"] .search:focus { outline: 2px solid #f8cfdb; border-color: var(--pink); }
+
+/* 表：見出しは淡い黄色、本文は白で読みやすく */
+body[data-theme="watercolor"] .diary-wrap { border-color: var(--line); }
+body[data-theme="watercolor"] table.diary thead th, body[data-theme="watercolor"] table.grid-table th, body[data-theme="watercolor"] table.weekly th { color: var(--ink); }
+body[data-theme="watercolor"] button.cell .plus, body[data-theme="watercolor"] .cell-plus { color: #e2d3b6; }
+body[data-theme="watercolor"] table.weekly .today { background: #fdecf2; }
+
+/* モーダル */
+body[data-theme="watercolor"] .modal-wrap { background: rgba(80, 70, 60, .26); }
+body[data-theme="watercolor"] .modal, body[data-theme="watercolor"] .confirm { border: 1px solid var(--gold-soft); box-shadow: inset 0 0 0 4px #fff, inset 0 0 0 5px rgba(201, 162, 74, .2), 0 12px 40px rgba(60, 45, 30, .2); }
+body[data-theme="watercolor"] .modal-head .d { font-family: var(--hand); font-weight: 600; }
+body[data-theme="watercolor"] .toast { background: #4f4842; }
+
+@media (max-width: 860px) {
+  body[data-theme="watercolor"]::before { width: 230px; height: 230px; left: -80px; bottom: -70px; }
+  body[data-theme="watercolor"]::after { width: 300px; height: 230px; right: -120px; top: 40px; }
+  body[data-theme="watercolor"] .sidebar { background: #fff; }
+  body[data-theme="watercolor"] .ttl:not(.plain) { padding: 12px 22px 10px; }
+  body[data-theme="watercolor"] .ttl .script { font-size: 19px; }
+  body[data-theme="watercolor"] .ttl .ja { font-size: 21px; letter-spacing: .12em; }
+  body[data-theme="watercolor"] .home-ttl { font-size: 18px; padding: 14px 20px 12px; letter-spacing: .06em; }
+}
+@media print {
+  body[data-theme="watercolor"] { background: #fff; }
+  body[data-theme="watercolor"]::before, body[data-theme="watercolor"]::after,
+  body[data-theme="watercolor"] .ttl::before, body[data-theme="watercolor"] .ttl::after,
+  body[data-theme="watercolor"] .home-ttl::before, body[data-theme="watercolor"] .home-ttl::after, body[data-theme="watercolor"] .btn::before, body[data-theme="watercolor"] .btn::after { display: none !important; }
+  body[data-theme="watercolor"] .ttl:not(.plain), body[data-theme="watercolor"] .home-ttl { border: none; box-shadow: none; background: none; padding: 0; margin: 0 0 6px; }
+  body[data-theme="watercolor"] .sec-ttl { background: none; }
+}

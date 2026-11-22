@@ -16,6 +16,31 @@ const routes = {
   print: renderPrint,
 };
 
+// 着せ替え（テーマ）。標準は data-theme なし
+const THEME_KEY = 'showcase-shift:theme';
+const THEMES = ['standard', 'greige'];
+function applyTheme(t) {
+  if (!THEMES.includes(t)) t = 'standard';
+  if (t === 'standard') delete document.documentElement.dataset.theme;
+  else document.documentElement.dataset.theme = t;
+  document.getElementById('themeSelect').value = t;
+}
+applyTheme(document.documentElement.dataset.theme || 'standard');
+document.getElementById('themeSelect').addEventListener('change', (e) => {
+  applyTheme(e.target.value);
+  try { localStorage.setItem(THEME_KEY, e.target.value); } catch (err) { /* 保存できない環境では今回だけ */ }
+});
+
+// グレージュのときだけ見える見出し帯の文言
+const HERO = {
+  month: ['No. 1', 'MONTHLY SHIFT', 'Plan the month'],
+  daily: ['No. 2', 'DAILY ASSIGNMENT', 'Share the day'],
+  requests: ['No. 3', 'DAY-OFF REQUESTS', 'Rest well'],
+  calendar: ['No. 4', 'CALENDAR', 'Days at a glance'],
+  settings: ['No. 5', 'STAFF & SHIFT TYPES', 'Set things up'],
+  print: ['No. 1', 'PRINT PREVIEW', 'Ready for paper'],
+};
+
 function parseHash() {
   const h = location.hash.replace(/^#\/?/, '');
   const [path, query = ''] = h.split('?');
@@ -33,6 +58,10 @@ function render(keepScroll = false) {
   const { name, args, query } = parseHash();
   const fn = routes[name] || renderMonth;
   document.querySelectorAll('#tabs a').forEach((a) => a.classList.toggle('active', a.dataset.route === (name === 'print' ? 'month' : name)));
+  const hero = HERO[routes[name] ? name : 'month'];
+  document.getElementById('heroNo').textContent = hero[0];
+  document.getElementById('heroEn').textContent = hero[1];
+  document.getElementById('heroScript').textContent = hero[2];
   const view = document.getElementById('view');
   view.innerHTML = '';
   fn(view, { args, query, rerender: () => render(true) });

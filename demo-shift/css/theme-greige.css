@@ -1,0 +1,241 @@
+/* 着せ替え「グレージュ」 — くすんだグレージュ・オフホワイト・セージの静かな配色
+   html[data-theme="greige"] のときだけ効く。標準の見た目には触れない。 */
+html[data-theme="greige"] {
+  --ink: #4a4540;
+  --ink-soft: #6f6862;
+  --muted: #9d958c;
+  --line: #e4ded6;
+  --line-strong: #d6cec4;
+  --card: #ffffff;
+  --bg1: #f7f5f1;
+  --bg2: #f7f5f1;
+  --coral: #a68b78;          /* モカ（主ボタン・強調） */
+  --coral-deep: #876d5c;
+  --coral-soft: #f1e9e2;
+  --coral-line: #d8c6b8;
+  --mint: #8e9a85;           /* セージ（保存） */
+  --mint-deep: #76826d;
+  --mint-soft: #e8ebe2;
+  --blue-soft: #e8ebef;
+  --blue-line: #cbd1d9;
+  --warn: #b0503d;
+  --warn-soft: #f6e6e1;
+  --amber-soft: #f5efe1;
+  --amber-line: #e2d4b3;
+  --sat: #52708f;
+  --sun: #b3554a;
+  --radius: 3px;
+  --shadow: 0 6px 22px rgba(90, 76, 62, 0.07);
+  --g-greige: #ddd6cc;
+  --g-greige-soft: #ebe6df;
+  --g-sage: #d7dccf;
+  --g-sage-soft: #e6e9e0;
+  --g-head: #f8f5f1;
+  --g-serif-en: "Cormorant Garamond", "Times New Roman", serif;
+  --g-script: "Pinyon Script", cursive;
+  --g-mincho: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --g-sprig: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 260' fill='none' stroke='%237f7b6c' stroke-width='0.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M30 258C45 205 52 162 80 120S128 54 152 8'/%3E%3Cpath d='M38 228c-10-4-26-14-30-30c14 2 26 12 30 30z M38 228l-20-20 M46 196c12-2 26-10 32-26c-14 0-28 10-32 26z M46 196l22-18 M56 166c-10-4-26-14-30-30c14 2 26 12 30 30z M56 166l-20-20 M72 136c12-2 26-10 32-26c-14 0-28 10-32 26z M72 136l22-18 M92 106c-10-4-26-14-30-30c14 2 26 12 30 30z M92 106l-20-20 M112 80c12-2 26-10 32-26c-14 0-28 10-32 26z M112 80l22-18 M132 50c-10-4-26-14-30-30c14 2 26 12 30 30z M132 50l-20-20 M146 24c12-2 26-10 32-26c-14 0-28 10-32 26z M146 24l22-18'/%3E%3Cpath d='M60 160c18-6 40-2 58 12' /%3E%3Cpath d='M118 172c-6-10-4-20 4-28c6 10 4 20-4 28z M88 162c-2-10 2-18 10-22c2 10-2 18-10 22z'/%3E%3C/svg%3E");
+  --g-twig: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 120' fill='none' stroke='%237f7b6c' stroke-width='0.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 100C60 92 120 70 236 18'/%3E%3Cpath d='M40 93c-2-14 6-28 22-34c2 14-6 28-22 34z M80 84c4-14 18-24 34-24c-4 14-18 24-34 24z M80 84c2 14 14 24 30 26c-2-14-14-24-30-26z M130 64c2-14 14-26 30-28c-2 14-14 26-30 28z M170 46c6-12 20-18 34-16c-6 12-20 18-34 16z M170 46c4 12 16 20 30 20c-4-12-16-20-30-20z'/%3E%3Ccircle cx='214' cy='30' r='1.6'/%3E%3Ccircle cx='224' cy='22' r='1.2'/%3E%3Ccircle cx='206' cy='20' r='1.2'/%3E%3C/svg%3E");
+}
+html[data-theme="greige"] body {
+  font-variant-numeric: lining-nums;
+  font-family: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  background: var(--bg1);
+  background-image: var(--g-sprig);
+  background-repeat: no-repeat;
+  background-position: right -30px bottom -20px;
+  background-size: 210px auto;
+  background-attachment: fixed;
+  letter-spacing: 0.02em;
+}
+
+/* デモ帯は控えめに */
+html[data-theme="greige"] .demo-bar { background: #efebe5; border-bottom: 1px solid var(--line); color: var(--ink-soft); letter-spacing: 0.06em; font-size: 11.5px; }
+html[data-theme="greige"] .demo-bar a { color: var(--ink-soft); }
+html[data-theme="greige"] .demo-bar strong { font-weight: 500; }
+html[data-theme="greige"] .demo-bar button { border-color: var(--line-strong); background: transparent; border-radius: 2px; color: var(--ink-soft); }
+
+/* ヘッダ：グレージュの帯＋線画の枝 */
+html[data-theme="greige"] .app-head {
+  background-color: var(--g-greige);
+  background-image: var(--g-twig);
+  background-repeat: no-repeat;
+  background-position: left 430px center;
+  background-size: 190px auto;
+  padding: 16px 22px 14px;
+}
+html[data-theme="greige"] .brand-mark { display: none; }
+html[data-theme="greige"] .brand-script { font-family: var(--g-script); color: var(--coral-deep); font-size: 30px; font-weight: 400; margin-right: 2px; }
+html[data-theme="greige"] .brand-ja { font-family: var(--g-mincho); font-weight: 600; font-size: 19px; letter-spacing: 0.22em; color: var(--ink); }
+html[data-theme="greige"] .facility-pill { border-radius: 0; background: transparent; border: 0; border-left: 1px solid #b9b0a5; padding: 0 0 0 12px; letter-spacing: 0.12em; color: var(--ink-soft); }
+html[data-theme="greige"] .head-user { letter-spacing: 0.08em; }
+html[data-theme="greige"] .theme-pick { color: var(--ink-soft); letter-spacing: 0.08em; }
+html[data-theme="greige"] .theme-pick select { border-radius: 2px; background: var(--g-head); border-color: #c4bbb0; }
+
+/* タブ：オフホワイトに細い罫線、番号つきの英字 */
+html[data-theme="greige"] .tabs {
+  background: var(--g-head); border-top: 1px solid #cfc7bc; border-bottom: 1px solid var(--line);
+  justify-content: center; gap: 6px; counter-reset: gtab;
+}
+html[data-theme="greige"] .tabs a {
+  counter-increment: gtab; padding: 11px 14px 9px; letter-spacing: 0.14em; font-size: 12.5px;
+  color: var(--ink-soft); border-bottom: 1px solid transparent;
+}
+html[data-theme="greige"] .tabs a::before {
+  content: "No." counter(gtab); font-family: var(--g-serif-en); font-size: 12px; letter-spacing: 0.06em;
+  color: var(--muted); margin-right: 6px;
+}
+html[data-theme="greige"] .tabs a.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--coral-deep); }
+
+/* 見出し帯：セージの淡いブロック＋大文字セリフ＋筆記体 */
+html[data-theme="greige"] .theme-hero {
+  display: flex; flex-direction: column; align-items: center; gap: 0; text-align: center;
+  padding: 26px 16px 22px; background-color: var(--g-sage-soft);
+  background-image: var(--g-sprig), var(--g-twig);
+  background-repeat: no-repeat, no-repeat;
+  background-position: left 4% top -40px, right 6% bottom 6px;
+  background-size: 120px auto, 170px auto;
+  border-bottom: 1px solid #d4d9cb;
+}
+html[data-theme="greige"] .hero-no { font-family: var(--g-serif-en); font-size: 13px; letter-spacing: 0.2em; color: var(--ink-soft); }
+html[data-theme="greige"] .hero-no::after { content: ""; display: block; width: 28px; height: 1px; background: #a9ad9f; margin: 6px auto 8px; }
+html[data-theme="greige"] .hero-en { font-family: var(--g-serif-en); font-weight: 400; font-size: 25px; letter-spacing: 0.32em; color: var(--ink); line-height: 1.2; padding-left: 0.32em; }
+html[data-theme="greige"] .hero-script { font-family: var(--g-script); font-size: 21px; color: var(--coral-deep); line-height: 1.2; margin-top: 2px; }
+
+html[data-theme="greige"] main { padding: 22px 22px 70px; }
+html[data-theme="greige"] .lead { text-align: center; max-width: 760px; margin: 0 auto 18px; color: var(--ink-soft); line-height: 1.9; letter-spacing: 0.04em; }
+html[data-theme="greige"] .card { padding: 18px 20px; border-color: #ebe6df; }
+html[data-theme="greige"] .card h2,
+html[data-theme="greige"] .modal h3 { font-family: var(--g-mincho); font-weight: 600; letter-spacing: 0.1em; }
+html[data-theme="greige"] .card h2 { font-size: 15.5px; }
+html[data-theme="greige"] .modal h3 { font-size: 17px; padding-bottom: 8px; border-bottom: 1px solid var(--line); margin-bottom: 10px; }
+
+/* ボタン：小さな四角、主はモカ */
+html[data-theme="greige"] .btn { border-radius: 2px; border-width: 1px; border-color: var(--line-strong); letter-spacing: 0.08em; padding: 6px 16px; }
+html[data-theme="greige"] .btn:hover { background: #faf8f5; }
+html[data-theme="greige"] .btn.small { padding: 3px 11px; }
+html[data-theme="greige"] .btn.primary { background: var(--coral); border-color: var(--coral); box-shadow: none; }
+html[data-theme="greige"] .btn.primary:hover { background: var(--coral-deep); border-color: var(--coral-deep); }
+html[data-theme="greige"] .btn.save { background: var(--mint); border-color: var(--mint); box-shadow: none; }
+html[data-theme="greige"] .btn.save:hover { background: var(--mint-deep); border-color: var(--mint-deep); }
+html[data-theme="greige"] .btn.outline { border-color: var(--coral-line); color: var(--coral-deep); }
+html[data-theme="greige"] .btn.blue { border-color: var(--blue-line); color: #56677d; }
+html[data-theme="greige"] .btn.danger { border-color: #e1c3ba; }
+
+/* 入力欄：角を落として細い線 */
+html[data-theme="greige"] .select,
+html[data-theme="greige"] .input,
+html[data-theme="greige"] .textarea { border-radius: 2px; border-width: 1px; background: #fff; }
+html[data-theme="greige"] .input:focus,
+html[data-theme="greige"] .select:focus,
+html[data-theme="greige"] .textarea:focus { outline: 2px solid #d9cbbf; }
+html[data-theme="greige"] label.field { font-weight: 500; letter-spacing: 0.08em; color: var(--ink-soft); }
+html[data-theme="greige"] .chip-btn { border-radius: 2px; border-width: 1px; }
+html[data-theme="greige"] .chip-btn.on { background: var(--coral); border-color: var(--coral); }
+html[data-theme="greige"] .badge { border-radius: 2px; font-weight: 500; letter-spacing: 0.06em; }
+html[data-theme="greige"] .badge.draft { color: #87703a; }
+html[data-theme="greige"] .badge.saved { color: #56677d; }
+html[data-theme="greige"] .badge.published { color: #5f6e57; border-color: #cdd5c4; }
+html[data-theme="greige"] .notice { border-radius: 2px; }
+html[data-theme="greige"] .notice.ok { color: #56654f; border-color: #cdd5c4; }
+html[data-theme="greige"] .notice.info { color: #4f6077; }
+html[data-theme="greige"] .notice.warn { color: #75602d; }
+html[data-theme="greige"] .legend .chip { border-radius: 2px; background: #fff; }
+html[data-theme="greige"] .subtabs button { letter-spacing: 0.1em; }
+html[data-theme="greige"] .subtabs button.on { color: var(--ink); border-bottom-color: var(--coral-deep); font-weight: 500; }
+html[data-theme="greige"] .swatch { border-radius: 1px; }
+
+/* 勤務記号：区別はそのまま、色だけ少しくすませる */
+html[data-theme="greige"] .code {
+  background: color-mix(in srgb, var(--c, #eee) 84%, #b9ae9f);
+  color: color-mix(in srgb, var(--c, #ccc) 22%, #3f3a35);
+  border-radius: 2px;
+}
+html[data-theme="greige"] .shift td.cell { background: color-mix(in srgb, var(--c, #fff) 86%, #c3b8aa); color: color-mix(in srgb, var(--c, #ccc) 22%, #3f3a35); }
+html[data-theme="greige"] .shift td.cell.empty { background: repeating-linear-gradient(135deg, #fff 0 5px, #f6f3ef 5px 10px); color: #c9c1b7; }
+html[data-theme="greige"] .shift td.cell.closed { background: #f1eeea; color: #b2aaa0; }
+html[data-theme="greige"] .shift td.cell:hover { outline-color: var(--coral-deep); }
+html[data-theme="greige"] .pop .opt { background: color-mix(in srgb, var(--c, #f5f5f5) 86%, #c3b8aa); color: color-mix(in srgb, var(--c, #ccc) 22%, #3f3a35); border-radius: 2px; }
+html[data-theme="greige"] .pop .opt.clear { background: #fff; }
+html[data-theme="greige"] .pop .opt.cur { border-color: var(--coral-deep); }
+html[data-theme="greige"] .daily td.slot { background: color-mix(in srgb, var(--c, #fff) 88%, #c3b8aa); color: color-mix(in srgb, var(--c, #ccc) 22%, #3f3a35); }
+html[data-theme="greige"] .daily td.slot.cont { color: transparent; }
+html[data-theme="greige"] .daily td.slot.off { background: #f3f0ec; }
+html[data-theme="greige"] .daily td.slot:not(.off):hover { outline-color: var(--coral-deep); }
+
+/* 表：見出し行はグレージュ、細い罫線 */
+html[data-theme="greige"] .tbl th { background: var(--g-greige-soft); font-weight: 500; letter-spacing: 0.08em; }
+html[data-theme="greige"] .shift-wrap,
+html[data-theme="greige"] .daily-wrap { border-color: #e6e0d8; }
+html[data-theme="greige"] .shift th,
+html[data-theme="greige"] .shift td,
+html[data-theme="greige"] .daily th,
+html[data-theme="greige"] .daily td { border-right-color: #eee9e3; border-bottom-color: #eee9e3; }
+html[data-theme="greige"] .shift thead th,
+html[data-theme="greige"] .shift thead .who,
+html[data-theme="greige"] .daily thead th { background: var(--g-greige-soft); }
+html[data-theme="greige"] .shift thead th.sat { background: #e6e9ed; }
+html[data-theme="greige"] .shift thead th.sun { background: #f1e5e1; }
+html[data-theme="greige"] .shift .who b { font-weight: 500; letter-spacing: 0.04em; }
+html[data-theme="greige"] .shift td.sum,
+html[data-theme="greige"] .shift tfoot td,
+html[data-theme="greige"] .shift tfoot .who,
+html[data-theme="greige"] .daily .time,
+html[data-theme="greige"] .daily td.count { background: #fbfaf8; }
+html[data-theme="greige"] .shift tfoot tr.total td,
+html[data-theme="greige"] .shift tfoot tr.total .who { background: var(--g-sage-soft); }
+html[data-theme="greige"] .shift td.cell.streak { box-shadow: inset 0 -3px 0 #c39a55; }
+
+/* カレンダー */
+html[data-theme="greige"] .cal .dow { font-family: var(--g-serif-en); letter-spacing: 0.12em; font-weight: 500; font-size: 13px; }
+html[data-theme="greige"] .cal .day { border-radius: 2px; border-color: #e8e2da; }
+html[data-theme="greige"] .cal .day.other { background: #f4f1ed; }
+html[data-theme="greige"] .cal .day.today { border-color: var(--coral-deep); }
+html[data-theme="greige"] .cal .day .num { font-family: var(--g-serif-en); font-size: 15px; font-weight: 500; }
+html[data-theme="greige"] .cal .ev { border-radius: 1px; }
+html[data-theme="greige"] .cal .ev.meeting { color: #56677d; }
+html[data-theme="greige"] .cal .ev.training { color: #5f6e57; }
+
+/* ポップオーバー・モーダル・トースト */
+html[data-theme="greige"] .pop { border-radius: 3px; box-shadow: 0 14px 34px rgba(70, 58, 46, 0.16); }
+html[data-theme="greige"] .modal-back { background: rgba(74, 69, 64, 0.32); }
+html[data-theme="greige"] .modal {
+  border-radius: 3px; padding: 22px 24px;
+  background-color: #fff; background-image: var(--g-twig); background-repeat: no-repeat;
+  background-position: right -30px top -18px; background-size: 150px auto;
+}
+html[data-theme="greige"] .toast { border-radius: 2px; background: #5b544d; letter-spacing: 0.06em; }
+
+/* 休み希望 */
+html[data-theme="greige"] .date-chips span { border-radius: 2px; }
+
+/* 印刷プレビュー */
+html[data-theme="greige"] .print-page { border-radius: 2px; }
+html[data-theme="greige"] .print-page h1 { font-family: var(--g-mincho); font-weight: 600; letter-spacing: 0.14em; }
+html[data-theme="greige"] .print-tbl th { background: #efebe5; }
+
+/* スマホ幅 */
+@media (max-width: 760px) {
+  html[data-theme="greige"] .app-head { padding: 12px 12px 10px; background-position: right -40px center; background-size: 150px auto; }
+  html[data-theme="greige"] .brand-script { font-size: 25px; }
+  html[data-theme="greige"] .brand-ja { font-size: 16px; letter-spacing: 0.14em; }
+  html[data-theme="greige"] .tabs { justify-content: flex-start; gap: 0; }
+  html[data-theme="greige"] .tabs a { padding: 10px 10px 8px; letter-spacing: 0.08em; }
+  html[data-theme="greige"] .theme-hero { padding: 18px 12px 14px; background-size: 80px auto, 120px auto; background-position: left -14px top -40px, right -30px bottom 4px; }
+  html[data-theme="greige"] .hero-en { font-size: 19px; letter-spacing: 0.22em; padding-left: 0.22em; }
+  html[data-theme="greige"] .hero-script { font-size: 18px; }
+  html[data-theme="greige"] main { padding: 16px 12px 60px; }
+  html[data-theme="greige"] .lead { text-align: left; }
+  html[data-theme="greige"] body { background-size: 140px auto; }
+  html[data-theme="greige"] .card { padding: 14px 14px; }
+  /* 休み希望：表が広がって画面からはみ出さないよう、表は枠内で横スクロール */
+  html[data-theme="greige"] .req-layout { grid-template-columns: minmax(0, 1fr); }
+  html[data-theme="greige"] .req-layout .tbl td.small { min-width: 6.5em; }
+}
+
+/* 印刷では飾りを消す */
+@media print {
+  html[data-theme="greige"] body { background: #fff; background-image: none; }
+  html[data-theme="greige"] .theme-hero { display: none !important; }
+  html[data-theme="greige"] .modal { background-image: none; }
+}

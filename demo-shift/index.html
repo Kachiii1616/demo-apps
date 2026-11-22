@@ -7,7 +7,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Kaushan+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Pinyon+Script&family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+  // 着せ替え：保存済みのテーマを描画前に当てる
+  try { var t = localStorage.getItem('showcase-shift:theme'); if (t && t !== 'standard') document.documentElement.dataset.theme = t; } catch (e) { /* 保存できない環境は標準 */ }
+</script>
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/theme-greige.css">
 </head>
 <body>
 <div class="demo-bar no-print">
@@ -26,7 +32,16 @@
     <span class="brand-script">Shift</span><span class="brand-ja">シフト管理</span>
     <span class="facility-pill" id="facilityName"></span>
   </div>
-  <div class="head-user" id="headUser"></div>
+  <div class="head-right">
+    <div class="head-user" id="headUser"></div>
+    <label class="theme-pick" title="画面の着せ替え">
+      <span>着せ替え</span>
+      <select id="themeSelect" aria-label="着せ替え">
+        <option value="standard">標準</option>
+        <option value="greige">グレージュ</option>
+      </select>
+    </label>
+  </div>
 </header>
 <nav class="tabs no-print" id="tabs">
   <a href="#/month" data-route="month">月シフト</a>
@@ -36,6 +51,11 @@
   <a href="#/settings" data-route="settings">職員・勤務区分</a>
 </nav>
 
+<div class="theme-hero no-print" id="pageHero" aria-hidden="true">
+  <span class="hero-no" id="heroNo"></span>
+  <span class="hero-en" id="heroEn"></span>
+  <span class="hero-script" id="heroScript"></span>
+</div>
 <main id="view"></main>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
