@@ -183,7 +183,10 @@ html[data-theme="simple"] .sheet .sec { border-left-color: #8a96a3; }
   html[data-theme="simple"] .brand__ja { font-size: 17px; }
   html[data-theme="simple"] .page-title .ja { font-size: 20px; }
   html[data-theme="simple"] .card { padding: 16px 14px; border-radius: 4px; }
-  html[data-theme="simple"] .detail-head h1 { font-size: 18px; letter-spacing: 0; }
+  html[data-theme="simple"] .detail-head h1 { font-size: 18px; letter-spacing: 0; min-width: 8em; }
+  /* 表は横スクロールの中で、商品名などが 1 文字ずつ折り返さない幅を保つ */
+  html[data-theme="simple"] .tbl td:not(.num):not(.nowrap):not(.empty) { min-width: 7.5em; }
+  html[data-theme="simple"] .tbl th, html[data-theme="simple"] .tbl td { padding: 8px 7px; }
 }
 
 @media print {
