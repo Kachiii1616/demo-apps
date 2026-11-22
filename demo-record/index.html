@@ -5,12 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>記録アプリ（デモ版）</title>
   <link rel="icon" href="data:,">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Pacifico&family=Dancing+Script:wght@600&family=Klee+One:wght@400;600&family=Yuji+Syuku&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    // 着せ替えを描画前に決める。「シンプル」のときは Web フォントを読み込まない
+    (function () {
+      var th = 'standard';
+      try { th = JSON.parse(localStorage.getItem('showcase-record:prefs') || '{}').theme || 'standard'; } catch (e) { /* 既定のまま */ }
+      window.__showcaseTheme = th;
+      window.__loadWebFonts = function () {
+        if (document.getElementById('webfonts')) return;
+        var l = document.createElement('link');
+        l.id = 'webfonts'; l.rel = 'stylesheet';
+        l.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Pacifico&family=Dancing+Script:wght@600&family=Klee+One:wght@400;600&family=Yuji+Syuku&family=Zen+Maru+Gothic:wght@400;500;700&display=swap';
+        document.head.appendChild(l);
+      };
+      if (th !== 'simple') window.__loadWebFonts();
+    })();
+  </script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/theme-simple.css">
 </head>
 <body>
+  <script>document.body.dataset.theme = window.__showcaseTheme || 'standard';</script>
   <div class="demo-bar">
     <a href="../demo-portal/">← デモ一覧へ</a>
     <strong>デモ版（データは架空です）</strong>

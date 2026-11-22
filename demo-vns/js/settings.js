@@ -2,7 +2,7 @@
 import { db, save, reset, getTheme, setTheme, uid } from './store.js';
 import { $, $$, esc, toast, setTopActions, printAction, opt } from './ui.js';
 
-const THEMES = [['sakura', 'さくら色'], ['sora', 'そら色'], ['haru', 'はる色'], ['rose', 'ローズゴールド'], ['std', '標準']];
+const THEMES = [['sakura', 'さくら色'], ['sora', 'そら色'], ['haru', 'はる色'], ['rose', 'ローズゴールド'], ['std', '標準'], ['simple', 'シンプル']];
 
 export function renderSettings(view, applyTheme) {
   setTopActions([printAction()]);

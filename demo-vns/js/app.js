@@ -14,7 +14,11 @@ const MENU = [
   { route: 'settings', label: '設定', en: 'SETTINGS' },
 ];
 
-function applyTheme() { document.documentElement.dataset.theme = getTheme(); }
+function applyTheme() {
+  const t = getTheme();
+  document.documentElement.dataset.theme = t;
+  if (t !== 'simple' && window.showcaseLoadFonts) window.showcaseLoadFonts();
+}
 
 function openMenu() { $('#drawer').hidden = false; $('#drawer-backdrop').hidden = false; }
 function closeMenu() { $('#drawer').hidden = true; $('#drawer-backdrop').hidden = true; }

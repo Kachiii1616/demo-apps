@@ -114,7 +114,7 @@ function renderMe() {
   $('#me-avatar').textContent = STAFF.find((s) => s.id === me).name.slice(0, 1);
 }
 // 着せ替え。ボタンを押すたびにこの順で切り替わる
-const THEMES = [['standard', 'スタンダード'], ['mint', 'ミント'], ['watercolor', '水彩']];
+const THEMES = [['standard', 'スタンダード'], ['mint', 'ミント'], ['watercolor', '水彩'], ['simple', 'シンプル']];
 function currentTheme() {
   const th = store.getPref('theme', 'standard');
   return THEMES.some(([k]) => k === th) ? th : 'standard';
@@ -122,6 +122,7 @@ function currentTheme() {
 function applyTheme() {
   const th = currentTheme();
   document.body.dataset.theme = th;
+  if (th !== 'simple' && window.__loadWebFonts) window.__loadWebFonts();
   $('#design-btn').textContent = `デザイン: ${THEMES.find(([k]) => k === th)[1]}`;
 }
 

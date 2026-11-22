@@ -395,20 +395,30 @@ function render() {
 // ---------- 着せ替え ----------
 const THEME_KEY = 'showcase-bento:theme';
 const WA_FONTS = 'https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap';
-function currentTheme() { return document.documentElement.dataset.theme === 'wagashi' ? 'wagashi' : 'standard'; }
+const BASE_FONTS = 'https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap';
+function currentTheme() {
+  const t = document.documentElement.dataset.theme;
+  return t === 'wagashi' || t === 'simple' ? t : 'standard';
+}
+function loadFont(id, href) {
+  if (document.getElementById(id)) return;
+  const l = document.createElement('link');
+  l.id = id; l.rel = 'stylesheet'; l.href = href;
+  document.head.appendChild(l);
+}
 function syncThemeButtons() {
   const t = currentTheme();
   document.querySelectorAll('[data-theme-set]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeSet === t)));
 }
 function setTheme(t) {
   const root = document.documentElement;
+  // 「シンプル」はシステム標準の書体だけ。ほかのテーマに切り替えたときに Web フォントを読む
+  if (t !== 'simple') loadFont('baseFonts', BASE_FONTS);
   if (t === 'wagashi') {
     root.dataset.theme = 'wagashi';
-    if (!document.getElementById('waFonts')) {
-      const l = document.createElement('link');
-      l.id = 'waFonts'; l.rel = 'stylesheet'; l.href = WA_FONTS;
-      document.head.appendChild(l);
-    }
+    loadFont('waFonts', WA_FONTS);
+  } else if (t === 'simple') {
+    root.dataset.theme = 'simple';
   } else {
     delete root.dataset.theme;
   }

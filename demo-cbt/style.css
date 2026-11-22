@@ -336,3 +336,7 @@ ol.howto li { margin-bottom: 4px; }
   * { animation: none !important; transition: none !important; }
 }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* 着せ替えの切替（学ぶ画面の下）。指で押しやすい高さにする */
+.theme-seg { margin-bottom: 0; }
+.theme-seg button { min-height: 44px; font-size: 15px; }

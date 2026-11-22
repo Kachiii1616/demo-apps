@@ -1,0 +1,136 @@
+/* 着せ替え「シンプル」 — 白地・濃いグレーの文字・アクセントは落ち着いた青1色。
+   飾り（筆記体のロゴ・ロゴ図形・グラデーション・影・大きな角丸・斜線模様）はすべて消す。
+   勤務記号（早・日・遅・短・休・有）や業務の色分けは職員・勤務区分の設定色をそのまま使い、見分けやすさを保つ。
+   html[data-theme="simple"] のときだけ効く。標準・グレージュの見た目には触れない。 */
+html[data-theme="simple"] {
+  --ink: #222;
+  --ink-soft: #4f5862;
+  --muted: #69727c;
+  --line: #d9dde2;
+  --line-strong: #c3c9d0;
+  --card: #fff;
+  --bg1: #f6f7f8;
+  --bg2: #f6f7f8;
+  --coral: #2f5d8a;
+  --coral-deep: #2f5d8a;
+  /* 行事・未保存の印は暖色の淡い色（会議・保存済みの青と見分ける） */
+  --coral-soft: #f7ede2;
+  --coral-line: #e2c9ad;
+  --mint: #2f5d8a;
+  --mint-deep: #264d73;
+  --mint-soft: #e8f3ec;
+  --blue-soft: #eef3f8;
+  --blue-line: #c5d4e3;
+  --warn: #a12a2a;
+  --warn-soft: #fbe6e6;
+  --amber-soft: #fdf3d0;
+  --amber-line: #e6cf7a;
+  --sat: #2b5ea8;
+  --sun: #b2352a;
+  --radius: 4px;
+  --shadow: none;
+  --simple-font: system-ui, -apple-system, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+}
+html[data-theme="simple"] body { font-family: var(--simple-font); background: var(--bg1); color: var(--ink); letter-spacing: normal; }
+html[data-theme="simple"] *, html[data-theme="simple"] *::before, html[data-theme="simple"] *::after { text-shadow: none !important; }
+
+/* フォーカス */
+html[data-theme="simple"] :focus-visible { outline: 2px solid #2f5d8a; outline-offset: 2px; }
+html[data-theme="simple"] .input:focus, html[data-theme="simple"] .select:focus, html[data-theme="simple"] .textarea:focus {
+  outline: 2px solid #2f5d8a; outline-offset: 1px; border-color: #2f5d8a;
+}
+
+/* デモ帯 */
+html[data-theme="simple"] .demo-bar { background: #fff; border-bottom: 1px solid var(--line); color: var(--ink); }
+html[data-theme="simple"] .demo-bar a { color: #2f5d8a; }
+html[data-theme="simple"] .demo-bar button { border: 1px solid var(--line-strong); background: #fff; border-radius: 4px; color: var(--ink); }
+
+/* ヘッダー・タブ */
+html[data-theme="simple"] .app-head { background: #fff; padding: 10px 18px; border-bottom: 1px solid var(--line); }
+html[data-theme="simple"] .brand-mark, html[data-theme="simple"] .brand-script, html[data-theme="simple"] .theme-hero { display: none !important; }
+html[data-theme="simple"] .brand-ja { font-weight: 700; font-size: 18px; letter-spacing: normal; color: var(--ink); }
+html[data-theme="simple"] .facility-pill { border-radius: 4px; border: 1px solid var(--line); background: #fff; color: var(--ink-soft); }
+html[data-theme="simple"] .head-user { color: var(--ink-soft); }
+html[data-theme="simple"] .theme-pick { color: var(--ink-soft); font-size: 12px; }
+html[data-theme="simple"] .theme-pick select { border-radius: 4px; border-color: var(--line-strong); color: var(--ink); font-size: 12px; padding: 2px 6px; }
+html[data-theme="simple"] .tabs { background: #fff; border-bottom: 1px solid var(--line); }
+html[data-theme="simple"] .tabs a { color: var(--ink-soft); font-size: 14px; }
+html[data-theme="simple"] .tabs a.active { color: #2f5d8a; border-bottom-color: #2f5d8a; font-weight: 700; }
+
+/* 共通部品 */
+html[data-theme="simple"] .card { border-radius: 4px; box-shadow: none; }
+html[data-theme="simple"] .card h2 { font-weight: 700; }
+html[data-theme="simple"] .btn { border-radius: 4px; border: 1px solid var(--line-strong); box-shadow: none; color: var(--ink); }
+html[data-theme="simple"] .btn:hover { background: #f3f5f7; }
+html[data-theme="simple"] .btn.outline, html[data-theme="simple"] .btn.blue { border-color: var(--line-strong); color: #2f5d8a; }
+html[data-theme="simple"] .btn.outline:hover, html[data-theme="simple"] .btn.blue:hover { background: #eef3f8; }
+html[data-theme="simple"] .btn.primary, html[data-theme="simple"] .btn.save { background: #2f5d8a; border-color: #2f5d8a; color: #fff; box-shadow: none; }
+html[data-theme="simple"] .btn.primary:hover, html[data-theme="simple"] .btn.save:hover { background: #264d73; }
+html[data-theme="simple"] .btn.danger { border-color: #e3a9a9; color: #a12a2a; }
+html[data-theme="simple"] .select, html[data-theme="simple"] .input, html[data-theme="simple"] .textarea { border: 1px solid var(--line-strong); border-radius: 4px; }
+html[data-theme="simple"] .req-grid input { border-radius: 4px; }
+html[data-theme="simple"] .badge, html[data-theme="simple"] .legend .chip, html[data-theme="simple"] .date-chips span { border-radius: 4px; }
+html[data-theme="simple"] .badge.draft { color: #6b4f00; }
+html[data-theme="simple"] .badge.saved { color: #1f3f60; }
+html[data-theme="simple"] .badge.published { color: #1e5a36; border-color: #9cc7ab; }
+html[data-theme="simple"] .badge.dirty { color: #6b3e12; }
+html[data-theme="simple"] .date-chips span { background: #eef3f8; color: #1f3f60; }
+html[data-theme="simple"] .date-chips button { color: #1f3f60; }
+html[data-theme="simple"] .chip-btn { border: 1px solid var(--line-strong); border-radius: 4px; }
+html[data-theme="simple"] .chip-btn.on { background: #2f5d8a; border-color: #2f5d8a; color: #fff; }
+html[data-theme="simple"] .notice { border-radius: 4px; }
+html[data-theme="simple"] .notice.warn { color: #6b4f00; }
+html[data-theme="simple"] .notice.info { color: #1f3f60; }
+html[data-theme="simple"] .notice.ok { color: #1e5a36; border-color: #9cc7ab; }
+html[data-theme="simple"] .tbl th { background: #f3f5f7; color: #333; }
+html[data-theme="simple"] .swatch { border-radius: 2px; }
+
+/* 勤務記号：設定色をそのまま使い、文字は濃くしてくっきり */
+html[data-theme="simple"] .code { border-radius: 3px; color: color-mix(in srgb, var(--c, #ccc) 20%, #1f1f1f); }
+html[data-theme="simple"] .shift-wrap, html[data-theme="simple"] .daily-wrap { border-radius: 4px; box-shadow: none; }
+html[data-theme="simple"] .shift th, html[data-theme="simple"] .shift td { border-right-color: #e6e9ec; border-bottom-color: #e6e9ec; }
+html[data-theme="simple"] .shift thead th, html[data-theme="simple"] .shift thead .who { background: #f3f5f7; }
+html[data-theme="simple"] .shift thead th.sat { background: #eaf0f9; color: var(--sat); }
+html[data-theme="simple"] .shift thead th.sun { background: #fbecea; color: var(--sun); }
+html[data-theme="simple"] .shift thead th.today { box-shadow: inset 0 -3px 0 #2f5d8a; }
+html[data-theme="simple"] .shift td.cell { color: color-mix(in srgb, var(--c, #ccc) 20%, #1f1f1f); }
+html[data-theme="simple"] .shift td.cell:hover { outline-color: #2f5d8a; }
+html[data-theme="simple"] .shift td.cell.empty { background: #fff; color: #aab1b8; }
+html[data-theme="simple"] .shift td.cell.closed { background: #f1f2f4; color: #8a9199; }
+html[data-theme="simple"] .shift td.cell.req::after { background: #2f5d8a; }
+html[data-theme="simple"] .shift td.sum, html[data-theme="simple"] .shift tfoot td, html[data-theme="simple"] .shift tfoot .who { background: #fafbfc; }
+html[data-theme="simple"] .shift tfoot tr.total td, html[data-theme="simple"] .shift tfoot tr.total .who { background: #f1f3f5; }
+
+/* ポップオーバー・モーダル・トースト */
+html[data-theme="simple"] .pop { border-radius: 4px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .04); }
+html[data-theme="simple"] .pop .opt { border-radius: 4px; color: color-mix(in srgb, var(--c, #ccc) 20%, #1f1f1f); }
+html[data-theme="simple"] .pop .opt.cur { border-color: #2f5d8a; }
+html[data-theme="simple"] .modal-back { background: rgba(0, 0, 0, .35); }
+html[data-theme="simple"] .modal { border-radius: 4px; box-shadow: none; border: 1px solid var(--line); }
+html[data-theme="simple"] .toast { border-radius: 4px; background: #333; }
+
+/* 1日業務分担・カレンダー */
+html[data-theme="simple"] .daily th, html[data-theme="simple"] .daily td { border-right-color: #e6e9ec; border-bottom-color: #eceef1; }
+html[data-theme="simple"] .daily thead th { background: #f3f5f7; }
+html[data-theme="simple"] .daily .time, html[data-theme="simple"] .daily td.count { background: #fafbfc; }
+html[data-theme="simple"] .daily td.slot { color: color-mix(in srgb, var(--c, #ccc) 20%, #1f1f1f); }
+html[data-theme="simple"] .daily td.slot:not(.off):hover { outline-color: #2f5d8a; }
+html[data-theme="simple"] .cal .day { border-radius: 4px; }
+html[data-theme="simple"] .cal .day.today { border: 2px solid #2f5d8a; }
+html[data-theme="simple"] .cal .day.other { background: #f6f7f8; }
+html[data-theme="simple"] .cal .ev { border-radius: 3px; color: #6b3e12; }
+html[data-theme="simple"] .cal .day:hover { border-color: #2f5d8a; }
+html[data-theme="simple"] .cal .ev.meeting { color: #1f3f60; }
+html[data-theme="simple"] .cal .ev.training { color: #1e5a36; }
+html[data-theme="simple"] .subtabs button.on { color: #2f5d8a; border-bottom-color: #2f5d8a; }
+html[data-theme="simple"] .print-page { border-radius: 0; box-shadow: none; border: 1px solid var(--line); }
+
+@media (max-width: 760px) {
+  html[data-theme="simple"] .app-head { padding: 8px 12px; }
+  html[data-theme="simple"] .cal .day { border-radius: 3px; }
+  html[data-theme="simple"] .req-layout { grid-template-columns: minmax(0, 1fr); }
+  html[data-theme="simple"] .req-layout .tbl td.small { min-width: 6.5em; }
+}
+@media print {
+  html[data-theme="simple"] .print-page { border: 0; }
+}

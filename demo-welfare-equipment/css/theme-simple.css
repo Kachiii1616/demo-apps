@@ -1,0 +1,194 @@
+/* =========================================================
+   着せ替え「シンプル」
+   白地・濃いグレーの文字・アクセントは落ち着いた青 1 色。
+   システム標準の書体のみ。飾り（筆記体の英字・縦書き・影・グラデーション）は出さない。
+   すべて html[data-theme="simple"] の中だけで効くので、ほかのテーマの見た目は変わらない。
+   ========================================================= */
+html[data-theme="simple"] {
+  --bg-1: #f6f7f8;
+  --bg-2: #f6f7f8;
+  --ink: #222;
+  --ink-soft: #555b62;
+  --gold: #2f5d8a;
+  --gold-deep: #2f5d8a;
+  --gold-soft: #e8eff6;
+  --line: #d9dde2;
+  --line-strong: #c3c9d0;
+  --card: #fff;
+  --mint: #e6f2ea;
+  --warn-bg: #fdf3d0;
+  --danger: #b3261e;
+  --radius: 4px;
+  --radius-sm: 4px;
+  --shadow: none;
+  --font: system-ui, -apple-system, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  --script: var(--font);
+  --focus: #2f5d8a;
+}
+
+html[data-theme="simple"] body {
+  background: #f6f7f8; color: var(--ink); letter-spacing: 0; line-height: 1.6;
+}
+html[data-theme="simple"] button,
+html[data-theme="simple"] input,
+html[data-theme="simple"] select,
+html[data-theme="simple"] textarea { letter-spacing: 0; }
+html[data-theme="simple"] a { color: var(--gold-deep); }
+
+/* キーボード操作で見えるフォーカス枠 */
+html[data-theme="simple"] a:focus-visible,
+html[data-theme="simple"] button:focus-visible,
+html[data-theme="simple"] select:focus-visible,
+html[data-theme="simple"] input:focus-visible,
+html[data-theme="simple"] textarea:focus-visible,
+html[data-theme="simple"] tr.clickable:focus-visible,
+html[data-theme="simple"] [tabindex]:focus-visible {
+  outline: 3px solid var(--focus); outline-offset: 2px;
+}
+html[data-theme="simple"] .input:focus { outline: 3px solid var(--focus); outline-offset: 1px; border-color: var(--focus); }
+html[data-theme="simple"] .view:focus { outline: none; }
+
+/* 飾りは出さない */
+html[data-theme="simple"] .theme-only,
+html[data-theme="simple"] .tagline,
+html[data-theme="simple"] .brand__en,
+html[data-theme="simple"] .sidenav a .en,
+html[data-theme="simple"] .page-title .en { display: none !important; }
+html[data-theme="simple"] .sidenav a::before { content: none; }
+
+/* ---- 上部のデモ帯 ---- */
+html[data-theme="simple"] .demo-band { background: #fff; border-bottom: 1px solid var(--line); color: var(--ink-soft); }
+html[data-theme="simple"] .demo-band__label { border-radius: 4px; border-color: var(--line-strong); color: var(--ink-soft); }
+html[data-theme="simple"] .demo-band__reset { border-radius: 4px; border-color: var(--line-strong); color: var(--ink); }
+html[data-theme="simple"] .demo-band__reset:hover { border-color: var(--gold); color: var(--gold-deep); }
+
+/* ---- ヘッダ ---- */
+html[data-theme="simple"] .topbar {
+  justify-content: flex-start; padding: 12px 20px; background: #fff;
+  border-radius: 0; box-shadow: none; border-bottom: 1px solid var(--line);
+}
+html[data-theme="simple"] .brand { color: var(--ink); align-items: flex-start; }
+html[data-theme="simple"] .brand__ja { font-size: 18px; letter-spacing: 0.02em; font-weight: 700; padding-left: 0; }
+html[data-theme="simple"] .topbar__office { color: var(--ink-soft); font-size: 13px; }
+
+/* ---- 左メニュー ---- */
+html[data-theme="simple"] .layout { grid-template-columns: 210px minmax(0, 1fr); }
+html[data-theme="simple"] .sidenav {
+  background: #fff; border-radius: 0; border-right: 1px solid var(--line); padding: 16px 10px; gap: 2px;
+}
+html[data-theme="simple"] .sidenav a {
+  flex-direction: row; align-items: center; padding: 10px 12px; border-radius: 4px; border: 0;
+  border-left: 3px solid transparent; color: var(--ink); transition: none;
+}
+html[data-theme="simple"] .sidenav a .ja { font-size: 15px; letter-spacing: 0.02em; font-weight: 500; }
+html[data-theme="simple"] .sidenav a:hover { background: #f1f3f5; }
+html[data-theme="simple"] .sidenav a.is-active {
+  background: var(--gold-soft); border-left-color: var(--gold); box-shadow: none; color: var(--gold-deep);
+}
+html[data-theme="simple"] .sidenav a.is-active .ja { font-weight: 700; }
+html[data-theme="simple"] .sidenav__note { font-size: 12px; margin: 16px 8px 0; color: var(--ink-soft); }
+html[data-theme="simple"] .theme-switch { font-size: 12px; color: var(--ink-soft); }
+html[data-theme="simple"] .theme-switch select { border-radius: 4px; border-color: var(--line-strong); font-size: 13px; padding: 4px 8px; }
+
+/* ---- 本文 ---- */
+html[data-theme="simple"] .view { padding: 24px 24px 80px; }
+html[data-theme="simple"] .page-title { text-align: left; margin: 0 0 18px; }
+html[data-theme="simple"] .page-title .ja {
+  font-size: 22px; letter-spacing: 0.02em; padding-left: 0; font-weight: 700; color: var(--ink);
+}
+
+html[data-theme="simple"] .card {
+  border: 1px solid var(--line); border-radius: 4px; box-shadow: none; padding: 20px;
+}
+html[data-theme="simple"] .card h2 { font-size: 16px; color: var(--ink); letter-spacing: 0.02em; font-weight: 700; }
+html[data-theme="simple"] .card h2 small { letter-spacing: 0; color: var(--ink-soft); }
+html[data-theme="simple"] .muted { color: var(--ink-soft); }
+
+/* ---- フォーム ---- */
+html[data-theme="simple"] .field label,
+html[data-theme="simple"] .field .label { font-size: 13px; color: var(--ink-soft); }
+html[data-theme="simple"] .input,
+html[data-theme="simple"] select.input,
+html[data-theme="simple"] textarea.input { border-color: var(--line-strong); border-radius: 4px; min-height: 40px; }
+
+html[data-theme="simple"] .btn {
+  border-radius: 4px; border-color: var(--line-strong); background: #fff; color: var(--ink);
+  letter-spacing: 0.02em; font-size: 14px; box-shadow: none;
+}
+html[data-theme="simple"] .btn:hover { border-color: var(--gold); color: var(--gold-deep); background: #f7f9fb; }
+html[data-theme="simple"] .btn.primary {
+  background: var(--gold); border-color: var(--gold); color: #fff; font-weight: 700; letter-spacing: 0.02em; box-shadow: none;
+}
+html[data-theme="simple"] .btn.primary:hover { background: #244a6f; border-color: #244a6f; color: #fff; }
+html[data-theme="simple"] .btn.danger { border-color: #e2b4b0; color: var(--danger); }
+html[data-theme="simple"] .btn.danger:hover { border-color: var(--danger); color: var(--danger); background: #fdf3f2; }
+html[data-theme="simple"] .btn.small { font-size: 13px; padding: 3px 12px; }
+
+/* ---- 表 ---- */
+html[data-theme="simple"] table.tbl { font-size: 14px; }
+html[data-theme="simple"] .tbl th,
+html[data-theme="simple"] .tbl td { border-color: var(--line); padding: 8px 10px; }
+html[data-theme="simple"] .tbl th { background: #f1f3f5; font-weight: 700; color: var(--ink); }
+html[data-theme="simple"] .tbl tbody tr.clickable:hover td { background: #f1f5f9; }
+html[data-theme="simple"] .tbl tr.is-warn td { background: var(--warn-bg); }
+html[data-theme="simple"] .tbl tr.is-ended td { color: var(--ink-soft); }
+html[data-theme="simple"] .tbl tfoot td { background: #f1f3f5; }
+
+/* 状態の色分けは意味を保ったまま落ち着いた色に */
+html[data-theme="simple"] .badge { border-radius: 4px; font-size: 12px; }
+html[data-theme="simple"] .badge.active { background: #e6f2ea; border-color: #a9cdb5; color: #1f5a33; }
+html[data-theme="simple"] .badge.hospital { background: #fcefe0; border-color: #e3bd8f; color: #7a4510; }
+html[data-theme="simple"] .badge.ended { background: #eef0f2; border-color: #d0d5da; color: #4d535a; }
+html[data-theme="simple"] .badge.half { background: var(--warn-bg); border-color: #dcc56e; color: #5c4a00; }
+
+/* ---- 詳細・タブ ---- */
+html[data-theme="simple"] .detail-head h1 { font-size: 20px; letter-spacing: 0.02em; font-weight: 700; }
+html[data-theme="simple"] .tabs { gap: 0; border-bottom: 1px solid var(--line); }
+html[data-theme="simple"] .tabs button {
+  background: transparent; border: 0; border-radius: 0; border-bottom: 3px solid transparent;
+  margin-bottom: -1px; padding: 9px 14px; color: var(--ink-soft); font-size: 14px;
+}
+html[data-theme="simple"] .tabs button:hover { color: var(--ink); background: #f1f3f5; }
+html[data-theme="simple"] .tabs button.is-active {
+  background: transparent; color: var(--gold-deep); border-bottom-color: var(--gold); font-weight: 700;
+}
+
+html[data-theme="simple"] .subform { border: 1px solid var(--line); border-radius: 4px; background: #f8f9fa; }
+html[data-theme="simple"] .subform h3 { color: var(--ink); font-weight: 700; }
+html[data-theme="simple"] .picker-results { border-radius: 4px; }
+html[data-theme="simple"] .picker-results button:hover { background: #f1f5f9; }
+
+/* ---- 集計タイル ---- */
+html[data-theme="simple"] .tile { background: #fff; border: 1px solid var(--line); border-radius: 4px; }
+html[data-theme="simple"] .tile .k { color: var(--ink-soft); font-size: 13px; }
+html[data-theme="simple"] .tile .v { color: var(--ink); font-weight: 700; }
+
+html[data-theme="simple"] .divider { border-top: 1px solid var(--line); }
+html[data-theme="simple"] .toast { background: #333; border-radius: 4px; }
+
+/* ---- 印刷プレビュー（用紙そのものは標準と同じ） ---- */
+html[data-theme="simple"] .sheet { box-shadow: 0 0 0 1px var(--line); }
+html[data-theme="simple"] .sheet th { background: #f1f3f5; }
+html[data-theme="simple"] .sheet .sec { border-left-color: #8a96a3; }
+
+/* ---- スマホ・タブレット ---- */
+@media (max-width: 860px) {
+  html[data-theme="simple"] .layout { grid-template-columns: minmax(0, 1fr); }
+  html[data-theme="simple"] .topbar { justify-content: center; padding: 10px 56px; }
+  html[data-theme="simple"] .brand { align-items: center; }
+  html[data-theme="simple"] .sidenav { background: #fff; border-right: 1px solid var(--line); box-shadow: none; }
+  html[data-theme="simple"] .view { padding: 18px 16px 70px; }
+}
+@media (max-width: 560px) {
+  html[data-theme="simple"] .brand__ja { font-size: 17px; }
+  html[data-theme="simple"] .page-title .ja { font-size: 20px; }
+  html[data-theme="simple"] .card { padding: 16px 14px; border-radius: 4px; }
+  html[data-theme="simple"] .detail-head h1 { font-size: 18px; letter-spacing: 0; }
+}
+
+@media print {
+  html[data-theme="simple"] body { background: #fff; }
+  html[data-theme="simple"] .layout { display: block; }
+  html[data-theme="simple"] .view { padding: 0; }
+  html[data-theme="simple"] .sheet { box-shadow: none; }
+}

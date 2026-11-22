@@ -1,0 +1,164 @@
+/* =====================================================================
+   着せ替え「シンプル」 — 白地・濃いグレーの文字・アクセントは落ち着いた青 1 色
+   飾り（花・グラデーション・影・英字の筆記体見出し）はすべて消す。
+   すべて body[data-theme="simple"] の中だけで効かせ、他のテーマには影響しない。
+   ===================================================================== */
+body[data-theme="simple"] {
+  --bg: #f6f7f8; --side: #ffffff; --card: #ffffff;
+  --line: #d9dde2; --line-soft: #e8ebee;
+  --ink: #222222; --ink2: #3d434a; --muted: #5d646d;
+  --pink: #2f5d8a; --pink-deep: #244a6e; --pink-ink: #2f5d8a; --pink-tab: #2f5d8a; --pink-soft: #e9eff6;
+  --peri: #2f5d8a; --flower: transparent;
+  --green: #1d7346; --badge-green: #e4f2e9; --badge-green-ink: #1d6a3f;
+  --th: #f1f3f5; --stripe: #fafbfc; --demo: #f1f3f5;
+  --radius: 4px; --shadow: none;
+  --font: system-ui, -apple-system, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  --script: var(--font);
+  background: var(--bg);
+}
+body[data-theme="simple"] * { box-shadow: none !important; text-shadow: none !important; }
+
+/* フォーカスの枠ははっきり */
+body[data-theme="simple"] :focus-visible { outline: 2px solid #2f5d8a; outline-offset: 2px; }
+body[data-theme="simple"] .input:focus, body[data-theme="simple"] .search:focus { outline: 2px solid #2f5d8a; outline-offset: 0; border-color: #2f5d8a; }
+
+/* デモ帯 */
+body[data-theme="simple"] .demo-bar { border-bottom: 1px solid var(--line); }
+body[data-theme="simple"] .demo-bar a { color: var(--ink2); }
+body[data-theme="simple"] .demo-bar strong { color: var(--ink); }
+body[data-theme="simple"] .demo-bar button { border-color: var(--line); background: #fff; border-radius: 4px; color: var(--ink); }
+
+/* サイドメニュー */
+body[data-theme="simple"] .pill-tag { background: #fff; color: var(--pink-ink); border: 1px solid var(--line); border-radius: 4px; }
+body[data-theme="simple"] .collapse-btn, body[data-theme="simple"] .menu-btn { border-radius: 4px; border-color: var(--line); }
+body[data-theme="simple"] .nav a { border-radius: 4px; letter-spacing: .02em; min-height: 46px; }
+body[data-theme="simple"] .nav a:hover { background: #f1f3f5; }
+body[data-theme="simple"] .nav a.active { background: var(--pink); color: #fff; }
+body[data-theme="simple"] .nav-label { color: var(--muted); letter-spacing: .04em; }
+body[data-theme="simple"] .design-btn { border-color: var(--line); border-radius: 4px; color: var(--ink2); font-size: 12.5px; }
+body[data-theme="simple"] .avatar { border-radius: 4px; background: var(--pink-soft); color: var(--pink-ink); }
+body[data-theme="simple"] .help-fab { background: var(--pink); opacity: 1; border-radius: 4px; letter-spacing: .02em; }
+
+/* タブ */
+body[data-theme="simple"] .subtabs a { border-radius: 4px; color: var(--ink2); }
+body[data-theme="simple"] .subtabs a:hover { background: #f1f3f5; }
+body[data-theme="simple"] .subtabs a.on { background: var(--pink); color: #fff; }
+body[data-theme="simple"] .p-tabs a { color: var(--ink2); }
+body[data-theme="simple"] .p-tabs a.on { color: var(--pink-ink); border-bottom-color: var(--pink); }
+body[data-theme="simple"] .od-tab { background: #f1f3f5; border-radius: 4px 4px 0 0; color: var(--ink2); }
+body[data-theme="simple"] .od-tab.on { background: #fff; border-color: var(--line); }
+body[data-theme="simple"] .card.od-members { border-radius: 0 4px 4px 4px; }
+
+/* 見出し: 英字の筆記体は出さず、太字の日本語だけ */
+body[data-theme="simple"] .ttl .script, body[data-theme="simple"] .sec-ttl .script { display: none; }
+body[data-theme="simple"] .ttl .ja { font-size: 22px; letter-spacing: .02em; }
+body[data-theme="simple"] .ttl.plain { font-size: 22px; letter-spacing: .02em; }
+body[data-theme="simple"] .sec-ttl, body[data-theme="simple"] .sec-ttl.plain { letter-spacing: .02em; }
+body[data-theme="simple"] .home-ttl { letter-spacing: .02em; }
+body[data-theme="simple"] .ttl-sub, body[data-theme="simple"] .hint-top { color: var(--muted); font-size: 12px; letter-spacing: 0; }
+body[data-theme="simple"] .person-name { text-decoration-color: var(--pink); text-decoration-thickness: 1px; }
+body[data-theme="simple"] .box-label { border-width: 1px; border-radius: 4px; }
+
+/* カード・面 */
+body[data-theme="simple"] .card, body[data-theme="simple"] .past-card, body[data-theme="simple"] .cb-card, body[data-theme="simple"] .quick { border: 1px solid var(--line); border-radius: 4px; }
+body[data-theme="simple"] .past-card { border-left: 3px solid var(--pink); }
+body[data-theme="simple"] .deco { display: none; }
+body[data-theme="simple"] .p-day-box, body[data-theme="simple"] .addendum { background: #f4f6f8; border-radius: 4px; }
+body[data-theme="simple"] .note-box-soft, body[data-theme="simple"] .ho-add { background: #fafbfc; border-radius: 4px; }
+body[data-theme="simple"] .cb-box { background: #fafbfc; border-radius: 4px; }
+body[data-theme="simple"] .cb-yn, body[data-theme="simple"] .cb-checks { border-radius: 4px; }
+body[data-theme="simple"] .cb-card header { border-bottom: 1px solid var(--line); }
+body[data-theme="simple"] .cb-card h5::before { display: none; }
+body[data-theme="simple"] .m-card, body[data-theme="simple"] .member-btn, body[data-theme="simple"] .doc-item, body[data-theme="simple"] .chart-box { border-radius: 4px; }
+body[data-theme="simple"] .m-card:hover, body[data-theme="simple"] .member-btn:hover, body[data-theme="simple"] .doc-item:hover { border-color: var(--pink); background: #fff; }
+body[data-theme="simple"] .paper { border: 1px solid var(--line); }
+body[data-theme="simple"] .suggest, body[data-theme="simple"] .p-menu-list { border-radius: 4px; }
+body[data-theme="simple"] .suggest button, body[data-theme="simple"] .p-menu-list button { border-radius: 4px; }
+
+/* ボタン類: グラデーション・丸いピルをやめ、青 1 色の小さな角丸に */
+body[data-theme="simple"] .btn { border-radius: 4px; border-color: #c4cad1; letter-spacing: .02em; }
+body[data-theme="simple"] .btn:hover { border-color: var(--pink); }
+body[data-theme="simple"] .btn.pink, body[data-theme="simple"] .btn.grad, body[data-theme="simple"] .btn.big-grad,
+body[data-theme="simple"] .btn.big-pink, body[data-theme="simple"] .btn.xs.pink, body[data-theme="simple"] .confirm-foot .btn.primary {
+  background: var(--pink); border: 1px solid var(--pink); color: #fff;
+}
+body[data-theme="simple"] .btn.pink:hover, body[data-theme="simple"] .btn.grad:hover, body[data-theme="simple"] .btn.big-grad:hover, body[data-theme="simple"] .btn.big-pink:hover { background: var(--pink-deep); }
+body[data-theme="simple"] .btn.green-big { border-radius: 4px; }
+body[data-theme="simple"] .btn.ghost-pink { border-color: #9fb4ca; color: var(--pink-ink); }
+body[data-theme="simple"] .btn.red { background: #b42318; border-color: #b42318; }
+body[data-theme="simple"] .btn.red-t { color: #b42318; border-color: #e3b9b4; }
+body[data-theme="simple"] .btn.csv { border-radius: 4px; }
+body[data-theme="simple"] .chip { border-radius: 4px; border-color: #c4cad1; }
+body[data-theme="simple"] .chip.on, body[data-theme="simple"] .chip.tagpick.on { background: var(--pink); border-color: var(--pink); color: #fff; }
+body[data-theme="simple"] .round-pill { border-radius: 4px; background: #c9d3de; color: var(--ink); }
+body[data-theme="simple"] .round-pill.on { background: var(--pink); color: #fff; }
+body[data-theme="simple"] .seg a { border-radius: 4px; }
+body[data-theme="simple"] .seg a.on, body[data-theme="simple"] .wd.on { background: var(--pink); border-color: var(--pink); color: #fff; }
+body[data-theme="simple"] .wd { border-radius: 4px; }
+body[data-theme="simple"] .segd button { border-radius: 4px; }
+body[data-theme="simple"] .segd button.on { background: var(--pink); border-color: var(--pink); }
+body[data-theme="simple"] .mic { background: var(--pink); }
+body[data-theme="simple"] .p-edit, body[data-theme="simple"] .p-x { border-color: var(--line); border-radius: 4px; }
+body[data-theme="simple"] .p-edit:hover { background: var(--pink-soft); }
+body[data-theme="simple"] .p-x.sm { border-color: transparent; }
+
+/* 入力 */
+body[data-theme="simple"] .input, body[data-theme="simple"] .search, body[data-theme="simple"] .input.round, body[data-theme="simple"] .input.sq,
+body[data-theme="simple"] .p-date-input, body[data-theme="simple"] select.input.p-range,
+body[data-theme="simple"] .p-modal .input, body[data-theme="simple"] .p-modal textarea.input { border-radius: 4px; border-color: #c4cad1; }
+body[data-theme="simple"] td.chk input, body[data-theme="simple"] table.items-t input, body[data-theme="simple"] table.wk-svc input { accent-color: var(--pink); }
+
+/* 表（業務日誌ほか） */
+body[data-theme="simple"] .diary-wrap { border-radius: 4px; }
+body[data-theme="simple"] table.diary thead th, body[data-theme="simple"] table.grid-table th, body[data-theme="simple"] table.weekly th { color: var(--ink); }
+body[data-theme="simple"] table.diary tr.is-off td { background: #f1f3f5 !important; }
+body[data-theme="simple"] table.diary tr.is-draft td { background: #fff8e1 !important; }
+body[data-theme="simple"] button.cell .plus, body[data-theme="simple"] .cell-plus { color: #9aa2ab; }
+body[data-theme="simple"] .badge-in, body[data-theme="simple"] .badge-off { border-radius: 4px; }
+body[data-theme="simple"] .badge-off { background: #eceef1; color: var(--muted); }
+body[data-theme="simple"] .vs-out { color: #b42318; }
+body[data-theme="simple"] td.ls.warn { color: #b42318; }
+body[data-theme="simple"] .diary-head .sum.warn { color: #8a5a00; }
+body[data-theme="simple"] .tag-s { background: #f4f6f8; border-radius: 4px; }
+body[data-theme="simple"] table.weekly .today { background: var(--pink-soft); color: var(--pink-ink); }
+body[data-theme="simple"] table.weekly td.today { color: var(--ink); }
+body[data-theme="simple"] table.hour-table td.sum { background: #f4f6f8; }
+body[data-theme="simple"] table.p-table th { background: var(--th); }
+
+/* 種類ラベル（意味の色分けは残し、落ち着いた色に） */
+body[data-theme="simple"] .type-pill, body[data-theme="simple"] .ev-pill, body[data-theme="simple"] .p-pill, body[data-theme="simple"] .p-mini,
+body[data-theme="simple"] .p-stars, body[data-theme="simple"] .ptag { border-radius: 4px; }
+body[data-theme="simple"] .type-pill.meal, body[data-theme="simple"] .ev-pill.meal { border-color: #e2c3c9; background: #fbf1f3; color: #8c3b4c; }
+body[data-theme="simple"] .p-pill { border-color: #c8d5e3; }
+body[data-theme="simple"] .p-stars { border-color: #c8d5e3; }
+body[data-theme="simple"] .pc-meta .stars { color: #b42318; }
+body[data-theme="simple"] .tagc-g { color: #2e6b1f; border-color: #b9d6ad; }
+body[data-theme="simple"] .tagc-o { color: #8a5200; border-color: #e3cda4; }
+body[data-theme="simple"] .tagc-b { color: #2c5ea8; border-color: #bccbe6; }
+body[data-theme="simple"] .tagc-v { color: #6b46a3; border-color: #d2c4e8; }
+body[data-theme="simple"] .chip.on.tagc-g, body[data-theme="simple"] .chip.on.tagc-o, body[data-theme="simple"] .chip.on.tagc-b, body[data-theme="simple"] .chip.on.tagc-v, body[data-theme="simple"] .chip.on.tagc-n { background: var(--pink); color: #fff; border-color: var(--pink); }
+
+/* カレンダー */
+body[data-theme="simple"] .cal-day { border-radius: 4px; }
+body[data-theme="simple"] .cal-day.other { background: #f6f7f8; }
+body[data-theme="simple"] .cal-day.today { border: 2px solid var(--pink); }
+body[data-theme="simple"] button.cal-day:hover { border-color: var(--pink); }
+body[data-theme="simple"] .cal-wd.sun, body[data-theme="simple"] .dn.sun { color: #b42318; }
+body[data-theme="simple"] .cal-wd.sat, body[data-theme="simple"] .dn.sat { color: #2c5ea8; }
+
+/* モーダル・確認・トースト */
+body[data-theme="simple"] .modal-wrap { background: rgba(20, 24, 28, .35); backdrop-filter: none; }
+body[data-theme="simple"] .modal, body[data-theme="simple"] .confirm { border-radius: 6px; border: 1px solid var(--line); }
+body[data-theme="simple"] .confirm-wrap { background: rgba(20, 24, 28, .35); }
+body[data-theme="simple"] .toast { background: #2b2f33; border-radius: 4px; }
+
+/* 文字はやや詰めず、標準と同等以上の大きさを保つ */
+body[data-theme="simple"] .muted-p, body[data-theme="simple"] .lead { color: var(--ink2); letter-spacing: 0; }
+
+@media (max-width: 860px) {
+  body[data-theme="simple"] .sidebar { border-right: 1px solid var(--line); }
+  body[data-theme="simple"] .ttl .ja, body[data-theme="simple"] .ttl.plain { font-size: 20px; }
+}
+@media print {
+  body[data-theme="simple"] { background: #fff; }
+}

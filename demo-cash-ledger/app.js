@@ -546,13 +546,14 @@ function render() {
 
 /* ---------------- 着せ替え ---------------- */
 const THEME_KEY = 'showcase-cash:theme';
-const THEMES = { standard: '標準', wamodern: '和モダン' };
+const THEMES = { standard: '標準', wamodern: '和モダン', simple: 'シンプル' };
 function bindTheme() {
   const sel = $('#themeSel');
   const cur = document.documentElement.dataset.theme;
   sel.value = THEMES[cur] ? cur : 'standard';
   sel.addEventListener('change', () => {
     const t = THEMES[sel.value] ? sel.value : 'standard';
+    if (t !== 'simple') window.__cashBaseFonts?.();
     if (t === 'wamodern') window.__cashThemeFonts?.();
     document.documentElement.dataset.theme = t;
     try { localStorage.setItem(THEME_KEY, t); } catch (_) { /* 保存できなくても切替はする */ }

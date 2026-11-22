@@ -18,12 +18,13 @@ const routes = {
 
 // 着せ替え（テーマ）。標準は data-theme なし
 const THEME_KEY = 'showcase-shift:theme';
-const THEMES = ['standard', 'greige'];
+const THEMES = ['standard', 'greige', 'simple'];
 function applyTheme(t) {
   if (!THEMES.includes(t)) t = 'standard';
   if (t === 'standard') delete document.documentElement.dataset.theme;
   else document.documentElement.dataset.theme = t;
   document.getElementById('themeSelect').value = t;
+  if (t !== 'simple' && window.showcaseLoadFonts) window.showcaseLoadFonts();
 }
 applyTheme(document.documentElement.dataset.theme || 'standard');
 document.getElementById('themeSelect').addEventListener('change', (e) => {

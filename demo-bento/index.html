@@ -5,16 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>お弁当チェック（デモ）</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%B1%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/theme-wagashi.css">
+<link rel="stylesheet" href="css/theme-simple.css">
 <script>
 /* 着せ替え: 描画前に適用（保存は showcase-bento:theme） */
 (function () {
+  var t = '';
+  try { t = localStorage.getItem('showcase-bento:theme') || ''; } catch (e) { /* 保存が使えない環境は標準のまま */ }
+  /* 標準・和菓子の本文書体。「シンプル」はシステム標準の書体だけなので読み込まない */
+  if (t !== 'simple') {
+    var b = document.createElement('link');
+    b.id = 'baseFonts'; b.rel = 'stylesheet';
+    b.href = 'https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap';
+    document.head.appendChild(b);
+  }
   try {
-    if (localStorage.getItem('showcase-bento:theme') !== 'wagashi') return;
+    if (t === 'simple') { document.documentElement.setAttribute('data-theme', 'simple'); return; }
+    if (t !== 'wagashi') return;
     document.documentElement.setAttribute('data-theme', 'wagashi');
     var l = document.createElement('link');
     l.id = 'waFonts'; l.rel = 'stylesheet';
@@ -63,6 +71,7 @@
     <div class="theme-opts">
       <button type="button" data-theme-set="standard" aria-pressed="true">標準</button>
       <button type="button" data-theme-set="wagashi" aria-pressed="false">和菓子</button>
+      <button type="button" data-theme-set="simple" aria-pressed="false">シンプル</button>
     </div>
   </div>
   <div class="drawer-foot">さくらほーむ お弁当チェック（デモ版）</div>

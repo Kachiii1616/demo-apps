@@ -1,0 +1,147 @@
+/* 着せ替え「シンプル」
+   白地・濃いグレーの文字・アクセントは落ち着いた青1色。飾り（背景の図形・英字の見出し・影・大きな角丸）はすべて消す。
+   予定/実績・看護/リハビリ・指示書期限の色分けは意味を保ったまま落ち着いた色にする。
+   すべて [data-theme="simple"] の中だけで効かせ、他の着せ替えの見た目は変えない。 */
+
+[data-theme="simple"] {
+  --accent: #2f5d8a;
+  --accent-ink: #fff;
+  --accent-soft: #eef3f8;
+  --accent-line: #c5d4e3;
+  --panel: #fff;
+  --th: #f3f5f7;
+  --ink: #222;
+  --ink-soft: #5c6670;
+  --line: #d9dde2;
+  --line-soft: #e6e9ec;
+  --bg: #f6f7f8;
+  --blob: transparent;
+  --sheet: #fff;
+  --lav: #fff;
+  --mint: #e8f3ec;
+  --mint-line: #9cc7ab;
+  --notice: #f6f7f8;
+  --notice-ink: #333;
+  --warn-bg: #fdf3d0;
+  --danger-bg: #fbe6e6;
+  --danger-ink: #a12a2a;
+  --band: #5c6670;
+  --simple-font: system-ui, -apple-system, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+}
+
+[data-theme="simple"] body {
+  font-family: var(--simple-font);
+  letter-spacing: normal;
+  background: var(--bg);
+  color: var(--ink);
+}
+[data-theme="simple"] h1, [data-theme="simple"] h2, [data-theme="simple"] h3, [data-theme="simple"] .brand,
+[data-theme="simple"] .pill, [data-theme="simple"] .pill-sm, [data-theme="simple"] .chip, [data-theme="simple"] .tab,
+[data-theme="simple"] .drawer-item b {
+  font-family: var(--simple-font);
+  letter-spacing: normal;
+}
+
+/* ---------- 飾りを消す ---------- */
+[data-theme="simple"] .bg-blob, [data-theme="simple"] .rose-band, [data-theme="simple"] .eyebrow,
+[data-theme="simple"] .drawer-item small { display: none !important; }
+[data-theme="simple"] *, [data-theme="simple"] *::before, [data-theme="simple"] *::after { box-shadow: none !important; text-shadow: none !important; }
+
+/* ---------- フォーカス ---------- */
+[data-theme="simple"] :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+[data-theme="simple"] input:focus, [data-theme="simple"] select:focus, [data-theme="simple"] textarea:focus {
+  outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent);
+}
+
+/* ---------- デモ帯 ---------- */
+[data-theme="simple"] .demo-bar { background: #fff; border-bottom: 1px solid var(--line); }
+[data-theme="simple"] .demo-bar a { color: var(--accent); }
+[data-theme="simple"] .demo-bar strong { color: var(--ink); }
+[data-theme="simple"] .demo-bar button { border: 1px solid var(--line); background: #fff; border-radius: 4px; color: var(--ink); }
+
+/* ---------- 上部・メニュー ---------- */
+[data-theme="simple"] .topbar { background: #fff; border-bottom: 1px solid var(--line); max-width: none; padding: 12px 24px; }
+[data-theme="simple"] .brand { color: var(--ink); font-size: 18px; font-weight: 700; }
+[data-theme="simple"] .crumb { color: var(--ink-soft); letter-spacing: normal; }
+[data-theme="simple"] .hamburger span { background: var(--ink); height: 2px; border-radius: 0; }
+[data-theme="simple"] .drawer { border-radius: 0; border-right: 1px solid var(--line); }
+[data-theme="simple"] .drawer-backdrop, [data-theme="simple"] .modal-wrap { background: rgba(0, 0, 0, .35); }
+[data-theme="simple"] .drawer-item { border-radius: 4px; padding: 10px 14px; }
+[data-theme="simple"] .drawer-item b { font-size: 15px; font-weight: 700; }
+[data-theme="simple"] .drawer-item:hover { background: var(--accent-soft); }
+[data-theme="simple"] .drawer-item.on { background: var(--accent); color: #fff; }
+
+/* ---------- 本体 ---------- */
+[data-theme="simple"] .sheet { border-radius: 4px; border: 1px solid var(--line); margin-top: 16px; padding: 24px 28px 40px; }
+[data-theme="simple"] .notice { border: 1px solid var(--line); border-radius: 4px; font-weight: 400; }
+[data-theme="simple"] .page-head h1, [data-theme="simple"] .pt-head h1 { font-size: 22px; font-weight: 700; letter-spacing: normal; }
+[data-theme="simple"] .panel { border: 1px solid var(--line); border-radius: 4px; }
+[data-theme="simple"] .panel h2 { font-weight: 700; letter-spacing: normal; }
+[data-theme="simple"] hr.soft { border-top: 1px solid var(--line); }
+
+/* ---------- ボタン ---------- */
+[data-theme="simple"] .pill {
+  border: 1px solid var(--line); border-radius: 4px; background: #fff; color: var(--ink); font-weight: 700; padding: 7px 16px;
+}
+[data-theme="simple"] .pill:hover { background: #f3f5f7; filter: none; }
+[data-theme="simple"] .pill.mint { background: var(--accent); border-color: var(--accent); color: #fff; }
+[data-theme="simple"] .pill.mint:hover { background: #264d73; }
+[data-theme="simple"] .pill-sm { border: 1px solid var(--line); border-radius: 4px; background: #fff; color: var(--ink); }
+[data-theme="simple"] .pill-sm.mint { background: var(--accent); border-color: var(--accent); color: #fff; }
+[data-theme="simple"] .chip, [data-theme="simple"] .tab { border: 1px solid var(--line); border-radius: 4px; background: #fff; color: var(--ink); }
+[data-theme="simple"] .chip:hover, [data-theme="simple"] .tab:hover { background: #f3f5f7; }
+[data-theme="simple"] .chip.on, [data-theme="simple"] .tab.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+[data-theme="simple"] .tabs, [data-theme="simple"] .subtabs { border-bottom: 1px solid var(--line); }
+[data-theme="simple"] .link-btn, [data-theme="simple"] .name-link, [data-theme="simple"] a { color: var(--accent); }
+[data-theme="simple"] .danger-link { color: var(--danger-ink); }
+
+/* ---------- 入力 ---------- */
+[data-theme="simple"] input[type=text], [data-theme="simple"] input[type=date], [data-theme="simple"] input[type=time],
+[data-theme="simple"] input[type=number], [data-theme="simple"] input[type=month], [data-theme="simple"] input[type=search],
+[data-theme="simple"] select, [data-theme="simple"] textarea { border: 1px solid #c3c9d0; border-radius: 4px; }
+[data-theme="simple"] input[type=checkbox], [data-theme="simple"] input[type=radio] { accent-color: var(--accent); }
+
+/* ---------- 表・枠 ---------- */
+[data-theme="simple"] .fgrid { border: 1px solid var(--line); }
+[data-theme="simple"] .fcell > .fl { color: #333; }
+[data-theme="simple"] .fband { background: #5c6670; }
+[data-theme="simple"] .tbl-wrap, [data-theme="simple"] .rec-wrap, [data-theme="simple"] .sched-wrap,
+[data-theme="simple"] .graph-card { border: 1px solid var(--line); border-radius: 4px; }
+[data-theme="simple"] table.tbl th { border-bottom: 1px solid var(--line); color: #333; }
+[data-theme="simple"] table.rec td.inp { background: #fafbfc; border-left: 1px solid var(--line); }
+[data-theme="simple"] .modal { border-radius: 4px; border: 1px solid var(--line); }
+[data-theme="simple"] .toast { border-radius: 4px; background: #333; }
+[data-theme="simple"] .handover-box { border: 1px solid var(--line); border-radius: 4px; }
+[data-theme="simple"] .handover-box .sep { border-top: 1px dashed var(--line); }
+
+/* ---------- 印・バッジ（期限切れ=赤／間近=黄は意味を保つ） ---------- */
+[data-theme="simple"] .badge { border-radius: 4px; }
+[data-theme="simple"] .badge.soon { background: var(--warn-bg); color: #6b4f00; border: 1px solid #e6cf7a; }
+[data-theme="simple"] .badge.over { background: var(--danger-bg); color: var(--danger-ink); border: 1px solid #e3a9a9; }
+[data-theme="simple"] .badge.info, [data-theme="simple"] .badge.kind { background: var(--accent-soft); color: #1f3f60; }
+[data-theme="simple"] .badge.ok { background: var(--mint); color: #1e5a36; }
+[data-theme="simple"] .caution-tag { border-radius: 4px; }
+[data-theme="simple"] .tag-box { border: 1px solid #555; border-radius: 3px; }
+
+/* ---------- スケジュール（予定=緑、実績=青、リハビリ=左の太線） ---------- */
+[data-theme="simple"] .sched .hcell.sub { border-bottom: 1px solid var(--line); }
+[data-theme="simple"] .sched .hcell.today { background: var(--accent-soft); color: #1f3f60; }
+[data-theme="simple"] .sched .tcol, [data-theme="simple"] .sched .col.staff-end { border-right: 1px solid var(--line); }
+[data-theme="simple"] .sched .slot { border-bottom-color: #f1f3f5; }
+[data-theme="simple"] .sched .slot:hover { background: var(--accent-soft); color: var(--accent); }
+[data-theme="simple"] .vcard { background: #e8f3ec; border: 1px solid #9cc7ab; border-radius: 4px; color: var(--ink); }
+[data-theme="simple"] .vcard.rehab { border-left: 4px solid #b26a1f; }
+[data-theme="simple"] .vcard.actual { background: #e7eef6; border-color: #9db5cf; }
+[data-theme="simple"] .vcard .vname { color: #1f3f60; }
+[data-theme="simple"] .vcard .done { color: #1e6b40; }
+[data-theme="simple"] .vcard .late { color: var(--accent); }
+[data-theme="simple"] .vcard .done-box { border-color: #1e6b40; color: #1e6b40; }
+
+@media (max-width: 760px) {
+  [data-theme="simple"] .topbar { padding: 10px 16px; }
+  [data-theme="simple"] .sheet { border-radius: 0; border-left: 0; border-right: 0; margin-top: 0; padding: 18px 16px 32px; }
+}
+@media print {
+  [data-theme="simple"] .topbar { border-bottom: 0; background: none; }
+  [data-theme="simple"] .sheet { border: 0; }
+}

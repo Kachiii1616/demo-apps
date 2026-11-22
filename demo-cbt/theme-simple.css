@@ -1,0 +1,126 @@
+/* =====================================================================
+   着せ替え「シンプル」 — 白地・濃いグレーの文字・アクセントは落ち着いた青 1 色
+   夜空の飾り・すりガラス・明朝/英字筆記体の見出し・✦ 飾り・影・グラデーションを消す。
+   すべて [data-theme="simple"] の中だけで効かせ、標準の見た目は変えない。
+   ===================================================================== */
+[data-theme="simple"] {
+  --ink: #222222;
+  --ink-2: #3d434a;
+  --ink-3: #5d646d;
+  --gold: #2f5d8a;
+  --slate: #2f5d8a;
+  --slate-deep: #244a6e;
+  --line: #d9dde2;
+  --card: #ffffff;
+  --card-solid: #ffffff;
+  --field: #ffffff;
+  --chip: #ffffff;
+  --warm: #ffffff;
+  --cool: #f4f6f8;
+  --danger: #b42318;
+  --r-lg: 4px;
+  --r-md: 4px;
+  --shadow: none;
+  --sans: system-ui, -apple-system, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  --mincho: var(--sans);
+  --latin: var(--sans);
+}
+[data-theme="simple"] body { background: #f6f7f8; letter-spacing: .02em; }
+[data-theme="simple"] * { box-shadow: none !important; text-shadow: none !important; }
+
+/* フォーカスの枠ははっきり */
+[data-theme="simple"] :focus-visible { outline: 2px solid #2f5d8a; outline-offset: 2px; }
+[data-theme="simple"] .field:focus { border-color: #2f5d8a; outline: 2px solid #2f5d8a; outline-offset: 0; }
+
+/* デモ帯 */
+[data-theme="simple"] .demo-band { background: #f1f3f5; color: #222; border-bottom: 1px solid var(--line); }
+[data-theme="simple"] .demo-band a { color: #222; }
+[data-theme="simple"] .demo-band button { color: #222; border-color: #b9c0c8; background: #fff; border-radius: 4px; }
+[data-theme="simple"] .demo-band button:hover { background: #e9edf1; }
+
+/* 背景の飾り・ロゴ飾り・英字 */
+[data-theme="simple"] .sky, [data-theme="simple"] .brand-mark, [data-theme="simple"] .brand-en { display: none; }
+[data-theme="simple"] .brand { padding: 18px 2px 6px; align-items: center; }
+[data-theme="simple"] .brand-ja { font-weight: 700; font-size: 20px; letter-spacing: .04em; }
+[data-theme="simple"] .brand-date { margin-top: 0; color: var(--ink-2); }
+
+/* 見出し: 英字は出さず、太字の日本語だけ */
+[data-theme="simple"] .page-en { display: none; }
+[data-theme="simple"] .simple-only[hidden] { display: block; }
+[data-theme="simple"] .page-ja { font-weight: 700; font-size: 20px; letter-spacing: .04em; margin: 14px 2px 12px; }
+[data-theme="simple"] .card-title, [data-theme="simple"] .section-title { font-weight: 700; letter-spacing: .04em; }
+[data-theme="simple"] .card-title::before, [data-theme="simple"] .section-title::before { content: none; }
+[data-theme="simple"] .greet { font-weight: 700; font-size: 18px; letter-spacing: .04em; }
+[data-theme="simple"] .step-no { display: none; }
+[data-theme="simple"] .step-name { font-weight: 700; font-size: 18px; letter-spacing: .04em; }
+[data-theme="simple"] .sheet h2 { font-weight: 700; letter-spacing: .04em; }
+[data-theme="simple"] .flow i { color: var(--ink-3); }
+
+/* 面 */
+[data-theme="simple"] .card {
+  background: #fff; border: 1px solid var(--line);
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+[data-theme="simple"] .card.warm { background: #fff; border-left: 3px solid #b0b7bf; }
+[data-theme="simple"] .hint, [data-theme="simple"] .ref, [data-theme="simple"] details.dist .ex { background: #f4f6f8; border: 1px solid #e3e6ea; }
+[data-theme="simple"] .item { background: #fff; border: 1px solid var(--line); }
+[data-theme="simple"] .item:hover { background: #fafbfc; border-color: #b9c0c8; }
+[data-theme="simple"] .log-row, [data-theme="simple"] .act-rank, [data-theme="simple"] details.dist { border-bottom-color: #e3e6ea; }
+[data-theme="simple"] .quick .ic { background: #e9eff6; }
+[data-theme="simple"] .quick .ic svg { stroke: #2f5d8a; }
+[data-theme="simple"] .quick a:hover { border-color: #2f5d8a; }
+
+/* 入力 */
+[data-theme="simple"] .field, [data-theme="simple"] select.field, [data-theme="simple"] textarea.field { border: 1px solid #b9c0c8; background: #fff; }
+[data-theme="simple"] input[type=range]::-webkit-slider-runnable-track { border-color: #b9c0c8; background: linear-gradient(90deg, var(--slate) var(--pct), #e3e6ea var(--pct)); }
+[data-theme="simple"] input[type=range]::-moz-range-track { background: #e3e6ea; border-color: #b9c0c8; }
+[data-theme="simple"] input[type=range].unset::-webkit-slider-runnable-track { background: #e3e6ea; }
+[data-theme="simple"] input[type=range].unset::-webkit-slider-thumb { background: #9aa2ab; }
+
+/* ボタン・チップ */
+[data-theme="simple"] .btn { border: 1px solid #b9c0c8; background: #fff; border-radius: 4px; }
+[data-theme="simple"] .btn:hover { background: #f4f6f8; border-color: #2f5d8a; }
+[data-theme="simple"] .btn.primary { background: #2f5d8a; border-color: #2f5d8a; color: #fff; letter-spacing: .08em; }
+[data-theme="simple"] .btn.primary:hover { background: #244a6e; filter: none; }
+[data-theme="simple"] .btn.danger { color: var(--danger); border-color: #e3b9b4; }
+[data-theme="simple"] .chip { border: 1px solid #b9c0c8; background: #fff; border-radius: 4px; color: #222; }
+[data-theme="simple"] .chip:hover { background: #f4f6f8; }
+[data-theme="simple"] .chip[aria-pressed="true"] { background: #2f5d8a; border-color: #2f5d8a; color: #fff; }
+[data-theme="simple"] .tag { background: #f1f3f5; border-radius: 4px; color: var(--ink-2); }
+[data-theme="simple"] .habit { background: #fff; border: 1px solid #d9dde2; }
+[data-theme="simple"] .habit[aria-pressed="true"] { border: 1.5px solid #2f5d8a; background: #e9eff6; }
+[data-theme="simple"] .habit[aria-pressed="true"] b::after { color: #2f5d8a; }
+[data-theme="simple"] .seg { background: #fff; border: 1px solid #b9c0c8; border-radius: 4px; }
+[data-theme="simple"] .seg button { border-radius: 3px; }
+[data-theme="simple"] .seg button[aria-pressed="true"] { background: #2f5d8a; color: #fff; }
+[data-theme="simple"] .emo-row .x, [data-theme="simple"] .log-row .del { color: var(--ink-3); }
+
+/* 状態の色（予定=茶系 / 見送り=灰）は意味を保って落ち着いた色に */
+[data-theme="simple"] .badge { border-radius: 4px; background: #f1f3f5; color: var(--ink-2); }
+[data-theme="simple"] .badge.plan { background: #fbf1e2; color: #7a4f12; }
+[data-theme="simple"] .badge.skip { background: #eceef1; color: #5d646d; }
+
+/* 進み具合・グラフ */
+[data-theme="simple"] .progress i { background: #dfe3e8; }
+[data-theme="simple"] .progress i.on { background: #2f5d8a; }
+[data-theme="simple"] .stats b { font-weight: 700; font-size: 28px; }
+[data-theme="simple"] .bar-row .track { background: #e9edf1; }
+[data-theme="simple"] .chart-wrap path { stroke: #2f5d8a; }
+[data-theme="simple"] .chart-wrap circle:not(#hot) { stroke: #2f5d8a; fill: #fff; }
+[data-theme="simple"] .chart-wrap #hot { fill: #2f5d8a; }
+[data-theme="simple"] .chart-wrap text { fill: #5d646d; }
+[data-theme="simple"] .chart-tip { background: #fff; border: 1px solid var(--line); border-radius: 4px; }
+
+/* シート（下から出る詳細） */
+[data-theme="simple"] .sheet-back { background: rgba(20, 24, 28, .4); }
+[data-theme="simple"] .sheet { background: #fff; border-radius: 6px 6px 0 0; border-top: 1px solid var(--line); }
+[data-theme="simple"] .sheet-actions { background: #fff; border-top: 1px solid #e3e6ea; }
+
+/* タブバー */
+[data-theme="simple"] .tabbar { background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none; border-top: 1px solid var(--line); }
+[data-theme="simple"] .tabbar a { color: #4a5159; }
+[data-theme="simple"] .tabbar svg { border-radius: 4px; }
+[data-theme="simple"] .tabbar a.on { color: #2f5d8a; }
+[data-theme="simple"] .tabbar a.on svg { background: #e9eff6; }
+
+[data-theme="simple"] .toast { background: #2b2f33; border-radius: 4px; }

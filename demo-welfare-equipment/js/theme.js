@@ -1,13 +1,20 @@
 // 着せ替え（テーマ）の切替。選んだテーマは localStorage に覚えておく。
 // 最初の適用は index.html の head 内で済ませてある（標準が一瞬見えないように）。
 const KEY = 'showcase-welfare:theme';
-const THEMES = ['', 'mint'];
+const THEMES = ['', 'mint', 'simple'];
+const FONT_URL = 'https://fonts.googleapis.com/css2?family=Great+Vibes&family=Zen+Maru+Gothic:wght@400;500;700&family=Josefin+Sans:wght@300;400&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap';
 const root = document.documentElement;
 const select = document.getElementById('themeSelect');
 
 function apply(t) {
   if (t) root.setAttribute('data-theme', t);
   else root.removeAttribute('data-theme');
+  // 「シンプル」以外に切り替えたとき、まだ Web フォントを読んでいなければ読み込む
+  if (t !== 'simple' && !document.getElementById('webfonts')) {
+    const l = document.createElement('link');
+    l.id = 'webfonts'; l.rel = 'stylesheet'; l.href = FONT_URL;
+    document.head.appendChild(l);
+  }
 }
 
 const current = root.getAttribute('data-theme') || '';

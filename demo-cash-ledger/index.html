@@ -4,16 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>お金管理（デモ版）</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
   <script>
     // 着せ替え: 描画前に保存済みのテーマを当てる（キー showcase-cash:theme）
     (function () {
       var t = 'standard';
       try { t = localStorage.getItem('showcase-cash:theme') || t; } catch (e) {}
-      if (t !== 'wamodern') t = 'standard';
+      if (t !== 'wamodern' && t !== 'simple') t = 'standard';
       document.documentElement.setAttribute('data-theme', t);
+      // 標準・和モダンの本文書体（「シンプル」はシステム標準の書体だけなので読み込まない）
+      window.__cashBaseFonts = function () {
+        if (document.getElementById('baseFonts')) return;
+        var l = document.createElement('link');
+        l.id = 'baseFonts';
+        l.rel = 'stylesheet';
+        l.href = 'https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap';
+        document.head.appendChild(l);
+      };
+      if (t !== 'simple') window.__cashBaseFonts();
       window.__cashThemeFonts = function () {
         if (document.getElementById('waFonts')) return;
         var l = document.createElement('link');
@@ -27,6 +34,7 @@
   </script>
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./theme-wa.css">
+  <link rel="stylesheet" href="./theme-simple.css">
 </head>
 <body>
   <div class="demo-bar no-print">
@@ -53,6 +61,7 @@
           <select id="themeSel" aria-label="着せ替え（画面のデザイン）">
             <option value="standard">標準</option>
             <option value="wamodern">和モダン</option>
+            <option value="simple">シンプル</option>
           </select>
         </label>
       </div>

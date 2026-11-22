@@ -4,16 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>シフト管理（デモ版）</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Kaushan+Script&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Pinyon+Script&family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <script>
-  // 着せ替え：保存済みのテーマを描画前に当てる
+  // 着せ替え：保存済みのテーマを描画前に当てる。Google Fonts は「シンプル」以外のときだけ読み込む（シンプルでは通信しない）
+  window.showcaseLoadFonts = function () {
+    if (document.getElementById('gfonts-1')) return;
+    [
+      'https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Kaushan+Script&display=swap',
+      'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Pinyon+Script&family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap'
+    ].forEach(function (href, i) {
+      var l = document.createElement('link');
+      l.id = 'gfonts-' + (i + 1); l.rel = 'stylesheet'; l.href = href;
+      document.head.appendChild(l);
+    });
+  };
   try { var t = localStorage.getItem('showcase-shift:theme'); if (t && t !== 'standard') document.documentElement.dataset.theme = t; } catch (e) { /* 保存できない環境は標準 */ }
+  if (document.documentElement.dataset.theme !== 'simple') window.showcaseLoadFonts();
 </script>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/theme-greige.css">
+<link rel="stylesheet" href="css/theme-simple.css">
 </head>
 <body>
 <div class="demo-bar no-print">
@@ -39,6 +48,7 @@
       <select id="themeSelect" aria-label="着せ替え">
         <option value="standard">標準</option>
         <option value="greige">グレージュ</option>
+        <option value="simple">シンプル</option>
       </select>
     </label>
   </div>

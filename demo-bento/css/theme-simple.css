@@ -1,0 +1,156 @@
+/* =========================================================
+   着せ替え「シンプル」
+   白地・濃いグレーの文字・アクセントは落ち着いた青 1 色。システム標準の書体のみ。
+   ✓注文／○受け取り済み／×休み の色分けは意味を保ったまま落ち着いた色に。
+   すべて html[data-theme="simple"] の中だけで効く（ほかのテーマの見た目は変えない）。
+   ========================================================= */
+html[data-theme="simple"] {
+  --bg: #f6f7f8;
+  --paper: #ffffff;
+  --ink: #222;
+  --ink-soft: #555b62;
+  --navy: #2f5d8a;
+  --navy-2: #244a6f;
+  --accent: #2f5d8a;
+  --head: #f1f3f5;
+  --line: #d9dde2;
+  --line-soft: #e3e6ea;
+  --order-bg: #e6eef7;
+  --got-bg: #e2f0e5;
+  --got-ink: #1f6a35;
+  --off-bg: #eef0f2;
+  --off-ink: #5f666d;
+  --weekend: #f6f7f8;
+  --sat: #1f5d99;
+  --sun: #b3261e;
+  --taste: #fdf3d0;
+  --radius: 4px;
+  --shadow: none;
+}
+
+html[data-theme="simple"] body {
+  font-family: system-ui, -apple-system, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  font-weight: 400;
+  background: var(--bg);
+}
+
+/* キーボード操作で見えるフォーカス枠 */
+html[data-theme="simple"] a:focus-visible,
+html[data-theme="simple"] button:focus-visible,
+html[data-theme="simple"] select:focus-visible,
+html[data-theme="simple"] input:focus-visible,
+html[data-theme="simple"] textarea:focus-visible {
+  outline: 3px solid var(--accent); outline-offset: 2px;
+}
+html[data-theme="simple"] .cell:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+
+/* ---- デモ帯 ---- */
+html[data-theme="simple"] .demo-bar { background: #fff; color: var(--ink-soft); font-weight: 400; border-bottom: 1px solid var(--line); }
+html[data-theme="simple"] .demo-back { color: var(--accent); }
+html[data-theme="simple"] .demo-reset { color: var(--ink); border: 1px solid var(--line); border-radius: 4px; font-weight: 400; background: #fff; }
+html[data-theme="simple"] .demo-reset:hover { background: #f1f3f5; border-color: var(--accent); }
+
+/* ---- ヘッダ ---- */
+html[data-theme="simple"] .topbar { background: #fff; border-bottom: 1px solid var(--line); }
+html[data-theme="simple"] .topbar h1 { letter-spacing: .04em; font-size: 18px; }
+html[data-theme="simple"] .menu-btn {
+  border-radius: 4px; background: #fff; color: var(--ink); border: 1px solid var(--line); box-shadow: none; font-size: 22px;
+}
+html[data-theme="simple"] .menu-btn:hover { background: #f1f3f5; }
+
+/* ---- メニュー ---- */
+html[data-theme="simple"] .drawer { background: #fff; box-shadow: none; border-right: 1px solid var(--line); }
+html[data-theme="simple"] .drawer-mask { background: rgba(0, 0, 0, .3); }
+html[data-theme="simple"] .drawer-head { letter-spacing: .02em; border-bottom: 1px solid var(--line); margin-bottom: 6px; }
+html[data-theme="simple"] .drawer .ico { display: none; }
+html[data-theme="simple"] .drawer a {
+  border-radius: 4px; font-weight: 500; border-left: 3px solid transparent; padding: 12px 14px;
+}
+html[data-theme="simple"] .drawer a:hover { background: #f1f3f5; }
+html[data-theme="simple"] .drawer a.active { background: #e8eff6; color: var(--accent); border-left-color: var(--accent); font-weight: 700; }
+html[data-theme="simple"] .theme-box { border-top: 1px solid var(--line); }
+html[data-theme="simple"] .theme-label { font-weight: 500; }
+html[data-theme="simple"] .theme-opts button { border: 1px solid var(--line); border-radius: 4px; font-weight: 500; }
+html[data-theme="simple"] .theme-opts button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* ---- 共通の部品 ---- */
+html[data-theme="simple"] .period-label { font-size: 17px; }
+html[data-theme="simple"] .round-btn {
+  border-radius: 4px; background: #fff; color: var(--accent); border: 1px solid var(--line); box-shadow: none;
+}
+html[data-theme="simple"] .round-btn:hover { background: #f1f3f5; }
+html[data-theme="simple"] .chip-btn { border-radius: 4px; background: #fff; border: 1px solid var(--line); font-weight: 500; }
+html[data-theme="simple"] .chip-btn:hover { background: #f1f3f5; border-color: var(--accent); }
+html[data-theme="simple"] .btn { border-radius: 4px; border-width: 1px; box-shadow: none; font-weight: 700; }
+html[data-theme="simple"] .btn:not(:disabled):hover { background: var(--navy-2); border-color: var(--navy-2); }
+html[data-theme="simple"] .btn.red,
+html[data-theme="simple"] .btn.red:not(:disabled):hover { background: #b3261e; border-color: #b3261e; }
+html[data-theme="simple"] .btn.ghost,
+html[data-theme="simple"] .btn.dashed { background: #fff; color: var(--accent); border-color: var(--line); }
+html[data-theme="simple"] .btn.ghost:not(:disabled):hover,
+html[data-theme="simple"] .btn.dashed:not(:disabled):hover { background: #f1f3f5; border-color: var(--accent); }
+html[data-theme="simple"] .btn.dashed { border-style: solid; }
+html[data-theme="simple"] .hint { font-size: 13px; }
+
+html[data-theme="simple"] .paper { border: 1px solid var(--line); box-shadow: none; }
+html[data-theme="simple"] .paper-title { letter-spacing: .04em; }
+
+html[data-theme="simple"] table.grid th { background: var(--head); }
+
+/* ---- スタッフ弁当チェック ---- */
+html[data-theme="simple"] .legend { font-size: 13px; }
+html[data-theme="simple"] .legend .o { color: #1d4f80; }
+html[data-theme="simple"] .staff-wrap { border: 1px solid var(--line); box-shadow: none; }
+html[data-theme="simple"] table.staff th,
+html[data-theme="simple"] table.staff td { border-color: var(--line-soft); }
+html[data-theme="simple"] table.staff td.sum { background: #f6f7f8; }
+html[data-theme="simple"] table.staff tr.today th.day { background: var(--accent); color: #fff; }
+html[data-theme="simple"] table.staff tr.today td { box-shadow: inset 0 2px 0 var(--accent), inset 0 -2px 0 var(--accent); }
+html[data-theme="simple"] .cell { transition: none; }
+html[data-theme="simple"] .cell.o { background: var(--order-bg); color: #1d4f80; }
+html[data-theme="simple"] .cell.r { background: var(--got-bg); color: var(--got-ink); }
+html[data-theme="simple"] .cell.x { background: var(--off-bg); color: var(--off-ink); }
+
+/* ---- 利用者チェック表 ---- */
+html[data-theme="simple"] .day-card .print-one { border-radius: 4px; background: #fff; border: 1px solid var(--line); }
+
+/* ---- 食事数表 ---- */
+html[data-theme="simple"] table.count td.n:hover { background: #f1f5f9; }
+html[data-theme="simple"] table.count td.n.zero { color: #8a9097; }
+html[data-theme="simple"] table.count td.n.sel { background: #dbe6f2; }
+html[data-theme="simple"] table.count tr.total th,
+html[data-theme="simple"] table.count tr.total td { background: #eef0f2; }
+html[data-theme="simple"] table.count th.lunch-h { background: #fbf3e2; }
+html[data-theme="simple"] table.count th.dinner-h { background: #e8eff6; }
+html[data-theme="simple"] .names-panel { border-radius: 4px; background: #fff; border: 1px solid var(--line); }
+html[data-theme="simple"] .names-panel .tag { border-radius: 4px; border-color: var(--line); }
+
+/* ---- おやつ・集金 ---- */
+html[data-theme="simple"] .snack-sum span { border-radius: 4px; background: #f1f3f5; }
+html[data-theme="simple"] .money td input,
+html[data-theme="simple"] .price-row input { border-radius: 4px; border-color: #c3c9d0; }
+html[data-theme="simple"] .money tfoot td,
+html[data-theme="simple"] .money tfoot th { background: #f1f3f5; }
+
+/* ---- 利用者情報 ---- */
+html[data-theme="simple"] .users-tools select { border-radius: 4px; background: #fff; }
+html[data-theme="simple"] .user-card { border: 1px solid var(--line); box-shadow: none; }
+html[data-theme="simple"] .pill { border-radius: 4px; background: #f1f3f5; }
+html[data-theme="simple"] .pill.night { background: #e8eff6; color: #1d4f80; }
+html[data-theme="simple"] .pill.warn { background: #fbe9e7; color: #9c2a20; }
+html[data-theme="simple"] .sec-title { border-radius: 4px; }
+html[data-theme="simple"] .field input[type=text],
+html[data-theme="simple"] .field select,
+html[data-theme="simple"] .field textarea { border-radius: 4px; border-color: #c3c9d0; }
+html[data-theme="simple"] .days label,
+html[data-theme="simple"] .toggles label { border-radius: 4px; border-width: 1px; font-weight: 500; }
+html[data-theme="simple"] .days label:has(input:checked),
+html[data-theme="simple"] .toggles label:has(input:checked) { background: var(--accent); border-color: var(--accent); }
+
+html[data-theme="simple"] .toast { border-radius: 4px; background: #333; }
+
+@media print {
+  html[data-theme="simple"] .paper,
+  html[data-theme="simple"] .staff-wrap,
+  html[data-theme="simple"] .user-card { border: 0; }
+}

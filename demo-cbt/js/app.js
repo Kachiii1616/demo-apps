@@ -41,7 +41,20 @@ function chipList(items, selected, attr) {
   return items.map((f) => `<button type="button" class="chip" data-${attr}="${esc(f)}" aria-pressed="${selected.includes(f)}">${esc(f)}</button>`).join('');
 }
 
-const head = (en, ja) => `<h1 class="page-en">${en}</h1>${ja ? `<h2 class="page-ja">${ja}</h2>` : ''}`;
+// simpleJa: 英字見出しだけの画面で、シンプルのときに代わりに出す日本語の見出し（標準では hidden）
+const head = (en, ja, simpleJa = '') => `<h1 class="page-en">${en}</h1>${ja ? `<h2 class="page-ja">${ja}</h2>` : ''}${simpleJa ? `<h2 class="page-ja simple-only" hidden>${simpleJa}</h2>` : ''}`;
+
+// ---------- 着せ替え ----------
+const THEME_KEY = 'showcase-cbt:theme';
+const THEMES = [['standard', '標準'], ['simple', 'シンプル']];
+function currentTheme() { return document.documentElement.dataset.theme === 'simple' ? 'simple' : 'standard'; }
+function setTheme(th) {
+  document.documentElement.dataset.theme = th;
+  try { localStorage.setItem(THEME_KEY, th); } catch { /* 保存できない環境でもその場では切り替える */ }
+  if (th !== 'simple' && window.__loadWebFonts) window.__loadWebFonts();
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', th === 'simple' ? '#ffffff' : '#c9d3de');
+}
 
 const CRISIS = `
   <section class="card warm">
@@ -69,7 +82,7 @@ function renderHome() {
   const doneActs = todayActs.filter((a) => a.status === 'done').length;
 
   $view.innerHTML = `
-    ${head('Today')}
+    ${head('Today', '', '今日のこころ')}
     <section class="card">
       <p class="greet">${greeting()}</p>
       <p class="lead">いまの気持ちに名前をつけるだけでも、少し距離をおいて眺められます。</p>
@@ -354,6 +367,7 @@ function renderWizard() {
   const s = STEPS[w.step];
   $view.innerHTML = `
     <h1 class="page-en">Thought Record</h1>
+    <h2 class="page-ja simple-only" hidden>コラム法（思考記録）</h2>
     <div class="step-head">
       <span class="step-no">${s.no}</span>
       <span class="step-name">${s.name}</span>
@@ -715,8 +729,20 @@ function renderLearn() {
           <p>💭 ${esc(h.ask)}</p>
         </details>`).join('')}
     </section>
+    <section class="card theme-card">
+      <h3 class="card-title">画面のデザイン</h3>
+      <p class="small muted" style="margin:-6px 0 10px">見た目だけが変わります。記録はそのまま残ります。</p>
+      <div class="seg theme-seg" role="group" aria-label="画面のデザイン">
+        ${THEMES.map(([k, l]) => `<button type="button" data-theme-pick="${k}" aria-pressed="${currentTheme() === k}">${l}</button>`).join('')}
+      </div>
+    </section>
     ${CRISIS}
   `;
+  $view.querySelectorAll('[data-theme-pick]').forEach((b) => b.addEventListener('click', () => {
+    setTheme(b.dataset.themePick);
+    $view.querySelectorAll('[data-theme-pick]').forEach((x) => x.setAttribute('aria-pressed', x.dataset.themePick === currentTheme()));
+    toast(`デザインを「${THEMES.find(([k]) => k === currentTheme())[1]}」にしました`);
+  }));
 }
 
 // ---------- ルーター ----------
