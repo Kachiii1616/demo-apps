@@ -6,8 +6,17 @@
   <title>福祉用具 管理（デモ版）</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    // 着せ替え：描画前に適用して、標準の見た目が一瞬見えないようにする
+    (function () {
+      var t = '';
+      try { t = localStorage.getItem('showcase-welfare:theme') || ''; } catch (e) { /* 保存できない環境は標準 */ }
+      if (t === 'mint') document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Zen+Maru+Gothic:wght@400;500;700&family=Josefin+Sans:wght@300;400&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/theme-mint.css">
 </head>
 <body>
   <div class="demo-band no-print">
@@ -27,6 +36,12 @@
     <span class="topbar__office" id="officeName"></span>
   </header>
 
+  <div class="theme-deco theme-only no-print" aria-hidden="true">
+    <span class="deco-arc"></span>
+    <span class="deco-ring"><i id="decoNo">1</i><i>4</i></span>
+    <span class="deco-half"></span>
+  </div>
+
   <div class="layout">
     <nav class="sidenav no-print" id="sidenav" aria-label="メインメニュー">
       <a href="#/users" data-nav="users"><span class="ja">利用者一覧</span><span class="en">Users</span></a>
@@ -34,6 +49,17 @@
       <a href="#/products" data-nav="products"><span class="ja">商品マスタ</span><span class="en">Products</span></a>
       <a href="#/monthly" data-nav="monthly"><span class="ja">月次実績</span><span class="en">Monthly</span></a>
       <p class="sidenav__note">左のメニューから画面を切り替えます。データはこの端末のブラウザにだけ保存されます。</p>
+      <div class="theme-switch">
+        <label for="themeSelect">着せ替え</label>
+        <select id="themeSelect">
+          <option value="">標準</option>
+          <option value="mint">ミントクリニック</option>
+        </select>
+      </div>
+      <div class="theme-catch theme-only" aria-hidden="true">
+        <span class="theme-catch__ja">道具から、<br>毎日をととのえる。</span>
+        <span class="theme-catch__en">WELFARE EQUIPMENT</span>
+      </div>
     </nav>
 
     <main id="view" class="view" tabindex="-1"></main>
@@ -44,5 +70,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/theme.js"></script>
 </body>
 </html>

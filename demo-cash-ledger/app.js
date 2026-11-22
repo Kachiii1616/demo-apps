@@ -372,7 +372,7 @@ function viewMonth(app, ym) {
   app.innerHTML = `${tabs('month')}
     ${monthNav(ym, (m) => `#/month/${m}`)}
     <section class="card">
-      <h2 class="card-title"><span class="badge-icon" aria-hidden="true">${ICON.calendar}</span>月別出納表</h2>
+      <h2 class="card-title" data-en="Monthly ledger"><span class="badge-icon" aria-hidden="true">${ICON.calendar}</span>月別出納表</h2>
       ${summary({ carry, inSum: t.inSum, outSum: t.outSum, end: t.end, extra: `<span>件数<b>${rows.length}</b></span>` })}
       <div class="toolbar">
         <button type="button" class="btn danger" id="delMonth" ${rows.length ? '' : 'disabled'}>この月を削除</button>
@@ -397,7 +397,7 @@ function viewMonth(app, ym) {
 function viewUsers(app) {
   app.innerHTML = `${tabs('users')}
     <section class="card">
-      <h2 class="card-title"><span class="badge-icon" aria-hidden="true">${ICON.person}</span>利用者一覧</h2>
+      <h2 class="card-title" data-en="Residents"><span class="badge-icon" aria-hidden="true">${ICON.person}</span>利用者一覧</h2>
       <input type="search" class="search" id="q" placeholder="名前で探す（氏名・フリガナ）" aria-label="名前で探す">
       <ul class="user-list" id="list"></ul>
       <p class="empty-note" id="none" hidden>該当する利用者がいません。</p>
@@ -435,7 +435,7 @@ function viewUser(app, userId, mode) {
     <p class="crumb"><a href="#/users">‹ 利用者一覧</a> ／ 個別ページ</p>
     ${all ? '' : monthNav(ym, (m) => `#/user/${userId}/${m}`)}
     <section class="card">
-      <h2 class="card-title"><span class="badge-icon" aria-hidden="true">¥</span>${esc(u.name)} 様${u.active ? '' : ' <span class="status off">利用終了</span>'}</h2>
+      <h2 class="card-title" data-en="Personal ledger"><span class="badge-icon" aria-hidden="true">¥</span>${esc(u.name)} 様${u.active ? '' : ' <span class="status off">利用終了</span>'}</h2>
       ${all
         ? `<div class="summary"><span class="in">入金合計<b>${yen(t.inSum)}</b></span><span class="out">出金合計<b>${yen(t.outSum)}</b></span><span>現在の預り残高<b>${yen(now)}</b></span><span>件数<b>${rows.length}</b></span></div>`
         : summary({ carry, inSum: t.inSum, outSum: t.outSum, end: t.end, extra: `<span>現在の預り残高<b>${yen(now)}</b></span>` })}
@@ -457,7 +457,7 @@ function viewRegister(app) {
   const list = sortedUsers();
   app.innerHTML = `${tabs('register')}
     <section class="card">
-      <h2 class="card-title"><span class="badge-icon" aria-hidden="true">${ICON.person}</span>利用者登録</h2>
+      <h2 class="card-title" data-en="Register"><span class="badge-icon" aria-hidden="true">${ICON.person}</span>利用者登録</h2>
       <div class="toolbar">
         <p class="help">利用終了にすると入力の選択肢から外れます（過去の記録は残ります）。記録のない登録は「編集」→「削除」で取り消せます。</p>
         <button type="button" class="btn primary lg" id="addUser">＋ 利用者を追加</button>
@@ -544,6 +544,22 @@ function render() {
   else { location.hash = '#/month'; return; }
 }
 
+/* ---------------- 着せ替え ---------------- */
+const THEME_KEY = 'showcase-cash:theme';
+const THEMES = { standard: '標準', wamodern: '和モダン' };
+function bindTheme() {
+  const sel = $('#themeSel');
+  const cur = document.documentElement.dataset.theme;
+  sel.value = THEMES[cur] ? cur : 'standard';
+  sel.addEventListener('change', () => {
+    const t = THEMES[sel.value] ? sel.value : 'standard';
+    if (t === 'wamodern') window.__cashThemeFonts?.();
+    document.documentElement.dataset.theme = t;
+    try { localStorage.setItem(THEME_KEY, t); } catch (_) { /* 保存できなくても切替はする */ }
+    toast(`着せ替え：${THEMES[t]}`);
+  });
+}
+
 function init() {
   $('#facilityName').textContent = db.facility;
   $('#todayLabel').textContent = `今日 ${TODAY.getFullYear()}年${TODAY.getMonth() + 1}月${TODAY.getDate()}日(${WEEK[TODAY.getDay()]})`;
@@ -553,6 +569,7 @@ function init() {
     toast('初期状態に戻しました');
     render();
   });
+  bindTheme();
   save();
   window.addEventListener('hashchange', () => { closeModal(); render(); window.scrollTo(0, 0); });
   render();

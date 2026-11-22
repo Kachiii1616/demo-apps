@@ -7,7 +7,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    // 着せ替え: 描画前に保存済みのテーマを当てる（キー showcase-cash:theme）
+    (function () {
+      var t = 'standard';
+      try { t = localStorage.getItem('showcase-cash:theme') || t; } catch (e) {}
+      if (t !== 'wamodern') t = 'standard';
+      document.documentElement.setAttribute('data-theme', t);
+      window.__cashThemeFonts = function () {
+        if (document.getElementById('waFonts')) return;
+        var l = document.createElement('link');
+        l.id = 'waFonts';
+        l.rel = 'stylesheet';
+        l.href = 'https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Allura&display=swap';
+        document.head.appendChild(l);
+      };
+      if (t === 'wamodern') window.__cashThemeFonts();
+    })();
+  </script>
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./theme-wa.css">
 </head>
 <body>
   <div class="demo-bar no-print">
@@ -30,6 +49,12 @@
       <div class="head-meta">
         <div class="facility" id="facilityName"></div>
         <div class="today" id="todayLabel"></div>
+        <label class="theme-pick">着せ替え
+          <select id="themeSel" aria-label="着せ替え（画面のデザイン）">
+            <option value="standard">標準</option>
+            <option value="wamodern">和モダン</option>
+          </select>
+        </label>
       </div>
     </div>
   </header>

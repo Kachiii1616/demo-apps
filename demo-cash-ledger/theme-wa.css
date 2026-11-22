@@ -1,0 +1,304 @@
+/* =========================================================
+   着せ替え「和モダン」
+   淡いブルーグレー・白・グレージュの面を切り替え、細い線の枠と
+   ネイビーの小さな丸バッジ・四角いボタンでまとめる。
+   すべて :root[data-theme="wamodern"] の下だけで効く（標準の見た目は変えない）。
+   ========================================================= */
+:root[data-theme="wamodern"] {
+  --wa-navy: #22314c;
+  --wa-navy-2: #3b4a66;
+  --wa-mist: #e2e8ee;      /* 淡いブルーグレー */
+  --wa-greige: #ece8e1;    /* 温かみのあるライトグレー */
+  --wa-sand: #f6f3ee;
+  --wa-green: #637060;     /* くすんだ緑（白文字が読める濃さ） */
+  --wa-green-2: #8a9684;
+  --wa-frame: #b9c0c9;     /* 細い枠 */
+  --wa-mincho: "Shippori Mincho", "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --wa-script: "Allura", "Great Vibes", cursive;
+
+  --bg: var(--wa-greige);
+  --card: #ffffff;
+  --ink: #262a31;
+  --ink-2: #4f5562;
+  --ink-3: #868c96;
+  --line: #d3d7dc;
+  --line-2: #e6e8eb;
+  --band: var(--wa-green);
+  --head-cell: #eef1f5;
+  --in: #275788;
+  --out: #a1392b;
+  --hl: #f4efe4;
+  --radius: 0;
+}
+
+[data-theme="wamodern"] body { overflow-x: clip; }
+
+/* ---------- 上部のデモ帯（控えめ） ---------- */
+[data-theme="wamodern"] .demo-bar {
+  background: var(--wa-green);
+  font-weight: 500;
+  letter-spacing: .04em;
+  padding: 5px 16px;
+}
+[data-theme="wamodern"] .demo-reset { border-radius: 0; font-weight: 500; border-color: rgba(255,255,255,.6); }
+
+/* ---------- ヘッダ ---------- */
+[data-theme="wamodern"] .app-head {
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+[data-theme="wamodern"] .app-head::after {   /* 下に細い二重線 */
+  content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: var(--line-2);
+}
+[data-theme="wamodern"] .app-head-inner { padding-top: 14px; padding-bottom: 12px; }
+[data-theme="wamodern"] .brand-icon {
+  color: #fff; background: var(--wa-navy);
+  width: 44px; height: 44px; border-radius: 50%;
+  align-items: center; justify-content: center;
+  box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--wa-navy);
+}
+[data-theme="wamodern"] .brand-icon svg { width: 24px; height: 18px; }
+[data-theme="wamodern"] .brand-icon svg rect:first-child { fill: none; stroke: #fff; stroke-width: 2; }
+[data-theme="wamodern"] .brand-icon svg rect:nth-child(2) { fill: #fff; opacity: .5; }
+[data-theme="wamodern"] .brand > div:last-child { position: relative; }
+[data-theme="wamodern"] .brand-ruby { color: var(--ink-3); font-weight: 500; }
+[data-theme="wamodern"] .brand-name {
+  font-family: var(--wa-mincho); font-weight: 600; letter-spacing: .22em; font-size: 21px; color: var(--wa-navy);
+}
+[data-theme="wamodern"] .brand > div:last-child::after {
+  content: "cash book";
+  position: absolute; left: calc(100% + 6px); bottom: 0;
+  font-family: var(--wa-script); font-size: 19px; line-height: 1; color: var(--wa-green-2); white-space: nowrap;
+  transform: rotate(-6deg);
+}
+[data-theme="wamodern"] .facility { font-family: var(--wa-mincho); font-weight: 600; letter-spacing: .06em; }
+[data-theme="wamodern"] .theme-pick select { border-radius: 0; border-color: var(--wa-frame); }
+
+/* ---------- 面の切り替え（上はブルーグレー、下はグレージュ） ---------- */
+[data-theme="wamodern"] .wrap { position: relative; padding-top: 18px; }
+[data-theme="wamodern"] .wrap::before {
+  content: ""; position: absolute; z-index: -1;
+  top: 0; left: 50%; width: 100vw; transform: translateX(-50%);
+  height: 230px;
+  background:
+    linear-gradient(112deg, transparent 0 62%, rgba(255,255,255,.55) 62% 66%, transparent 66% 69%, rgba(255,255,255,.35) 69% 70%, transparent 70%),
+    var(--wa-mist);
+}
+[data-theme="wamodern"] .wrap::after {   /* 下端のくすんだ緑の細い帯 */
+  content: ""; display: block; height: 6px; margin-top: 28px;
+  background: linear-gradient(90deg, var(--wa-green) 0 64px, transparent 64px 72px, var(--wa-frame) 72px);
+  opacity: .8;
+}
+[data-theme="wamodern"] body.is-print .wrap::after { display: none; }
+
+/* ---------- タブ ---------- */
+[data-theme="wamodern"] .tabs {
+  background: transparent; border-bottom: 1px solid var(--wa-frame); gap: 6px; margin-bottom: 16px;
+}
+[data-theme="wamodern"] .tabs a {
+  background: rgba(255,255,255,.55);
+  border: 1px solid var(--wa-frame); border-bottom: 0;
+  margin-bottom: 0;
+  font-family: var(--wa-mincho); font-weight: 600; letter-spacing: .16em;
+  color: var(--ink-2);
+  padding: 11px 4px 10px;
+  position: relative;
+}
+[data-theme="wamodern"] .tabs a.on {
+  background: #fff; color: var(--wa-navy);
+  border-color: var(--wa-navy-2);
+  box-shadow: inset 0 3px 0 var(--wa-navy);
+}
+[data-theme="wamodern"] .tabs a.on::after {   /* 下線を消して面とつなげる */
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: #fff;
+}
+[data-theme="wamodern"] .tabs a:hover { color: var(--wa-navy); background: #fff; }
+
+/* ---------- 月の切り替え ---------- */
+[data-theme="wamodern"] .month-nav button,
+[data-theme="wamodern"] .month-nav .month-label {
+  border: 1px solid var(--wa-frame); box-shadow: none; border-radius: 0;
+}
+[data-theme="wamodern"] .month-nav button { background: var(--wa-navy); color: #fff; border-color: var(--wa-navy); font-weight: 400; }
+[data-theme="wamodern"] .month-nav button:hover { background: var(--wa-navy-2); }
+[data-theme="wamodern"] .month-label {
+  font-family: var(--wa-mincho); font-weight: 600; letter-spacing: .18em; color: var(--ink-2);
+  outline: 1px solid #fff; outline-offset: -5px;
+}
+[data-theme="wamodern"] .month-label b { color: var(--wa-navy); font-weight: 700; }
+
+/* ---------- カードと見出し ---------- */
+[data-theme="wamodern"] .card {
+  border: 1px solid var(--line); box-shadow: none; padding: 22px 22px 20px; margin-bottom: 18px;
+}
+[data-theme="wamodern"] .card-title {
+  position: relative;
+  width: fit-content; max-width: 100%;
+  margin: 14px auto 18px;
+  padding: 9px 26px 8px 12px;
+  border: 1px solid var(--wa-navy-2);
+  outline: 1px solid var(--line); outline-offset: 3px;
+  font-family: var(--wa-mincho); font-weight: 600; font-size: 17px; letter-spacing: .2em;
+  color: var(--wa-navy);
+  background: #fff;
+}
+[data-theme="wamodern"] .card-title[data-en]::before {
+  content: attr(data-en);
+  position: absolute; left: -10px; top: -21px;
+  padding: 0 6px;
+  background: #fff;
+  font-family: var(--wa-script); font-size: 25px; font-weight: 400; letter-spacing: 0; line-height: 1.1;
+  color: var(--wa-navy-2);
+  transform: rotate(-7deg);
+  white-space: nowrap;
+}
+[data-theme="wamodern"] .badge-icon { background: var(--wa-navy); width: 26px; height: 26px; font-family: var(--font); }
+[data-theme="wamodern"] .card-title .status { font-family: var(--font); letter-spacing: .04em; }
+
+/* ---------- 集計（細い枠のカードを横並び） ---------- */
+[data-theme="wamodern"] .summary {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 8px;
+  margin: 0 0 14px; color: var(--ink-2);
+}
+[data-theme="wamodern"] .summary > span {
+  background: #fff; border: 1px solid var(--line);
+  border-top: 3px solid var(--wa-frame);
+  padding: 7px 10px 6px; font-size: 11px; letter-spacing: .08em;
+}
+[data-theme="wamodern"] .summary > span.in { border-top-color: var(--in); }
+[data-theme="wamodern"] .summary > span.out { border-top-color: var(--out); }
+[data-theme="wamodern"] .summary b {
+  display: block; margin: 1px 0 0; text-align: right; font-size: 20px; letter-spacing: .02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- ボタン（四角・ネイビー） ---------- */
+[data-theme="wamodern"] .btn {
+  border-radius: 0; border-color: var(--wa-frame); color: var(--wa-navy); letter-spacing: .06em;
+}
+[data-theme="wamodern"] .btn:hover { background: var(--wa-sand); }
+[data-theme="wamodern"] .btn.danger { color: var(--out); }
+[data-theme="wamodern"] .btn.primary { background: var(--wa-navy); border-color: var(--wa-navy); color: #fff; letter-spacing: .12em; }
+[data-theme="wamodern"] .btn.primary:hover { background: var(--wa-navy-2); }
+[data-theme="wamodern"] .btn:disabled { opacity: .45; cursor: default; }
+[data-theme="wamodern"] .seg { gap: 0; border: 1px solid var(--wa-navy-2); }
+[data-theme="wamodern"] .seg button { border-radius: 0; background: #fff; color: var(--wa-navy); padding: 5px 14px; letter-spacing: .08em; }
+[data-theme="wamodern"] .seg button + button { border-left: 1px solid var(--wa-navy-2); }
+[data-theme="wamodern"] .seg button.on { background: var(--wa-navy); color: #fff; }
+
+/* ---------- 出納表 ---------- */
+[data-theme="wamodern"] .table-scroll { border-color: var(--wa-frame); }
+[data-theme="wamodern"] .ledger th,
+[data-theme="wamodern"] .ledger td { border-color: var(--line); }
+[data-theme="wamodern"] .ledger thead th {
+  background: var(--head-cell); color: var(--wa-navy); font-weight: 700; letter-spacing: .08em;
+  border-color: #cdd4dd;
+}
+[data-theme="wamodern"] .ledger thead th.col-in { color: var(--in); }
+[data-theme="wamodern"] .ledger thead th.col-out { color: var(--out); }
+[data-theme="wamodern"] .ledger td.num { font-size: 13.5px; }
+[data-theme="wamodern"] .ledger td.num:not(.in):not(.out) { font-weight: 500; }
+[data-theme="wamodern"] .ledger td.user a { color: var(--wa-navy); text-decoration-color: var(--wa-frame); text-underline-offset: 3px; }
+[data-theme="wamodern"] .ledger tr.carry td { background: var(--wa-sand); }
+[data-theme="wamodern"] .ledger tr.carry td.memo,
+[data-theme="wamodern"] .ledger tr.total td.memo { font-family: var(--wa-mincho); color: var(--wa-navy); }
+[data-theme="wamodern"] .ledger tr.total td { background: var(--head-cell); border-top: 2px solid var(--wa-navy-2); }
+[data-theme="wamodern"] .ledger tbody tr.add td { color: var(--wa-navy-2); }
+[data-theme="wamodern"] .ledger tbody tr.add:hover td { background: var(--wa-mist); color: var(--wa-navy); }
+[data-theme="wamodern"] .ledger tbody tr.row:focus-visible td { background: var(--hl); }
+[data-theme="wamodern"] .ledger tbody tr.row:focus-visible { outline: 2px solid var(--wa-navy); outline-offset: -2px; }
+
+/* ---------- 利用者一覧（番号の丸バッジ） ---------- */
+[data-theme="wamodern"] .search { border-radius: 0; border-color: var(--wa-frame); }
+[data-theme="wamodern"] .search:focus { outline: 2px solid var(--wa-navy); outline-offset: -1px; }
+[data-theme="wamodern"] .user-list { border: 0; counter-reset: wa-user; display: grid; gap: 6px; }
+[data-theme="wamodern"] .user-list li + li { border-top: 0; }
+[data-theme="wamodern"] .user-list li { border: 1px solid var(--line); background: #fff; }
+[data-theme="wamodern"] .user-list a { padding: 11px 12px; }
+[data-theme="wamodern"] .user-list a::before {
+  counter-increment: wa-user; content: counter(wa-user, decimal-leading-zero);
+  flex: none; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--wa-navy); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; letter-spacing: .02em; font-variant-numeric: tabular-nums;
+}
+[data-theme="wamodern"] .user-list li.ended a::before { background: #b3b8bf; }
+[data-theme="wamodern"] .user-list a:hover { background: var(--wa-sand); }
+[data-theme="wamodern"] .user-list .nm { font-family: var(--wa-mincho); font-weight: 600; font-size: 15px; letter-spacing: .1em; color: var(--wa-navy); }
+[data-theme="wamodern"] .user-list li.ended .nm { color: var(--ink-3); }
+[data-theme="wamodern"] .user-list .chev { color: var(--wa-navy-2); }
+
+[data-theme="wamodern"] .crumb a { color: var(--wa-navy); }
+
+/* ---------- 利用者登録 ---------- */
+[data-theme="wamodern"] .help { color: var(--ink-2); border-left: 3px solid var(--wa-green-2); padding-left: 10px; }
+[data-theme="wamodern"] .plain th,
+[data-theme="wamodern"] .plain td { border-color: var(--line); }
+[data-theme="wamodern"] .plain thead th { background: var(--head-cell); color: var(--wa-navy); letter-spacing: .08em; border-color: #cdd4dd; }
+[data-theme="wamodern"] .plain tbody tr:nth-child(even) td { background: #fbfaf8; }
+[data-theme="wamodern"] .plain td:nth-child(2) { white-space: nowrap; }
+[data-theme="wamodern"] .status { border-radius: 0; background: #e7ebe3; color: #45523f; font-weight: 500; letter-spacing: .06em; }
+[data-theme="wamodern"] .status.off { background: #eceae6; color: #8a8780; }
+
+/* ---------- ダイアログ ---------- */
+[data-theme="wamodern"] .modal-back { background: rgba(28,36,52,.5); }
+[data-theme="wamodern"] .modal {
+  border-radius: 0; border-top: 4px solid var(--wa-navy); padding: 20px 20px 18px;
+  outline: 1px solid var(--line); outline-offset: -9px;
+}
+[data-theme="wamodern"] .modal-head { border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 14px; }
+[data-theme="wamodern"] .modal-head h2 { font-family: var(--wa-mincho); font-weight: 600; letter-spacing: .16em; color: var(--wa-navy); }
+[data-theme="wamodern"] .modal-head .sub { color: var(--wa-green-2); letter-spacing: .32em; }
+[data-theme="wamodern"] .modal-x { color: var(--wa-navy); }
+[data-theme="wamodern"] .field label { color: var(--wa-navy); font-weight: 500; letter-spacing: .08em; font-size: 12px; }
+[data-theme="wamodern"] .field input,
+[data-theme="wamodern"] .field select,
+[data-theme="wamodern"] .field textarea { border-radius: 0; border-color: var(--wa-frame); }
+[data-theme="wamodern"] .field input:focus,
+[data-theme="wamodern"] .field select:focus,
+[data-theme="wamodern"] .field textarea:focus { outline-color: var(--wa-navy); }
+[data-theme="wamodern"] #fIn { border-left: 4px solid var(--in); color: var(--in); }
+[data-theme="wamodern"] #fOut { border-left: 4px solid var(--out); color: var(--out); }
+[data-theme="wamodern"] .memo-chips button { border-radius: 0; border-color: var(--wa-frame); background: #fff; color: var(--wa-navy); }
+[data-theme="wamodern"] .memo-chips button:hover { background: var(--wa-mist); }
+[data-theme="wamodern"] .err { border-radius: 0; border-left: 3px solid var(--out); }
+[data-theme="wamodern"] .confirm-msg { color: var(--ink); }
+[data-theme="wamodern"] .toast { background: var(--wa-navy); border-radius: 0; letter-spacing: .06em; }
+
+/* ---------- 印刷プレビュー（画面上） ---------- */
+[data-theme="wamodern"] .print-tools {
+  background: var(--wa-green); padding: 10px 12px; margin-bottom: 18px;
+}
+[data-theme="wamodern"] .print-tools .note { color: #fff; }
+[data-theme="wamodern"] .print-tools .btn { background: #fff; border-color: #fff; }
+[data-theme="wamodern"] .print-tools .btn.primary { background: var(--wa-navy); border-color: var(--wa-navy); color: #fff; }
+[data-theme="wamodern"] .sheet-holder { padding: 6px 4px 14px; }
+[data-theme="wamodern"] .sheet {
+  box-shadow: none; outline: 1px solid var(--wa-frame); outline-offset: 5px; border: 1px solid var(--line);
+}
+[data-theme="wamodern"] .sheet-title { font-family: var(--wa-mincho); font-weight: 700; }
+
+/* ---------- 印刷: 飾りを消して出納表だけ ---------- */
+@media print {
+  [data-theme="wamodern"] body { background: #fff; }
+  [data-theme="wamodern"] .wrap::before,
+  [data-theme="wamodern"] .wrap::after { display: none !important; }
+  [data-theme="wamodern"] .sheet { outline: 0; border: 0; }
+}
+
+/* ---------- スマホ幅 ---------- */
+@media (max-width: 640px) {
+  [data-theme="wamodern"] .brand-icon { width: 38px; height: 38px; }
+  [data-theme="wamodern"] .brand-name { font-size: 18px; letter-spacing: .16em; }
+  [data-theme="wamodern"] .brand > div:last-child::after { display: none; }
+  [data-theme="wamodern"] .tabs { gap: 4px; }
+  [data-theme="wamodern"] .tabs a { font-size: 13px; letter-spacing: .06em; }
+  [data-theme="wamodern"] .wrap::before { height: 200px; }
+  [data-theme="wamodern"] .card { padding: 16px 12px 14px; }
+  [data-theme="wamodern"] .card-title { font-size: 15px; letter-spacing: .12em; padding: 8px 18px 7px 10px; margin-top: 16px; }
+  [data-theme="wamodern"] .card-title[data-en]::before { font-size: 22px; top: -19px; left: -6px; }
+  [data-theme="wamodern"] .summary { grid-template-columns: 1fr 1fr; gap: 6px; }
+  [data-theme="wamodern"] .summary b { font-size: 17px; }
+  [data-theme="wamodern"] .modal { outline-offset: -7px; padding: 16px 14px 14px; }
+}

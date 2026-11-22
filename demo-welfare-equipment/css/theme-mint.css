@@ -1,0 +1,287 @@
+/* =========================================================
+   着せ替え「ミントクリニック」
+   真っ白な余白・くすんだミントの大きな図形・細い字間広めのゴシック。
+   すべて html[data-theme="mint"] の中だけで効くので、標準の見た目は変わらない。
+   ========================================================= */
+html[data-theme="mint"] {
+  --bg-1: #ffffff;
+  --bg-2: #ffffff;
+  --ink: #3a4544;
+  --ink-soft: #7a8785;
+  --gold: #7fa7a1;          /* 英字見出し・小さな飾りのミント */
+  --gold-deep: #4f7a74;     /* 文字に使う濃いミント（白地で読める濃さ） */
+  --gold-soft: #eef5f4;
+  --line: #e4ecea;
+  --line-strong: #cbdad7;
+  --card: #ffffff;
+  --mint: #e3efed;
+  --warn-bg: #fdf7e2;
+  --danger: #b5544c;
+  --radius: 4px;
+  --radius-sm: 4px;
+  --shadow: none;
+  --font: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --script: "Josefin Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --shape: #b7cfcb;          /* 大きな図形の色 */
+  --shape-soft: #dbe8e6;
+  --marker: #f7d9dc;         /* 淡いピンクのマーカー */
+  --en: "Josefin Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+html[data-theme="mint"] body {
+  background: #fff;
+  letter-spacing: 0.08em;
+  font-weight: 400;
+  position: relative;
+  overflow-x: hidden;
+}
+html[data-theme="mint"] a { color: var(--gold-deep); }
+html[data-theme="mint"] .theme-only { display: block; }
+
+/* ---- 上部のデモ帯（控えめに） ---- */
+html[data-theme="mint"] .demo-band {
+  background: #fff; border-bottom: 1px solid var(--line); font-size: 11px; padding: 4px 16px;
+  position: relative; z-index: 3;
+}
+html[data-theme="mint"] .demo-band__label { border-color: var(--line-strong); color: var(--ink-soft); border-radius: 2px; }
+html[data-theme="mint"] .demo-band__reset { border-radius: 2px; border-color: var(--line); background: #fff; font-size: 11px; }
+html[data-theme="mint"] .demo-band__reset:hover { border-color: var(--gold); color: var(--gold-deep); }
+
+/* ---- ヘッダ ---- */
+html[data-theme="mint"] .topbar {
+  justify-content: flex-start; padding: 22px 32px 18px; background: transparent; border-radius: 0; box-shadow: none;
+  z-index: 2;
+}
+html[data-theme="mint"] .brand { flex-direction: row; align-items: center; gap: 14px; color: var(--ink); }
+html[data-theme="mint"] .brand::before {
+  /* 円を斜めに切った小さな印（自作の形） */
+  content: ""; width: 30px; height: 30px; border-radius: 50%; flex: 0 0 auto;
+  background: linear-gradient(135deg, var(--shape-soft) 0 48%, transparent 48% 54%, var(--shape) 54% 100%);
+}
+html[data-theme="mint"] .brand__ja { font-size: 17px; letter-spacing: 0.32em; font-weight: 400; padding-left: 0; }
+html[data-theme="mint"] .brand__en {
+  font-family: var(--en); font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; margin: 2px 0 0;
+  color: var(--gold); font-weight: 300; border-left: 1px solid var(--line-strong); padding-left: 14px;
+}
+html[data-theme="mint"] .topbar__office {
+  right: 120px; font-size: 11px; letter-spacing: 0.18em; color: var(--ink);
+  padding-bottom: 3px; border-bottom: 1px solid var(--shape);
+}
+
+/* ---- 大きな図形（余白とヘッダ周りだけ） ---- */
+html[data-theme="mint"] .theme-deco {
+  position: absolute; top: 0; left: 0; right: 0; height: 1000px; pointer-events: none; z-index: 0; overflow: hidden;
+}
+html[data-theme="mint"] .deco-arc {
+  /* 円を斜めに切った大きな形：下半分は塗り、上半分は淡く */
+  position: absolute; width: 420px; height: 420px; right: -150px; top: 34px; border-radius: 50%;
+  background: linear-gradient(140deg, rgba(219,232,230,0.55) 0 49.4%, transparent 49.4% 53%, var(--shape) 53% 100%);
+  transform: rotate(-8deg);
+}
+html[data-theme="mint"] .deco-ring {
+  position: absolute; right: 300px; top: 34px; width: 60px; height: 60px; border-radius: 50%;
+  border: 1px solid var(--shape); font-family: var(--en); font-weight: 300; font-size: 11px; color: var(--ink-soft);
+}
+html[data-theme="mint"] .deco-ring::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 30px; height: 1px; background: var(--shape);
+  transform: translate(-50%, -50%) rotate(-55deg);
+}
+html[data-theme="mint"] .deco-ring i { position: absolute; font-style: normal; }
+html[data-theme="mint"] .deco-ring i:first-child { left: 18px; top: 12px; }
+html[data-theme="mint"] .deco-ring i:last-child { right: 18px; bottom: 11px; }
+html[data-theme="mint"] .deco-half {
+  /* 左下に伏せた半円 */
+  position: absolute; left: -70px; top: 800px; width: 180px; height: 90px;
+  border-radius: 90px 90px 0 0; background: var(--shape-soft); transform: rotate(90deg); transform-origin: 50% 100%;
+}
+
+/* ---- 枠組み ---- */
+html[data-theme="mint"] .layout { position: relative; z-index: 1; grid-template-columns: 220px minmax(0, 1fr) 64px; }
+html[data-theme="mint"] .sidenav {
+  background: transparent; border-radius: 0; padding: 28px 18px 28px 32px; gap: 2px;
+}
+html[data-theme="mint"] .sidenav a {
+  flex-direction: column-reverse; align-items: flex-start; border-radius: 0; padding: 10px 4px 10px 0;
+  border: 0; border-bottom: 1px solid var(--line); color: var(--ink);
+}
+html[data-theme="mint"] .sidenav a::before { content: none; }
+html[data-theme="mint"] .sidenav a .ja { font-size: 14px; letter-spacing: 0.2em; font-weight: 400; padding: 0 2px; }
+html[data-theme="mint"] .sidenav a .en {
+  font-family: var(--en); font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; margin: 0 0 2px;
+  color: var(--gold); font-weight: 400;
+}
+html[data-theme="mint"] .sidenav a:hover { background: transparent; }
+html[data-theme="mint"] .sidenav a:hover .ja { color: var(--gold-deep); }
+html[data-theme="mint"] .sidenav a.is-active { background: transparent; box-shadow: none; border-color: var(--line); }
+html[data-theme="mint"] .sidenav a.is-active .ja {
+  background: linear-gradient(transparent 58%, var(--marker) 58% 92%, transparent 92%); font-weight: 500;
+}
+html[data-theme="mint"] .sidenav__note { margin: 18px 0 0; font-size: 10.5px; letter-spacing: 0.06em; }
+html[data-theme="mint"] .theme-switch { margin: 12px 0 0; font-size: 10.5px; letter-spacing: 0.1em; }
+html[data-theme="mint"] .theme-switch select { border-radius: 2px; border-color: var(--line-strong); }
+
+/* 縦書きのキャッチ（左メニューの下） */
+html[data-theme="mint"] .theme-catch {
+  display: flex; gap: 14px; align-items: flex-start; margin: 34px 0 0 4px; color: var(--ink);
+}
+html[data-theme="mint"] .theme-catch__ja {
+  writing-mode: vertical-rl; font-size: 14px; letter-spacing: 0.42em; line-height: 2.1; font-weight: 400;
+}
+html[data-theme="mint"] .theme-catch__en {
+  writing-mode: vertical-rl; font-family: var(--en); font-size: 8.5px; letter-spacing: 0.4em; color: var(--gold);
+  padding-top: 4px; position: relative;
+}
+html[data-theme="mint"] .theme-catch__en::after {
+  content: ""; display: block; width: 1px; height: 70px; background: var(--line-strong); margin: 14px auto 0;
+}
+
+/* 右端の縦書き（細い罫線＋小さな英字） */
+html[data-theme="mint"] .tagline {
+  color: var(--ink-soft); font-size: 11px; letter-spacing: 0.55em; padding-top: 500px; opacity: 1;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+}
+html[data-theme="mint"] .tagline::before {
+  content: "EQUIPMENT · RENTAL · CARE"; font-family: var(--en); font-size: 8px; letter-spacing: 0.4em;
+  color: var(--gold); padding-top: 2px;
+}
+html[data-theme="mint"] .tagline::after {
+  content: ""; display: block; width: 1px; height: 120px; background: var(--line-strong); margin: 0 6px;
+}
+
+/* ---- 見出し ---- */
+html[data-theme="mint"] .view { padding: 34px 32px 90px; }
+html[data-theme="mint"] .page-title { text-align: left; margin: 6px 0 28px; }
+html[data-theme="mint"] .page-title .en {
+  font-family: var(--en); font-size: 12px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold);
+  font-weight: 400; line-height: 1.4; margin-bottom: 10px;
+}
+html[data-theme="mint"] .page-title .ja {
+  display: inline; font-size: 22px; letter-spacing: 0.26em; padding: 0 2px 0 0; font-weight: 400;
+  background: linear-gradient(transparent 62%, var(--marker) 62% 94%, transparent 94%);
+}
+
+/* ---- カード ---- */
+html[data-theme="mint"] .card {
+  border: 1px solid var(--line); border-radius: var(--radius); box-shadow: none; padding: 26px 26px 24px;
+}
+html[data-theme="mint"] .card h2 {
+  font-size: 15px; letter-spacing: 0.22em; color: var(--ink); font-weight: 500;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+}
+html[data-theme="mint"] .card h2::before {
+  content: ""; width: 18px; height: 1px; background: var(--gold); align-self: center; flex: 0 0 auto;
+}
+html[data-theme="mint"] .card h2 small { margin-left: 0; letter-spacing: 0.06em; }
+html[data-theme="mint"] .muted { letter-spacing: 0.05em; }
+
+/* ---- フォーム（読みやすさ・押しやすさ優先） ---- */
+html[data-theme="mint"] .field label, html[data-theme="mint"] .field .label { font-size: 12px; letter-spacing: 0.1em; }
+html[data-theme="mint"] .input, html[data-theme="mint"] select.input, html[data-theme="mint"] textarea.input {
+  border-color: var(--line-strong); border-radius: var(--radius-sm); min-height: 40px; letter-spacing: 0.04em;
+}
+html[data-theme="mint"] .input:focus { outline: 2px solid rgba(127,167,161,0.35); border-color: var(--gold-deep); }
+
+html[data-theme="mint"] .btn {
+  border-radius: 2px; border-color: var(--line-strong); letter-spacing: 0.12em; font-size: 13.5px; padding: 7px 18px;
+}
+html[data-theme="mint"] .btn:hover { border-color: var(--gold-deep); color: var(--gold-deep); }
+html[data-theme="mint"] .btn.primary {
+  background: var(--gold-deep); border-color: var(--gold-deep); color: #fff; font-weight: 500; letter-spacing: 0.22em;
+  box-shadow: none;
+}
+html[data-theme="mint"] .btn.primary:hover { background: #426a65; color: #fff; }
+html[data-theme="mint"] .btn.danger { border-color: #e6c3bf; color: var(--danger); }
+html[data-theme="mint"] .btn.danger:hover { border-color: var(--danger); color: var(--danger); }
+html[data-theme="mint"] .btn.small { padding: 3px 12px; font-size: 12px; letter-spacing: 0.08em; }
+
+/* ---- 表 ---- */
+html[data-theme="mint"] table.tbl { font-size: 13.5px; letter-spacing: 0.04em; }
+html[data-theme="mint"] .tbl th, html[data-theme="mint"] .tbl td { border: 0; border-bottom: 1px solid var(--line); padding: 9px 10px; }
+html[data-theme="mint"] .tbl th {
+  background: transparent; color: var(--gold-deep); font-size: 12px; letter-spacing: 0.14em;
+  border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong);
+}
+html[data-theme="mint"] .tbl tbody tr.clickable:hover td { background: #f3f8f7; }
+html[data-theme="mint"] .tbl tr.is-warn td { background: var(--warn-bg); }
+html[data-theme="mint"] .tbl tfoot td { background: #f5f9f8; border-top: 1px solid var(--line-strong); }
+
+html[data-theme="mint"] .badge { border-radius: 2px; letter-spacing: 0.06em; }
+html[data-theme="mint"] .badge.active { background: var(--mint); border-color: #c4dad6; color: #3f6863; }
+html[data-theme="mint"] .badge.hospital { background: #fcecee; border-color: #efc7cc; color: #8a4b52; }
+html[data-theme="mint"] .badge.ended { background: #f3f4f4; border-color: #e1e4e4; }
+html[data-theme="mint"] .badge.half { background: var(--warn-bg); border-color: #eadb9c; }
+
+/* ---- 詳細・タブ ---- */
+html[data-theme="mint"] .detail-head h1 { font-size: 20px; letter-spacing: 0.3em; font-weight: 400; }
+html[data-theme="mint"] .tabs { gap: 0; border-bottom: 1px solid var(--line-strong); margin-bottom: 18px; }
+html[data-theme="mint"] .tabs button {
+  background: transparent; border: 0; border-radius: 0; padding: 10px 16px 9px; letter-spacing: 0.14em;
+  color: var(--ink-soft); border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+html[data-theme="mint"] .tabs button:hover { color: var(--gold-deep); }
+html[data-theme="mint"] .tabs button.is-active {
+  background: transparent; color: var(--ink); font-weight: 500; border-bottom-color: var(--gold-deep);
+}
+
+html[data-theme="mint"] .subform { border: 1px solid var(--line); border-radius: var(--radius); background: #f8fbfa; padding: 18px; }
+html[data-theme="mint"] .subform h3 { color: var(--ink); letter-spacing: 0.18em; }
+html[data-theme="mint"] .picker-results { border-radius: var(--radius); }
+html[data-theme="mint"] .picker-results button:hover { background: #f3f8f7; }
+
+/* ---- 集計タイル ---- */
+html[data-theme="mint"] .tile { background: #fff; border: 0; border-left: 1px solid var(--shape); border-radius: 0; padding: 6px 16px; }
+html[data-theme="mint"] .tile .k { letter-spacing: 0.14em; }
+html[data-theme="mint"] .tile .v { font-family: var(--en), var(--font); font-weight: 300; font-size: 26px; color: var(--ink); letter-spacing: 0.04em; }
+
+html[data-theme="mint"] .divider { border-top: 1px solid var(--line); }
+
+/* ---- トースト ---- */
+html[data-theme="mint"] .toast { background: #3e5754; border-radius: 2px; letter-spacing: 0.12em; }
+
+/* ---- 印刷プレビュー（用紙は白のまま、色だけそろえる） ---- */
+html[data-theme="mint"] .sheet { box-shadow: 0 0 0 1px var(--line), 0 10px 30px rgba(79,122,116,0.10); }
+html[data-theme="mint"] .sheet h1 { font-weight: 500; }
+html[data-theme="mint"] .sheet th { background: #eef5f4; }
+html[data-theme="mint"] .sheet .sec { border-left-color: var(--shape); }
+
+/* ---- スマホ・タブレット ---- */
+@media (max-width: 860px) {
+  /* 引き出しメニュー（fixed）がヘッダより前に出るよう、枠の重なり順は本文側だけに付ける */
+  html[data-theme="mint"] .layout { grid-template-columns: minmax(0, 1fr); z-index: auto; }
+  html[data-theme="mint"] .view { position: relative; z-index: 1; }
+  html[data-theme="mint"] .topbar { justify-content: center; padding: 14px 56px 12px; }
+  html[data-theme="mint"] .brand { gap: 10px; }
+  html[data-theme="mint"] .sidenav { background: #fff; padding: 26px 22px; }
+  html[data-theme="mint"] .theme-catch { margin-top: 26px; }
+  html[data-theme="mint"] .view { padding: 22px 16px 70px; }
+  html[data-theme="mint"] .theme-deco { height: 260px; }
+  html[data-theme="mint"] .deco-arc { width: 190px; height: 190px; right: -88px; top: 22px; }
+  html[data-theme="mint"] .deco-ring, html[data-theme="mint"] .deco-half, html[data-theme="mint"] .tagline { display: none; }
+}
+@media (max-width: 560px) {
+  html[data-theme="mint"] .brand__en { display: none; }
+  html[data-theme="mint"] .brand__ja { font-size: 15px; letter-spacing: 0.24em; }
+  html[data-theme="mint"] .brand::before { width: 24px; height: 24px; }
+  html[data-theme="mint"] .page-title { margin-bottom: 20px; }
+  html[data-theme="mint"] .page-title .ja { font-size: 19px; letter-spacing: 0.2em; }
+  html[data-theme="mint"] .card { padding: 18px 14px; border-radius: var(--radius); }
+  html[data-theme="mint"] .tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  html[data-theme="mint"] .tabs button { white-space: nowrap; padding: 9px 12px 8px; letter-spacing: 0.08em; }
+  html[data-theme="mint"] .tile .v { font-size: 22px; }
+  html[data-theme="mint"] table.tbl { letter-spacing: 0.02em; }
+  html[data-theme="mint"] .tbl td:not(.num):not(.nowrap):not(.empty) { min-width: 7.5em; }
+  html[data-theme="mint"] .detail-head h1 { font-size: 17px; letter-spacing: 0.15em; min-width: 8em; }
+  html[data-theme="mint"] .tbl th, html[data-theme="mint"] .tbl td { padding: 8px 7px; }
+}
+
+/* ---- 印刷：飾りは出さない ---- */
+@media print {
+  html[data-theme="mint"] .theme-deco,
+  html[data-theme="mint"] .theme-catch,
+  html[data-theme="mint"] .tagline { display: none !important; }
+  html[data-theme="mint"] body { background: #fff; overflow: visible; }
+  html[data-theme="mint"] .layout { display: block; }
+  html[data-theme="mint"] .view { padding: 0; }
+  html[data-theme="mint"] .sheet { box-shadow: none; }
+}

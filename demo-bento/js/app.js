@@ -15,13 +15,15 @@ const state = {
   countSel: null,
 };
 
+const PRINT = '<span class="ico" data-ico="print">🖨</span>';
+
 const ROUTES = {
-  staff: { title: 'スタッフ弁当チェック', render: renderStaff },
-  check: { title: '利用者チェック表', render: renderCheck },
-  count: { title: '食事数表', render: renderCount },
-  snack: { title: 'おやつ表', render: renderSnack },
-  money: { title: '集金集計', render: renderMoney },
-  users: { title: '利用者情報', render: renderUsers },
+  staff: { title: 'スタッフ弁当チェック', short: '職員の御弁当', render: renderStaff },
+  check: { title: '利用者チェック表', short: '御弁当の札', render: renderCheck },
+  count: { title: '食事数表', short: '食事の数', render: renderCount },
+  snack: { title: 'おやつ表', short: 'お八つ', render: renderSnack },
+  money: { title: '集金集計', short: '御代の集計', render: renderMoney },
+  users: { title: '利用者情報', short: '利用者', render: renderUsers },
 };
 
 // ---------- 共通 ----------
@@ -155,14 +157,14 @@ function renderCheck() {
       : '<tr class="empty-row"><td colspan="3">この日のお弁当はありません</td></tr>';
     const lunchN = list.filter(x => x.m.lunch).length, dinnerN = list.filter(x => x.m.dinner).length;
     return `<section class="paper day-card" data-date="${ymd(d)}">
-      <button class="print-one" data-act="print-one" aria-label="${md(d)}だけ印刷">🖨</button>
+      <button class="print-one" data-act="print-one" aria-label="${md(d)}だけ印刷">${PRINT}</button>
       <h2 class="paper-title">さくらほーむ お弁当チェック表</h2>
       <p class="paper-sub">${md(d)}（${WEEK[weekIdx(d)]}）　昼 ${lunchN}食・夜 ${dinnerN}食</p>
       <table class="grid"><thead><tr><th>利用者名</th><th>昼</th><th>夜</th></tr></thead><tbody>${body}</tbody></table>
     </section>`;
   }).join('');
   return `${weekNav()}
-    <div class="toolbar"><button class="btn red" data-act="print">🖨 1週間分を印刷</button></div>
+    <div class="toolbar"><button class="btn red" data-act="print">${PRINT} 1週間分を印刷</button></div>
     <p class="hint">利用者情報の「利用曜日」「昼・夜」から作ります。1日1枚で印刷されます</p>
     <div class="cards">${cards}</div>`;
 }
@@ -213,7 +215,7 @@ function renderCount() {
   }
 
   return `${weekNav()}
-    <div class="toolbar"><button class="btn red" data-act="print-landscape">🖨 印刷（A4横）</button></div>
+    <div class="toolbar"><button class="btn red" data-act="print-landscape">${PRINT} 印刷（A4横）</button></div>
     <p class="hint">利用者情報の「利用曜日」「昼・夜」「食事形態」から数えます</p>
     <section class="paper">
       <h2 class="paper-title">さくらほーむ　食事数</h2>
@@ -251,7 +253,7 @@ function renderSnack() {
     </section>`;
   }).join('');
   return `${weekNav()}
-    <div class="toolbar"><button class="btn red" data-act="print-landscape">🖨 印刷（A4横）</button></div>
+    <div class="toolbar"><button class="btn red" data-act="print-landscape">${PRINT} 印刷（A4横）</button></div>
     <p class="hint">利用者情報の「おやつの曜日」から作ります。おやつ欄が空の人は通常のおやつです</p>
     <div class="snack-grid">${days}</div>`;
 }
@@ -267,7 +269,7 @@ function renderMoney() {
   const totalAmt = rows.reduce((a, r) => a + r.amount, 0);
   const m = state.month;
   return `${monthNav()}
-    <div class="toolbar"><button class="btn red" data-act="print">🖨 印刷</button></div>
+    <div class="toolbar"><button class="btn red" data-act="print">${PRINT} 印刷</button></div>
     <p class="hint">弁当チェックの <b>✓注文</b> と <b>○受け取り済み</b> を数えます（×休みは含みません）</p>
     <div class="price-row"><label for="price">1食の単価</label><input id="price" type="number" min="0" step="10" value="${db.price}"> 円</div>
     <section class="paper money">
@@ -384,9 +386,34 @@ function route() { const r = (location.hash.match(/^#\/(\w+)/) || [])[1]; return
 function render() {
   const r = route();
   $('#pageTitle').textContent = ROUTES[r].title;
+  $('#heroTitle').textContent = ROUTES[r].short;
   document.title = `${ROUTES[r].title}｜お弁当チェック（デモ）`;
   document.querySelectorAll('.drawer a').forEach(a => a.classList.toggle('active', a.dataset.route === r));
   $('#view').innerHTML = ROUTES[r].render();
+}
+
+// ---------- 着せ替え ----------
+const THEME_KEY = 'showcase-bento:theme';
+const WA_FONTS = 'https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap';
+function currentTheme() { return document.documentElement.dataset.theme === 'wagashi' ? 'wagashi' : 'standard'; }
+function syncThemeButtons() {
+  const t = currentTheme();
+  document.querySelectorAll('[data-theme-set]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeSet === t)));
+}
+function setTheme(t) {
+  const root = document.documentElement;
+  if (t === 'wagashi') {
+    root.dataset.theme = 'wagashi';
+    if (!document.getElementById('waFonts')) {
+      const l = document.createElement('link');
+      l.id = 'waFonts'; l.rel = 'stylesheet'; l.href = WA_FONTS;
+      document.head.appendChild(l);
+    }
+  } else {
+    delete root.dataset.theme;
+  }
+  try { localStorage.setItem(THEME_KEY, t); } catch { /* 保存できない環境でも切替は効く */ }
+  syncThemeButtons();
 }
 
 function openDrawer(open) {
@@ -404,6 +431,8 @@ function printLandscape() {
 }
 
 document.addEventListener('click', e => {
+  const th = e.target.closest('[data-theme-set]');
+  if (th) { setTheme(th.dataset.themeSet); toast(`着せ替え：${th.textContent}`); return; }
   if (route() === 'staff' && onStaffClick(e)) return;
   const cnt = e.target.closest('[data-count]');
   if (cnt) { state.countSel = state.countSel === cnt.dataset.count ? null : cnt.dataset.count; render(); return; }
@@ -468,6 +497,7 @@ document.addEventListener('change', e => {
 
 $('#menuBtn').addEventListener('click', () => openDrawer(true));
 $('#drawerMask').addEventListener('click', () => openDrawer(false));
+$('#drawerClose').addEventListener('click', () => openDrawer(false));
 $('#drawer').addEventListener('click', e => { if (e.target.closest('a')) openDrawer(false); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') openDrawer(false); });
 $('#demoReset').addEventListener('click', () => {
@@ -480,4 +510,6 @@ $('#demoReset').addEventListener('click', () => {
 window.addEventListener('hashchange', () => { render(); window.scrollTo(0, 0); });
 
 db.load();
+(() => { const t = today(); $('#heroDate').textContent = `${t.getFullYear()}.${String(t.getMonth() + 1).padStart(2, '0')}.${String(t.getDate()).padStart(2, '0')}`; })();
+syncThemeButtons();
 render();

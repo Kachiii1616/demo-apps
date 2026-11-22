@@ -311,3 +311,7 @@ table.sheet-table { width: 100%; border-collapse: collapse; font-variant-numeric
 }
 
 [hidden] { display: none !important; }
+
+/* ---------- 着せ替えの切替（全テーマ共通） ---------- */
+.theme-pick { display: inline-flex; align-items: center; gap: 4px; margin-top: 2px; font-size: 11px; color: var(--ink-3); }
+.theme-pick select { font-size: 11px; padding: 1px 4px; border: 1px solid var(--line); border-radius: 3px; background: #fff; color: var(--ink-2); min-height: 24px; }

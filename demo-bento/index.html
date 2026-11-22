@@ -9,6 +9,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/theme-wagashi.css">
+<script>
+/* 着せ替え: 描画前に適用（保存は showcase-bento:theme） */
+(function () {
+  try {
+    if (localStorage.getItem('showcase-bento:theme') !== 'wagashi') return;
+    document.documentElement.setAttribute('data-theme', 'wagashi');
+    var l = document.createElement('link');
+    l.id = 'waFonts'; l.rel = 'stylesheet';
+    l.href = 'https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap';
+    document.head.appendChild(l);
+  } catch (e) { /* 保存が使えない環境は標準のまま */ }
+})();
+</script>
 </head>
 <body>
 <div class="demo-bar no-print">
@@ -23,15 +37,34 @@
   <span class="topbar-space"></span>
 </header>
 
+<div class="wa-hero no-print" aria-hidden="true">
+  <p class="wa-hero-line"><span class="wa-dot"></span><span id="heroDate"></span><span class="wa-hero-sub">さくらほーむ お弁当チェック</span></p>
+  <div class="wa-arc"><div class="wa-arc-in"></div></div>
+  <div class="wa-tanzakus">
+    <span class="wa-tanzaku main" id="heroTitle">お弁当</span>
+    <span class="wa-tanzaku">日々の御弁当を丁寧に</span>
+  </div>
+</div>
+
 <div class="drawer-mask" id="drawerMask" hidden></div>
 <nav class="drawer" id="drawer" aria-label="メニュー">
-  <div class="drawer-head">🍱 お弁当メニュー</div>
-  <a href="#/staff" data-route="staff">✓ スタッフ弁当チェック</a>
-  <a href="#/check" data-route="check">📋 利用者チェック表（週）</a>
-  <a href="#/count" data-route="count">🍽️ 食事数表（週）</a>
-  <a href="#/snack" data-route="snack">🍪 おやつ表（週）</a>
-  <a href="#/money" data-route="money">💰 集金集計</a>
-  <a href="#/users" data-route="users">👤 利用者情報</a>
+  <button type="button" class="drawer-close" id="drawerClose" aria-label="メニューを閉じる">×</button>
+  <div class="drawer-head"><span class="ico">🍱</span> お弁当メニュー</div>
+  <div class="drawer-links">
+    <a href="#/staff" data-route="staff"><span class="ico">✓</span> スタッフ弁当チェック</a>
+    <a href="#/check" data-route="check"><span class="ico">📋</span> 利用者チェック表（週）</a>
+    <a href="#/count" data-route="count"><span class="ico">🍽️</span> 食事数表（週）</a>
+    <a href="#/snack" data-route="snack"><span class="ico">🍪</span> おやつ表（週）</a>
+    <a href="#/money" data-route="money"><span class="ico">💰</span> 集金集計</a>
+    <a href="#/users" data-route="users"><span class="ico">👤</span> 利用者情報</a>
+  </div>
+  <div class="theme-box">
+    <div class="theme-label">着せ替え</div>
+    <div class="theme-opts">
+      <button type="button" data-theme-set="standard" aria-pressed="true">標準</button>
+      <button type="button" data-theme-set="wagashi" aria-pressed="false">和菓子</button>
+    </div>
+  </div>
   <div class="drawer-foot">さくらほーむ お弁当チェック（デモ版）</div>
 </nav>
 

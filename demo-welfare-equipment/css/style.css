@@ -79,6 +79,14 @@ button, input, select, textarea { font: inherit; color: inherit; letter-spacing:
 .sidenav a.is-active { background: var(--gold-soft); border-color: #e2d27e; box-shadow: 0 3px 10px rgba(169,138,44,0.15); }
 .sidenav__note { font-size: 11px; color: var(--ink-soft); margin: 18px 8px 0; line-height: 1.7; }
 
+/* ---- 着せ替え切替（各テーマの見た目は css/theme-*.css） ---- */
+.theme-only { display: none; }
+.theme-switch { display: flex; align-items: center; gap: 8px; margin: 10px 8px 0; font-size: 11px; color: var(--ink-soft); }
+.theme-switch select {
+  flex: 1; min-width: 0; font-size: 12px; padding: 3px 8px; border: 1px solid var(--line-strong);
+  border-radius: 999px; background: #fff; cursor: pointer;
+}
+
 .view { padding: 26px 24px 80px; outline: none; max-width: 980px; width: 100%; justify-self: center; }
 .tagline {
   writing-mode: vertical-rl; color: var(--gold); font-size: 14px; letter-spacing: 0.5em;

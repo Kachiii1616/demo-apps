@@ -112,7 +112,7 @@ export const db = {
   saveAll() { ['staff', 'users', 'orders', 'price'].forEach(k => write(k, this[k])); },
   save(name) { write(name, this[name]); },
   reset() {
-    try { Object.keys(localStorage).filter(k => k.startsWith(PREFIX)).forEach(k => localStorage.removeItem(k)); } catch { /* noop */ }
+    try { Object.keys(localStorage).filter(k => k.startsWith(PREFIX) && k !== PREFIX + 'theme').forEach(k => localStorage.removeItem(k)); } catch { /* noop */ }
     this.staff = seedStaff(); this.users = seedUsers(); this.orders = seedOrders(this.staff); this.price = 300;
     this.saveAll();
   },
