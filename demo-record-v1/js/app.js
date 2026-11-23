@@ -32,8 +32,6 @@ const ui = {
   date: todayStr(), // 業務日誌・申し送り・連絡帳で共有する日付
   person: null,
   personCat: '様子',
-  homeCat: '様子',
-  homeUid: '',
   vitalsUid: null,
   vitalsMetric: 'all',
   contactUid: null,
@@ -43,7 +41,7 @@ const ui = {
 function parseHash() {
   const raw = location.hash.replace(/^#\/?/, '');
   const [path, qs] = raw.split('?');
-  return { route: path || 'home', q: new URLSearchParams(qs || '') };
+  return { route: path || 'diary', q: new URLSearchParams(qs || '') };
 }
 
 // ---------- 日ごとの判定 ----------
@@ -59,110 +57,12 @@ function rosterFor(date) {
   MEMBERS.forEach((m) => { if (Object.keys(store.getDay(date, m.id)).length) ids.add(m.id); });
   return MEMBERS.filter((m) => ids.has(m.id));
 }
-function missingItems(date, uid) {
-  const e = store.getDay(date, uid);
-  const u = member(uid);
-  const miss = [];
-  if (!e.arrive) miss.push('到着');
-  if (!e.temp) miss.push('バイタル');
-  if (e.mealMain == null) miss.push('食事');
-  if (!e.water || e.water < 500) miss.push('水分');
-  if (e.urine == null) miss.push('排泄');
-  if (u.bath && !e.bath) miss.push('入浴');
-  return miss;
-}
 const vsAlert = {
   temp: (v) => v >= 37.5 || v < 35.5 ? 1 : v >= 37.0 ? 0.5 : 0,
   bpHi: (v) => v >= 160 || v < 95,
   pulse: (v) => v >= 100 || v < 50,
   spo2: (v) => v < 93,
 };
-
-// =====================================================================
-//  ホーム
-// =====================================================================
-function renderHome() {
-  const date = todayStr();
-  const roster = rosterFor(date);
-  const st = { in: 0, wait: 0, off: 0 };
-  roster.forEach((m) => { st[dayStatus(date, m.id)]++; });
-  const present = roster.filter((m) => dayStatus(date, m.id) !== 'off');
-  const todos = present.map((m) => ({ m, miss: missingItems(date, m.id), s: dayStatus(date, m.id) }));
-  const todoCount = todos.filter((t) => t.miss.length).length;
-  const db = store.db();
-  const hos = db.handovers.filter((h) => h.date === date || (!h.done && h.date >= addDays(date, -1)));
-  const openHo = hos.filter((h) => !h.done);
-  const me = STAFF.find((s) => s.id === store.getMe());
-  const recent = db.notes.filter((n) => n.date === date).slice(-4).reverse();
-
-  return `
-  <p class="hello">${jpDate(date)}　${esc(me.name)} さん、おつかれさまです。</p>
-  <div class="page-head"><h1 class="page-title"><span class="script">Today</span>今日の状況</h1></div>
-  <p class="page-lead">${esc(FACILITY.name)}（${FACILITY.kind}）の今日の利用状況と、まだ入力していない項目です。</p>
-
-  <div class="stats">
-    <a class="stat" href="#/diary"><div class="k">本日の利用予定</div><div class="v">${roster.length - st.off}<small>名</small></div></a>
-    <a class="stat" href="#/diary"><div class="k">通所中</div><div class="v">${st.in}<small>名</small></div></a>
-    <a class="stat warn" href="#/diary"><div class="k">未到着・未入力</div><div class="v">${st.wait}<small>名</small></div></a>
-    <a class="stat pink" href="#/handover"><div class="k">未確認の申し送り</div><div class="v">${openHo.length}<small>件</small></div></a>
-  </div>
-
-  <div class="grid-2">
-    <section class="card">
-      <h2 class="section-title"><span class="script">To do</span>入力が残っている方（${todoCount}名）</h2>
-      <ul class="todo-list">
-        ${todos.map(({ m, miss, s }) => `
-          <li>
-            <div>
-              <a class="todo-name" href="#/person?u=${m.id}">${esc(m.name)}</a>
-              <span class="state ${s}">${s === 'in' ? '通所中' : '未到着'}</span><br>
-              ${miss.length ? miss.map((x) => `<span class="miss">${x}</span>`).join('') : '<span class="ok-badge">入力済み</span>'}
-            </div>
-            <a class="btn sm" href="#/diary">日誌で入力</a>
-          </li>`).join('')}
-        ${roster.filter((m) => dayStatus(date, m.id) === 'off').map((m) => `
-          <li><div><span class="todo-name">${esc(m.name)}</span> <span class="state off">欠席</span><br><span class="unit">${esc(store.getDay(date, m.id).note || '')}</span></div></li>`).join('')}
-      </ul>
-    </section>
-
-    <div>
-      <section class="card">
-        <h2 class="section-title"><span class="script">Quick</span>すぐ入力</h2>
-        <form id="quick-form">
-          <label class="field"><span>利用者</span>
-            <select class="input" name="uid" required>
-              <option value="">選んでください</option>
-              ${present.map((m) => `<option value="${m.id}" ${ui.homeUid === m.id ? 'selected' : ''}>${esc(m.name)}</option>`).join('')}
-            </select>
-          </label>
-          <div class="field"><span>種類</span>
-            <div class="chips" data-chipset="homeCat">
-              ${CATEGORIES.map((c) => `<button type="button" class="chip ${ui.homeCat === c ? 'on' : ''}" data-chip="${c}">${c}</button>`).join('')}
-            </div>
-          </div>
-          <label class="field"><span>内容</span>
-            <textarea class="input" name="text" required placeholder="（例）昼食は全量摂取。食後にお茶 150ml。"></textarea>
-          </label>
-          <button class="btn green" style="width:100%;padding:12px" type="submit">記録を保存</button>
-        </form>
-      </section>
-
-      <section class="card">
-        <div class="row" style="justify-content:space-between"><h2 class="section-title">申し送り</h2><a class="btn sm" href="#/handover">すべて見る</a></div>
-        ${openHo.length ? `<ul class="todo-list">${openHo.slice(0, 4).map((h) => `
-          <li><div><strong>${h.uid ? esc(member(h.uid).name) + ' 様' : '全体'}</strong><br>${esc(h.text)}</div></li>`).join('')}</ul>`
-          : '<p class="empty">未確認の申し送りはありません。</p>'}
-      </section>
-
-      <section class="card">
-        <h2 class="section-title">今日の記録（新しい順）</h2>
-        ${recent.length ? `<ul class="todo-list">${recent.map((n) => `
-          <li><div><span class="cat c-${n.cat}">${n.cat}</span> <strong>${esc(member(n.uid).name)}</strong> <span class="unit">${n.time}</span><br>${esc(n.text)}</div></li>`).join('')}</ul>`
-          : '<p class="empty">まだ記録はありません。</p>'}
-      </section>
-    </div>
-  </div>`;
-}
 
 // =====================================================================
 //  業務日誌（通所）
@@ -590,7 +490,7 @@ function renderHandover() {
   const me = store.getMe();
   return `
   <div class="page-head"><h1 class="page-title"><span class="script">Handover</span>申し送り</h1></div>
-  <p class="page-lead">職員どうしの申し送りです。読んだら「確認」を押すと、ホームの未確認件数から外れます。</p>
+  <p class="page-lead">職員どうしの申し送りです。読んだら「確認」を押して、確認済みにします。</p>
   ${dateNav(date)}
   <section class="card soft">
     <h2 class="section-title">申し送りを追加</h2>
@@ -811,7 +711,6 @@ view.addEventListener('change', (ev) => {
     return;
   }
   if (t.matches('[data-vitals-user]')) { location.hash = `#/vitals?u=${t.value}`; return; }
-  if (t.matches('#quick-form select[name=uid]')) ui.homeUid = t.value;
 });
 
 view.addEventListener('input', (ev) => {
@@ -828,15 +727,7 @@ view.addEventListener('input', (ev) => {
 view.addEventListener('submit', (ev) => {
   const f = ev.target;
   ev.preventDefault();
-  if (f.id === 'quick-form') {
-    const uid = f.uid.value;
-    const text = f.text.value.trim();
-    if (!uid || !text) return;
-    store.addNote({ uid, date: todayStr(), time: nowHM(), cat: ui.homeCat, text, staff: store.getMe() });
-    ui.homeUid = uid;
-    toast(`${member(uid).name} さんの記録を保存しました`);
-    render();
-  } else if (f.id === 'note-form') {
+  if (f.id === 'note-form') {
     const text = f.text.value.trim();
     if (!text) return;
     store.addNote({ uid: ui.person, date: f.date.value || todayStr(), time: f.time.value || nowHM(), cat: ui.personCat, text, staff: f.staff.value });
@@ -854,13 +745,13 @@ view.addEventListener('submit', (ev) => {
 // =====================================================================
 //  ルーティングと共通部
 // =====================================================================
-const ROUTES = { home: renderHome, diary: renderDiary, person: renderPerson, vitals: renderVitals, handover: renderHandover, contact: renderContact };
+const ROUTES = { diary: renderDiary, person: renderPerson, vitals: renderVitals, handover: renderHandover, contact: renderContact };
 
 function render() {
   const { route, q } = parseHash();
-  const fn = ROUTES[route] || renderHome;
+  const fn = ROUTES[route] || renderDiary;
   view.innerHTML = fn(q);
-  document.querySelectorAll('#nav a').forEach((a) => a.classList.toggle('active', a.dataset.route === (ROUTES[route] ? route : 'home')));
+  document.querySelectorAll('#nav a').forEach((a) => a.classList.toggle('active', a.dataset.route === (ROUTES[route] ? route : 'diary')));
 }
 
 function renderMe() {
@@ -887,7 +778,7 @@ function init() {
   $('#close-menu').addEventListener('click', closeMenu);
   $('#backdrop').addEventListener('click', closeMenu);
   window.addEventListener('hashchange', () => { closeMenu(); closeModal(); render(); window.scrollTo(0, 0); });
-  if (!location.hash) history.replaceState(null, '', '#/home');
+  if (!location.hash || !ROUTES[parseHash().route]) history.replaceState(null, '', '#/diary');
   render();
 }
 
